@@ -1,0 +1,33 @@
+.dropdownSection {
+  background-color: white;
+  left: -1px;
+  top: 44px;
+  border: 1px solid gray;
+  position: absolute;
+  width: 1200px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.dropdownSection div {
+  width: 15%;
+  height: 260px;
+  border-right: 1px solid rgb(180, 180, 180);
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.dropdownSection div .cateTag {
+  color: rgb(16, 30, 75);
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  margin-top: 5px;
+}
+
+.dropdownSection p {
+  color: black;
+  margin-bottom: 18px;
+}

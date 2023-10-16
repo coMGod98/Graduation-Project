@@ -1,0 +1,61 @@
+.loginSection {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  width: 1200px;
+  min-height: 600px;
+  padding-bottom: 10%;
+  margin: 0 auto;
+  justify-content: center;
+  border-left: 1px solid rgb(180, 180, 180);
+  border-right: 1px solid rgb(180, 180, 180);
+}
+
+.loginSection .idInputWrap {
+  background-color: rgb(255, 255, 255);
+  width: 360px;
+  margin: 0 auto;
+  margin-top: 100px;
+  display: block;
+  justify-content: center;
+}
+
+.loginSection .idInputWrap span {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.loginSection .idInputWrap input {
+  width: 328px;
+  height: 40px;
+  border: 1px solid #242c57;
+  padding: 0px 15px;
+  font-size: 16px;
+  line-height: 20px;
+  outline: none;
+  margin-top: 10px;
+}
+
+.loginSection .idInputWrap input::placeholder {
+  font-size: 15px;
+}
+
+.loginSection .idInputWrap .loginBtn {
+  color: white;
+  font-size: 16px;
+  background-color: rgb(41, 55, 117);
+  width: 100%;
+  height: 40px;
+  margin-top: 30px;
+}
+
+.loginSection .idInputWrap .signupBtn {
+  color: white;
+  font-size: 16px;
+  background-color: rgb(55, 59, 68);
+  width: 100%;
+  height: 40px;
+  margin-top: 10px;
+}

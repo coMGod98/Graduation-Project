@@ -1,0 +1,19 @@
+.bannerSection {
+  background-color: rgb(194, 194, 194);
+  width: 1200px;
+  height: 240px;
+  position: block;
+}
+
+@media (max-width: 2056px) {
+  .bannerSection img {
+    height: 100%;
+  }
+}
+
+@media (max-width: 1250px) {
+  .bannerSection img {
+    max-width: 1200px;
+    height: 100%;
+  }
+}
