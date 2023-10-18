@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body>
-$END$
-</body>
+<div class="container my-3">
+    <form th:action="@{/sign-up}" method="post" th:object="${userForm}">
+        <div class="mb-3">
+            <label for="userName" class="form-label">이름</label>
+            <input type="text" name="userName" id="userName" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="userId" class="form-label">사용자ID</label>
+            <input type="text" name="userId" id="userId" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">비밀번호</label>
+            <input type="password" name="password" id="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">회원가입</button>
+    </form>
+</div>
 </html>
