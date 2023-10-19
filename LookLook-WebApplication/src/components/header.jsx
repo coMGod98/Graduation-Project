@@ -7,9 +7,20 @@ import ManDropdown from "../components/dropdown/manDropdown";
 import OuterDropdown from "../components/dropdown/outerDropdown";
 import ShoesDropdown from "../components/dropdown/shoesDropdown";
 import FashionDropdown from "../components/dropdown/fashionDropdown";
+import Modal from "./modal";
+import Swal from "sweetalert2";
 
 
 function Header() {
+
+  const handleButtonClick = () => { 
+    Swal.fire('모달 테스트');
+    };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   const [isCategoryHover, setIsCategoryHover] = useState(false);
   const [isWomanHover, setIsWomanHover] = useState(false);
   const [isManHover, setIsManHover] = useState(false);
@@ -24,11 +35,21 @@ function Header() {
           <h>로그인</h>
         </Link>
         <Link to="/signup">
-          <h>회원가입</h>
+          <h style={{color: '#227acc'}}>회원가입</h>
+        </Link>
+        <Link to="/">
+          <h>마이페이지</h>
+        </Link>
+
+          {/* <Link to="/login">
+          <h>로그아웃</h>
+        </Link>
+        <Link to="/signup">
+          <h style={{fontWeight: 'bold'}}>장바구니</h>
         </Link>
         <Link to="/product">
           <h>마이페이지</h>
-        </Link>
+        </Link> */}
       </div>
       <div className={styles.logoSection}>
         <Link to="/">
@@ -37,6 +58,11 @@ function Header() {
       </div>
       <div className={styles.inputSection}>
         <input type="text" placeholder="상품을 검색해보세요!" />
+        <Link to="/searchResult">
+          <button className={styles.searchBtn}>
+            <img src={require("../images/search_white.png")} alt="search_button" />
+          </button>
+        </Link>
       </div>
       <div className={styles.menuWrap}>
         <div className={styles.menu}>
@@ -70,11 +96,24 @@ function Header() {
             onMouseOut={() => setIsFashionHover(false)}>패션소품
             {isFashionHover && <FashionDropdown />}</span>
           </div>
-          <Link to="/">
-            <button className={styles.avatarBtn}>
+
+            <button
+            className={styles.avatarBtn}>
               캐릭터 커스텀
             </button>
-          </Link>
+            
+            {/* <div>
+              <button onClick={openModal}>모달 열기</button>
+              <Modal isOpen={isModalOpen} content="yes" closeModal={closeModal} />
+            </div> */}
+            
+            {/* <button onClick={handleButtonClick}>
+              클릭!
+            </button> */}
+            
+
+
+
         </div>
       </div>
     </div>

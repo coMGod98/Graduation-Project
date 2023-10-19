@@ -8,7 +8,6 @@
 }
 
 .detailOrder {
-  background-color: rgb(255, 255, 255);
   width: 1200px;
   display: flex;
   margin: 0 auto;
@@ -34,7 +33,7 @@
 }
 
 .productInfoWrap {
-  width: 500px;
+  width: 400px;
   height: 100%;
   padding: 80px 20px;
 }
@@ -49,7 +48,7 @@
 
 .productInfoWrap .productInfo select {
   font-size: 14px;
-  width: 100%;
+  width: 200px;
   height: 27px;
 }
 
@@ -111,4 +110,28 @@
 .detailInfoWrap {
   font-size: 18px;
   padding: 30px 0px;
+}
+
+
+.putWrap {
+  border: 1px solid gray;
+  width: 378px;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.putWrap .putTag {
+  border-bottom: 1px solid gray;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.putWrap .putItem {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.putWrap input {
+  width: 30px;
 }

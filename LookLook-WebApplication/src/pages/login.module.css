@@ -48,7 +48,7 @@
   background-color: rgb(41, 55, 117);
   width: 100%;
   height: 40px;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .loginSection .idInputWrap .signupBtn {
@@ -58,4 +58,25 @@
   width: 100%;
   height: 40px;
   margin-top: 10px;
+}
+
+.loginSection .hidePwWrap {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: 30px;
+}
+
+.loginSection .idInputWrap img {
+  width: 22px;
+  height: 22px;
+  margin-right: 4px;
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.loginSection .idInputWrap h {
+  font-size: 15px;
+  margin-top: 6px;
+  cursor: pointer;
 }

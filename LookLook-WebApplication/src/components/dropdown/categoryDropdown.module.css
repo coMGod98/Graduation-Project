@@ -21,6 +21,7 @@
 
 .dropdownSection div .cateTag {
   color: rgb(16, 30, 75);
+  width: 100%;
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 25px;
@@ -28,6 +29,7 @@
 }
 
 .dropdownSection p {
+  width: 100%;
   color: black;
   margin-bottom: 18px;
 }

@@ -1,15 +1,29 @@
 import React from "react";
 import styles from "./smallCategoryDropdown.module.css";
+import { Link } from "react-router-dom";
 
 function OuterDropdown() {
+  const categorys = [
+    {cateID: "padding", cateName: "패딩"},
+    {cateID: "cardigan", cateName: "가디건"},
+    {cateID: "zipup", cateName: "집업"},
+    {cateID: "coat", cateName: "코트"},
+    {cateID: "parka", cateName: "파카"},
+    {cateID: "jacket", cateName: "자켓"}
+  ]
 
   return (
     <div className={styles.dropdownSection}>
-      <div>
-        <img src={require("../../images/outer/padding.png")} alt="outer1"/>
-        <p>패딩</p>
-      </div>
-      <div>
+      {categorys && categorys.map(cate => (
+        <div>
+          <Link to={`/outerList/${cate.cateID}`}>
+            <img src={require(`../../images/outer/${cate.cateID}.png`)} alt="outer_item"/>
+            <p>{cate.cateName}</p>
+          </Link>
+        </div>
+      ))}
+
+      {/* <div>
         <img src={require("../../images/outer/cardigan.png")} alt="outer2"/>
         <p>가디건</p>
       </div>
@@ -28,7 +42,7 @@ function OuterDropdown() {
       <div>
         <img src={require("../../images/outer/jacket.png")} alt="outer6"/>
         <p>자켓</p>
-      </div>
+      </div> */}
 
     </div>
   );

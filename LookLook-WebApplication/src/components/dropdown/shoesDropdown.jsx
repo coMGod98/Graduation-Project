@@ -1,35 +1,27 @@
 import React from "react";
 import styles from "./smallCategoryDropdown.module.css";
+import { Link } from "react-router-dom";
 
 function ShoesDropdown() {
+  const categorys = [
+    {cateID: "formal_shoes", cateName: "구두"},
+    {cateID: "heels", cateName: "힐"},
+    {cateID: "plat_shoes", cateName: "플랫슈즈"},
+    {cateID: "sandals", cateName: "샌들"},
+    {cateID: "slipper", cateName: "슬리퍼"},
+    {cateID: "boots", cateName: "부츠"}
+  ]
 
   return (
     <div className={styles.dropdownSection}>
-      <div>
-        <img src={require("../../images/shoes/formal_shoes.png")} alt="shoes1"/>
-        <p>구두</p>
-      </div>
-      <div>
-        <img src={require("../../images/shoes/heels.png")} alt="shoes2"/>
-        <p>힐</p>
-      </div>
-      <div>
-        <img src={require("../../images/shoes/plat_shoes.png")} alt="shoes3"/>
-        <p>플랫슈즈</p>
-      </div>
-      <div>
-        <img src={require("../../images/shoes/sandals.png")} alt="shoes4"/>
-        <p>샌들</p>
-      </div>
-      <div>
-        <img src={require("../../images/shoes/slipper.png")} alt="shoes5"/>
-        <p>슬리퍼</p>
-      </div>
-      <div>
-        <img src={require("../../images/shoes/boots.png")} alt="shoes6"/>
-        <p>부츠</p>
-      </div>
-
+      {categorys && categorys.map(cate => (
+        <div>
+          <Link to={`/shoesList/${cate.cateID}`}>
+            <img src={require(`../../images/shoes/${cate.cateID}.png`)} alt="outer_item"/>
+            <p>{cate.cateName}</p>
+          </Link>
+        </div>
+      ))}
     </div>
   );
 }

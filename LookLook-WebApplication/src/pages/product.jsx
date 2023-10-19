@@ -2,8 +2,11 @@ import React from "react";
 import Header from "../components/header";
 import styles from "./product.module.css"
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
-function Product() {
+function Product({props}) {
+  const {id} = useParams();
+
   const sizeList = ["사이즈 선택", "M", "L", "XL"];
   const colorList = ["색상 선택", "블랙", "화이트"];
   const [sizeSelected, setSizeSelected] = useState("사이즈 선택");
@@ -19,6 +22,7 @@ function Product() {
   return (
     <>
       <Header />
+
       <div className={styles.productSection}>
         <div className={styles.detailOrder}>
           <div className={styles.productImgWrap}>
@@ -28,7 +32,7 @@ function Product() {
           </div>
           <div className={styles.productInfoWrap}>
             
-            <h1 style={{fontSize:'23px', fontWeight:'bold'}}>상품명</h1>
+            <h1 style={{fontSize:'23px', fontWeight:'bold'}}>{id}</h1>
             <hr/>
 
             <div style={{display:'flex'}}>
@@ -45,10 +49,10 @@ function Product() {
 
               <div className={styles.productInfo}>
                 <ul>
-                  <li>ex.남</li>
-                  <li>ex.12,345원</li>
-                  <li>ex.12,34원</li>
-                  <li>ex.7</li>
+                  <li>남</li>
+                  <li>12,345원</li>
+                  <li>12,34원</li>
+                  <li>7</li>
 
                   <select onChange={handleSizeSelect} value={sizeSelected}>
                     {sizeList.map((item) => (
@@ -68,16 +72,14 @@ function Product() {
                 </ul>
               </div>
             </div>
-            {(sizeSelected != "사이즈 선택") && (colorSelected != "색상 선택") ? 
-            <table>
-              <th>상품명</th><th>수량</th><th>가격</th><th></th>
-              <tr>
-                <td>ex.남성셔츠 {sizeSelected}{colorSelected}</td>
-                <td></td>
-                <td>ex.12,345원</td>
-                <td><button>삭제</button></td>
-              </tr>
-            </table>
+            {(sizeSelected !== "사이즈 선택") && (colorSelected !== "색상 선택") ? 
+            
+            <div className={styles.putWrap}>
+              <div className={styles.putTag}>상품명&nbsp;&nbsp;&nbsp;수량&nbsp;&nbsp;&nbsp;가격</div>
+              <div className={styles.putItem}>{id}({sizeSelected}, {colorSelected})&nbsp;&nbsp;&nbsp;
+                <input type="number" defaultValue="1" min="1"/>
+              </div>
+            </div>
             : ""}
             
             <div className={styles.totalPriceDiv}>총 상품금액: </div>

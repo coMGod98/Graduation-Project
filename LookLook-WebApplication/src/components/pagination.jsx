@@ -21,7 +21,7 @@ export function Pagination({
     setCurrentPage(currentPage - 1);
   };
 
-  if (totalPages === 1) {
+  if (totalPages === 0 || totalPages === 1) {
     return null;
   }
 

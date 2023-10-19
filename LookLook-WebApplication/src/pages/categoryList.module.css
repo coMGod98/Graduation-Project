@@ -29,11 +29,13 @@
 }
 
 .categoryWrap div {
+  color: black;
   font-size: 19px;
-  width: 100px;
+  width: 80px;
   height: 22px;
   border-right: 1px solid gray;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0px 20px;
 }

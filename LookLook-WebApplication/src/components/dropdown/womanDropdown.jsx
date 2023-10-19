@@ -3,34 +3,25 @@ import styles from "./smallCategoryDropdown.module.css";
 import { Link } from "react-router-dom";
 
 function WomanDropdown() {
+  const categorys = [
+    {cateID: "woman_shirt_blouse", cateName: "셔츠/블라우스"},
+    {cateID: "woman_knit", cateName: "니트"},
+    {cateID: "woman_tshirt", cateName: "티셔츠"},
+    {cateID: "woman_pants", cateName: "팬츠"},
+    {cateID: "woman_skirt", cateName: "스커트"},
+    {cateID: "woman_onepiece", cateName: "원피스"}
+  ]
 
   return (
     <div className={styles.dropdownSection}>
-      <div>
-        <img src={require("../../images/woman/woman_shirt_blouse.png")} alt="woman1"/>
-        <p>셔츠/블라우스</p>
-      </div>
-      <div>
-        <img src={require("../../images/woman/woman_knit.png")} alt="woman2"/>
-        <p>니트</p>
-      </div>
-      <div>
-        <img src={require("../../images/woman/woman_tshirt.png")} alt="woman3"/>
-        <p>티셔츠</p>
-      </div>
-      <div>
-        <img src={require("../../images/woman/woman_pants.png")} alt="woman4"/>
-        <p>팬츠</p>
-      </div>
-      <div>
-        <img src={require("../../images/woman/woman_skirt.png")} alt="woman5"/>
-        <p>스커트</p>
-      </div>
-      <div>
-        <img src={require("../../images/woman/woman_onepiece.png")} alt="woman6"/>
-        <p>원피스</p>
-      </div>
-
+      {categorys && categorys.map(cate => (
+        <div>
+          <Link to={`/womanList/${cate.cateID}`}>
+            <img src={require(`../../images/woman/${cate.cateID}.png`)} alt="outer_item"/>
+            <p>{cate.cateName}</p>
+          </Link>
+        </div>
+      ))}
     </div>
   );
 }
