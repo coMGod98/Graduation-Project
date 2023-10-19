@@ -24,15 +24,15 @@ public class UserService {
         user.setUserName(userName);
         user.setUserId(userId);
         user.setPassword(passwordEncoder.encode(password));
-//        validateDuplicateUser(user);
+        validateDuplicateUser(user);
         this.userRepository.save(user);
         return user.getId();
     }
 
-//    private void validateDuplicateUser(LookLookUser user) {
-//        LookLookUser findUsers = userRepository.findByUserId(user.getUserId());
-//        if (!findUsers.isEmpty()) {
-//            throw new IllegalStateException("이미 존재하는 회원입니다.");
-//        }
-//    }
+    private void validateDuplicateUser(LookLookUser user) {
+        Optional<LookLookUser> findUsers = userRepository.findByUserId(user.getUserId());
+        if (!findUsers.isEmpty()) {
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        }
+    }
 }

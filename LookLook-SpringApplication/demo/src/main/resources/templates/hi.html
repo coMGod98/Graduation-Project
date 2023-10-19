@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h1>pleasepleasepleasepleasepleasepleasepleasepleasepleasepleasepleaseplease</h1>
+<div class="btn">
+    <a th:href="@{/sign-up}">
+        <button sec:authorize="!isAuthenticated()" class="btn btn-lg btn-secondary">회원가입</button>
+    </a>
+    <a th:href="@{/login}">
+        <button sec:authorize="!isAuthenticated()" class="btn btn-lg btn-dark">로그인</button>
+    </a>
+    <a th:href="@{/logout}">
+        <button sec:authorize="isAuthenticated()" class="btn btn-danger btn-lg">로그아웃</button>
+    </a>
+</div>
+</div>
 </body>
 </html>

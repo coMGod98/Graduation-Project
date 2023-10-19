@@ -20,9 +20,10 @@ public class LookLookUser {
     private Long id;
     @Column(name = "USERNAME")
     private String userName;
-    @Column(name = "USERID")
+    @Column(name = "USERID", unique = true)
     private String userId;
     @Column(name = "USERPW")
     private String password;
+
 //    private List<Order> orders = new ArrayList<>();
 }
