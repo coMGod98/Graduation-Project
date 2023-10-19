@@ -25,5 +25,15 @@ public class LookLookUser {
     @Column(name = "USERPW")
     private String password;
 
+    @Column(name = "SEX")
+    private String sex;
+
+    @Column(name = "PNUMBER")
+    private String phoneNumber;
+    @Column(name = "ADDRESS")
+    private String address;
+
+    @Column(name = "EMAIL")
+    private String email;
 //    private List<Order> orders = new ArrayList<>();
 }
