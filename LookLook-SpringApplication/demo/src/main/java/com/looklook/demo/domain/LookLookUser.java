@@ -1,9 +1,6 @@
 package com.looklook.demo.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Table(name="USERS")
 @NoArgsConstructor
+
 public class LookLookUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,5 +33,16 @@ public class LookLookUser {
 
     @Column(name = "EMAIL")
     private String email;
-//    private List<Order> orders = new ArrayList<>();
+
+    //    private List<Order> orders = new ArrayList<>();
+    @Builder
+    public LookLookUser(String userName, String userId, String password, String sex, String phoneNumber, String address, String email) {
+        this.userName = userName;
+        this.userId = userId;
+        this.password = password;
+        this.sex = sex;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.email = email;
+    }
 }
