@@ -1,0 +1,25 @@
+.paginationDiv {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paginationDiv button {
+  font-size: 14px;
+  background-color: rgb(255, 255, 255);
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+
+
+  &[undefined] {
+    background-color: rgb(255, 255, 255);
+  }
+
+  &[aria-current] {
+    color: white;
+    background-color: #242c57;
+  }
+}
