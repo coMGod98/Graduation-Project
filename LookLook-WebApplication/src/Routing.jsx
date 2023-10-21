@@ -8,12 +8,15 @@ import WomanList from "./pages/womanList";
 import OuterList from "./pages/outerList";
 import ShoesList from "./pages/shoesList";
 import FashionList from "./pages/fashionList";
-import Mypage from "./pages/mypage";
+import MyPage from "./pages/myPage";
 import Cart from "./pages/cart";
+import OrderSheet from "./pages/orderSheet";
+import OrderResult from "./pages/orderResult";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import SignupResult from "./pages/signupResult";
 import SearchResult from "./pages/searchResult";
+
 
 class Routing extends React.Component {
   render() {
@@ -32,8 +35,10 @@ class Routing extends React.Component {
           <Route path="/fashionList/:cate" element={<FashionList />} />
 
           <Route path="/product/:id" element={<Product />} />
-          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/myPage/:menu" element={<MyPage />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/orderSheet" element={<OrderSheet />} />
+          <Route path="/orderResult" element={<OrderResult />} />
           <Route path="/searchResult" element={<SearchResult />} />
           
         </Routes>

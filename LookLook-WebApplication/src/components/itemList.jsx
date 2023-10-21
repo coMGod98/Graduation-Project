@@ -11,7 +11,7 @@ function ItemList({ list }) {
         return (
           <div key={id} className={styles.productWrap}>
 
-            <Link to={`/Product/${id}`} id={id} name={name}>
+            <Link to={`/Product/${id}`}>
               <div className={styles.productImgDiv}>
                 <img src={image} alt="prod_img"/>
               </div>

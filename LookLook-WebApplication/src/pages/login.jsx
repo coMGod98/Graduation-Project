@@ -2,8 +2,17 @@ import React, { useState, useRef } from "react";
 import Header from "../components/header";
 import styles from "./login.module.css";
 import { Link } from "react-router-dom";
+import Detail from "../components/detail"
 
 function Login() {
+
+  const list = [
+    {name: "홍", age: "9"},
+    {name: "길", age: "10"},
+    {name: "순", age: "13"},
+  ]
+
+
   const [passwordType, setPasswordType] = useState({
     type: 'password',
     visible: false
@@ -44,6 +53,10 @@ function Login() {
               회원가입
             </button>
           </Link>
+
+
+
+          <Detail list={list} name="김영희" age="20"/>
         </div>
       </div>
     </>

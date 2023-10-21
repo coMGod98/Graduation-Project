@@ -37,7 +37,7 @@ function Header() {
         <Link to="/signup">
           <h style={{color: '#227acc'}}>회원가입</h>
         </Link>
-        <Link to="/">
+        <Link to="/myPage/myInfo">
           <h>마이페이지</h>
         </Link>
 

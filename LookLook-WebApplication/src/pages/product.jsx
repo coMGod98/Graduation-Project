@@ -3,8 +3,9 @@ import Header from "../components/header";
 import styles from "./product.module.css"
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function Product({props}) {
+function Product() {
   const {id} = useParams();
 
   const sizeList = ["사이즈 선택", "M", "L", "XL"];
@@ -85,7 +86,10 @@ function Product({props}) {
             <div className={styles.totalPriceDiv}>총 상품금액: </div>
             <div className={styles.btnWrap}>
               <button style={{color:'white', backgroundColor:'navy'}}>바로 구매</button>
-              <button>장바구니 담기</button>   
+              <Link to="/Cart">
+                <button>장바구니 담기</button>   
+              </Link>
+              
             </div>
           </div>
         </div>

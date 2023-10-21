@@ -6,7 +6,8 @@ function Banner() {
   return (
     <>
       <Link to="/product">
-        <img src={require("../images/main_banner.png")} alt="logo"/>
+        <img style={{}}
+        src={require("../images/main_banner.png")} alt="logo"/>
       </Link>
     </>
   )
