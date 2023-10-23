@@ -75,7 +75,7 @@ function MyPage() {
               <div className={styles.listTag}>이메일</div>
               <div className={styles.listInfo}>~~</div>
             </div>
-            <div  style={{borderBottom:'1px solid gray'}} 
+            <div  style={{borderBottom:'1px solid rgb(179, 179, 179)'}} 
             className={styles.listWrap}>
               <div className={styles.listTag}>휴대전화</div>
               <div className={styles.listInfo}>~~</div>
@@ -93,7 +93,7 @@ function MyPage() {
               <p>회원 정보 수정을 위해 비밀번호를 입력해주세요(임시pw:'pass')</p>
               
               <form onSubmit={checkPw}>
-                <div style={{borderBottom:'1px solid gray'}} className={styles.listWrap}>
+                <div style={{borderBottom:'1px solid rgb(179, 179, 179)'}} className={styles.listWrap}>
                   <div className={styles.listTag}>비밀번호</div>
                   <div className={styles.listInfo}>
                   <input maxLength="20" type="password" onChange={changePw}/>
@@ -105,11 +105,11 @@ function MyPage() {
           : 
           <div className={styles.mypgWrap}>
             <div className={styles.mypgHeader}>회원 정보 수정</div>
-            <div style={{borderTop:'1px solid gray'}} className={styles.modWrap}>
+            <div style={{borderTop:'1px solid rgb(179, 179, 179)'}} className={styles.modWrap}>
               <div className={styles.modTag}>이름</div>
               <div className={styles.modInput}><input /></div>
             </div>
-            <div style={{borderTop:'1px solid gray'}} className={styles.modWrap}>
+            <div style={{borderTop:'1px solid rgb(179, 179, 179)'}} className={styles.modWrap}>
               <div className={styles.modTag}>주소</div>
               <div className={styles.modInput}><input className={styles.shorInput}/>
               <button className={styles.zipBtn}>우편번호</button></div>
@@ -122,7 +122,7 @@ function MyPage() {
               <div className={styles.modTag}></div>
               <div className={styles.modInput}><input /></div>
             </div>
-            <div style={{borderTop:'1px solid gray', borderBottom:'1px solid gray'}} className={styles.modWrap}>
+            <div style={{borderTop:'1px solid rgb(179, 179, 179)', borderBottom:'1px solid rgb(179, 179, 179)'}} className={styles.modWrap}>
               <div className={styles.modTag}>이메일</div>
               <div className={styles.modInput}><input name="email" type="email"/></div>
             </div>
@@ -160,7 +160,7 @@ function MyPage() {
             <p>회원 탈퇴를 위해 비밀번호를 입력해주세요(임시pw:'pass')</p>
             
             <form onSubmit={checkPw}>
-              <div style={{borderBottom:'1px solid gray'}} className={styles.listWrap}>
+              <div style={{borderBottom:'1px solid rgb(179, 179, 179)'}} className={styles.listWrap}>
                 <div className={styles.listTag}>비밀번호</div>
                 <div className={styles.listInfo}>
                 <input maxLength="20" type="password" onChange={changePw}/>

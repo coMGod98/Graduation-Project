@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/header";
 import styles from "./cart.module.css";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import CartItem from "../components/cartItem";
 
 function Cart(prods) {
+  const [quantity, setQuantity] = useState(1);
+  const [stock, setStock] = useState(10);
 
   return (
     <>
@@ -23,7 +26,17 @@ function Cart(prods) {
           </div>
 
           <div className={styles.CartListWrap}>
-            <div> 전체 개 상품명(옵션) 수량 판매가</div>
+            <div className={styles.cartListTag}>
+              <div className={styles.cartTag1}>
+                <input type="checkbox"></input>
+              </div>
+              <div className={styles.cartTag2}>전체 개</div>
+              <div className={styles.cartTag3}>상품명(옵션)</div>
+              <div className={styles.cartTag4}>수량</div>
+              <div className={styles.cartTag5}>판매가</div>
+            </div>
+            <CartItem />
+            <CartItem />
 
 
 

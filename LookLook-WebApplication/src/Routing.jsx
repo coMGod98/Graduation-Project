@@ -17,6 +17,7 @@ import Login from "./pages/login";
 import Signup from "./pages/signup";
 import SignupResult from "./pages/signupResult";
 import SearchResult from "./pages/searchResult";
+import Admin from "./pages/admin"
 
 import products from "./products.json"
 
@@ -31,6 +32,7 @@ function Routing() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signupResult" element={<SignupResult />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin/:menu" element={<Admin />} />
 
         <Route path="/manList/:cate" element={<ManList />} />
         <Route path="/womanList/:cate" element={<WomanList />} />

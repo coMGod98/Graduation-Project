@@ -54,10 +54,6 @@
   margin: 5px;
   padding: 0 26px;
 }
-.orderResultSection .orderResultWrap .payInfo {
-  background-color: rgb(210, 217, 223);
-  height: 200px;
-}
 
 .shopBtnWrap {
   height: 100px;
@@ -66,7 +62,19 @@
   align-items: center;
 }
 
-
+.wrapDiv {
+  border-bottom: 1px solid rgb(197, 197, 197);
+  padding: 15px 10px;
+  display: flex;
+}
+.wrapDiv .tagDiv {
+  width: 400%;
+}
+.wrapDiv .infoDiv {
+  width: 600%;
+  display: flex;
+  justify-content: flex-end;
+}
 
 
 

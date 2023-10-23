@@ -94,7 +94,7 @@
   padding: 10px;
   align-items: center;
   display: flex;
-  border-top: 1px solid gray;
+  border-top: 1px solid rgb(179, 179, 179);
 }
 
 .listTag {

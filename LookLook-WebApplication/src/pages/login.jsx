@@ -6,6 +6,18 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
 
+  // role 구매자:0 판매자:1 관리자:2
+  const [role, setRole] = useState("0");
+  const role0Change = () => {
+    setRole("0");
+  }
+  const role1Change = () => {
+    setRole("1");
+  }
+  const role2Change = () => {
+    setRole("2");
+  }
+
   const navigate = useNavigate();
 
   const[uID, setUID] = useState("");
@@ -25,8 +37,13 @@ function Login() {
     } else if (uID.length < 8) {
       alert("아이디는 8~16자 이내로 입력해주세요!");
     } else {
-      console.log(uID, passwd);
-      navigate("/");
+      if(role==="0") {
+        navigate("/");
+      } else if(role==="1") {
+        alert("판매자 페이지로 이동");
+      } else {
+        navigate("/admin/userManage");
+      }
     }
   }
 
@@ -49,12 +66,25 @@ function Login() {
       <Header />
       <div className={styles.loginSection}>
         <div className={styles.idInputWrap}>
+          <div className={styles.roleWrap}>
+            {role==="0" 
+            ? <button style={{color:'rgb(0, 102, 255)', border:'1px solid rgb(0, 102, 255)'}}>구매자</button>
+            : <button onClick={role0Change}>구매자</button>
+            }
+            {role==="1" 
+            ? <button style={{color:'rgb(0, 102, 255)', border:'1px solid rgb(0, 102, 255)'}}>판매자</button>
+            : <button onClick={role1Change}>판매자</button>
+            }
+            {role==="2" 
+            ? <button style={{color:'rgb(0, 102, 255)', border:'1px solid rgb(0, 102, 255)'}}>관리자</button>
+            : <button onClick={role2Change}>관리자</button>
+            }
+          </div>
           <span>로그인</span>
 
 
           <form onSubmit={submitHandler}>
-
-            <input onChange={uIDChange}
+            <input onChange={uIDChange} pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$]{8,16}$"
             type="text" name="id" placeholder="아이디" 
             minLength="8" maxLength="16" required/>
             <input onChange={passwdChange} type={passwordType.type}

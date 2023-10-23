@@ -22,12 +22,62 @@
 }
 
 .OrderWrap .orderInfoHeader {
-  background-color: rgb(214, 214, 214);
   font-size: 20px;
   font-weight: bold;
   height: 40px;
   line-height: 40px;
+  margin-top: 20px;
 }
+
+
+.wrapDiv {
+  border-bottom: 1px solid rgb(197, 197, 197);
+  padding: 8px;
+  display: flex;
+}
+.wrapDiv .tagDiv {
+  width: 150px;
+}
+.wrapDiv .infoDiv {
+  width: 300px;
+}
+.wrapDiv .infoDiv div {
+  line-height: 28px;
+}
+.wrapDiv .infoDiv button {
+  background-color: white;
+  margin-right: 7px;
+  padding: 2px 15px;
+}
+.wrapDiv .infoDiv select {
+  margin-right: 7px;
+  padding: 2px 10px;
+}
+
+.prodInfoTag {
+  border-top: 1px solid rgb(197, 197, 197);
+  border-bottom: 1px solid rgb(197, 197, 197);
+  background-color: aliceblue;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+.prodInfoTag1 {
+  width: 15%;
+}
+.prodInfoTag2 {
+  width: 55%;
+}
+.prodInfoTag3 {
+  width: 15%;
+}
+.prodInfoTag4 {
+  width: 10%;
+}
+
+
+
+
 
 .OrderWrap .payBtnWrap {
   height: 50px;

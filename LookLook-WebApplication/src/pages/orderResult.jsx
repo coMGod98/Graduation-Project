@@ -12,10 +12,10 @@ function OrderResult() {
           <div className={styles.orderWrap}>
             <div className={styles.orderDiv}>장바구니</div>
             <div style={{fontSize:'28px', fontWeight:'bold'}}>&gt;</div>
-            <div style={{backgroundColor: 'rgb(184, 223, 255)'}} 
-            className={styles.orderDiv}>주문서 작성</div>
+            <div className={styles.orderDiv}>주문서 작성</div>
             <div style={{fontSize:'28px', fontWeight:'bold'}}>&gt;</div>
-            <div className={styles.orderDiv}>주문 완료</div>
+            <div style={{backgroundColor: 'rgb(184, 223, 255)'}} 
+            className={styles.orderDiv}>주문 완료</div>
           </div>
 
 
@@ -30,8 +30,22 @@ function OrderResult() {
 
 
           <div className={styles.payInfoHeader}>배송 정보</div>
-          <div className={styles.payInfo}>
-            dd
+          <div  style={{borderTop:'1px solid rgb(197, 197, 197)'}}
+            className={styles.wrapDiv}>
+            <div className={styles.tagDiv}>주문자명 / 연락처</div>
+            <div className={styles.infoDiv}>홍길동 / 01012345678</div>
+          </div>
+          <div className={styles.wrapDiv}>
+            <div className={styles.tagDiv}>최종 결제 금액</div>
+            <div className={styles.infoDiv}>#,###원</div>
+          </div>
+          <div className={styles.wrapDiv}>
+            <div className={styles.tagDiv}>결제수단</div>
+            <div className={styles.infoDiv}>신한카드 / 일시불</div>
+          </div>
+          <div className={styles.wrapDiv}>
+            <div className={styles.tagDiv}>배송 주소</div>
+            <div className={styles.infoDiv}>(12345) 서울시 ~~~ a동</div>
           </div>
 
 
