@@ -4,9 +4,8 @@ import styles from "./cart.module.css";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-function Cart() {
+function Cart(prods) {
 
-  const {list} = useParams();
   return (
     <>
       <Header />
@@ -24,7 +23,10 @@ function Cart() {
           </div>
 
           <div className={styles.CartListWrap}>
-            dd
+            <div> 전체 개 상품명(옵션) 수량 판매가</div>
+
+
+
           </div>
           <div className={styles.btnWrap}>
             <button>선택 삭제</button>

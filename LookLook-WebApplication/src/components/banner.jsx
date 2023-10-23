@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 function Banner() {
   return (
     <>
-      <Link to="/product">
-        <img style={{}}
+      <Link to="/">
+        <img
         src={require("../images/main_banner.png")} alt="logo"/>
       </Link>
     </>

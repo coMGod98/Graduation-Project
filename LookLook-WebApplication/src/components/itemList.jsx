@@ -2,8 +2,14 @@
 
 import styles from "./list.module.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import products from "../products.json"
 
 function ItemList({ list }) {
+
+
+  const [prods, setProds] = useState(products);
+  
   return (
     <div className={styles.productContainer}>
       {list.length != 0 ? 

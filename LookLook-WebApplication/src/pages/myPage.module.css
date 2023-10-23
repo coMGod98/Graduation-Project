@@ -37,7 +37,7 @@
 }
 
 .mypgWrap p {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .mypgWrap .mypgHeader {
@@ -49,3 +49,95 @@
   margin-bottom: 20px;
 }
 
+.modWrap {
+  padding: 5px 10px;
+  align-items: center;
+  display: flex;
+}
+
+.modWrap .modTag {
+  width: 150px;
+  display: block;
+}
+
+.modWrap .modInput {
+  display: block;
+}
+
+.modWrap .modInput .zipBtn {
+  background-color: white;
+  width: 72px;
+  height: 24px;
+  padding: 0px 3px;
+  margin-left: 8px;
+}
+
+.modWrap .modInput .shorInput {
+  width: 160px;
+}
+
+.modWrap .modInput input {
+  width: 240px;
+  height: 20px;
+}
+
+.mypgBtn {
+  color: white;
+  font-size: 15px;
+  background-color: rgb(39, 63, 114);
+  padding: 3px 20px;
+  margin-top: 10px;
+}
+
+
+.listWrap {
+  padding: 10px;
+  align-items: center;
+  display: flex;
+  border-top: 1px solid gray;
+}
+
+.listTag {
+  width: 150px;
+}
+
+.listInfo {
+  width: 300px;
+}
+
+.mypgWrap h2 {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+
+
+
+.orderTagDiv {
+  align-items: center;
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid rgb(179, 179, 179);
+  border-bottom: 1px solid rgb(179, 179, 179);
+  background-color: aliceblue;
+  font-size: 14px;
+  font-weight: bold;
+}
+.orderTagDiv .orderDateTag {
+  width: 13%;
+}
+.orderTagDiv .orderNumTag {
+  width: 14%;
+}
+.orderTagDiv .orderProdTag {
+  width: 45%;
+  display: flex;
+  align-items: center;
+}
+.orderTagDiv .orderPayTag {
+  width: 17%;
+}
+.orderTagDiv .orderStateTag {
+  width: 11%;
+}

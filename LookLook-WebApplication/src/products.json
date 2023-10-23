@@ -1,44 +1,50 @@
 [
   {
+    "id": 0,
+    "name": "0번 상품",
+    "price": 10000,
+    "image": "../looklook_logo.png"
+  },
+  {
     "id": 1,
     "name": "1번 상품",
-    "price": 17100,
+    "price": 11111,
     "image": "../looklook_logo.png"
   },
   {
     "id": 2,
     "name": "2번 상품",
-    "price": 3000,
+    "price": 20000,
     "image": "../looklook_logo.png"
   },
   {
     "id": 3,
     "name": "3번 상품",
-    "price": 7000,
+    "price": 30000,
     "image": "../looklook_logo.png"
   },
   {
     "id": 4,
     "name": "4번 상품",
-    "price": 1900,
+    "price": 99000,
     "image": "../looklook_logo.png"
   },
   {
     "id": 5,
     "name": "5번 상품",
-    "price": 99000,
-    "image": "../looklook_logo.png"
+    "price": 69000,
+    "image": "../sample.png"
   },
   {
     "id": 6,
     "name": "6번 상품",
-    "price": 69000,
+    "price": 1000000,
     "image": "../sample.png"
   },
   {
     "id": 7,
     "name": "7번 상품",
-    "price": 1000000,
+    "price": 5900,
     "image": "../sample.png"
   },
   {
@@ -74,12 +80,6 @@
   {
     "id": 13,
     "name": "13번 상품",
-    "price": 5900,
-    "image": "../sample.png"
-  },
-  {
-    "id": 14,
-    "name": "14번 상품",
     "price": 5900,
     "image": "../sample.png"
   }

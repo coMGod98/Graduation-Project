@@ -33,7 +33,7 @@
 }
 
 .productInfoWrap {
-  width: 400px;
+  width: 450px;
   height: 100%;
   padding: 80px 20px;
 }
@@ -48,7 +48,7 @@
 
 .productInfoWrap .productInfo select {
   font-size: 14px;
-  width: 200px;
+  width: 270px;
   height: 27px;
 }
 
@@ -115,23 +115,30 @@
 
 .putWrap {
   border: 1px solid gray;
-  width: 378px;
+  width: 448px;
   margin-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .putWrap .putTag {
-  border-bottom: 1px solid gray;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  display: flex;
+  padding: 10px;
+}
+
+.putWrap .putTag .nameDiv {
+  width: 55%;
+}
+
+.putWrap .putTag .quantDiv {
+  width: 20%;
+  text-align: center;
+}
+
+.putWrap .putTag .priceDiv {
+  width: 25%;
+  text-align: center;
 }
 
 .putWrap .putItem {
   padding-top: 10px;
   padding-bottom: 10px;
-}
-
-.putWrap input {
-  width: 30px;
 }

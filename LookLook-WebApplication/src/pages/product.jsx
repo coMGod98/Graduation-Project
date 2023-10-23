@@ -4,9 +4,13 @@ import styles from "./product.module.css"
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import products from "../products.json";
+import PutItem from "../components/putItem"
+import Test from "../components/test"
 
 function Product() {
   const {id} = useParams();
+  
 
   const sizeList = ["사이즈 선택", "M", "L", "XL"];
   const colorList = ["색상 선택", "블랙", "화이트"];
@@ -19,6 +23,23 @@ function Product() {
   const handleColorSelect = (e) => {
     setColorSelected(e.target.value);
   };
+
+
+
+
+
+  const [quantity, setQuantity] = useState(1);
+  const [total, setTotal] = useState(products[id].price);
+  const [stock, setStock] = useState(8);
+
+  const handleClickCounter = (e) => {
+    setQuantity((prev) => prev + e);
+    setTotal((prev) => prev + products[id].price * e);
+    console.log(quantity, total);
+  };
+
+
+
 
   return (
     <>
@@ -33,7 +54,7 @@ function Product() {
           </div>
           <div className={styles.productInfoWrap}>
             
-            <h1 style={{fontSize:'23px', fontWeight:'bold'}}>{id}</h1>
+            <h1 style={{fontSize:'23px', fontWeight:'bold'}}>{products[id].name}</h1>
             <hr/>
 
             <div style={{display:'flex'}}>
@@ -51,46 +72,85 @@ function Product() {
               <div className={styles.productInfo}>
                 <ul>
                   <li>남</li>
-                  <li>12,345원</li>
-                  <li>12,34원</li>
-                  <li>7</li>
+                  <li>{products[id].price}원</li>
+                  <li>2500원</li>
+                  <li>{stock}</li>
 
-                  <select onChange={handleSizeSelect} value={sizeSelected}>
-                    {sizeList.map((item) => (
-                      <option value={item} key={item}>
-                        {item}
-                      </option>
-                    ))}
-                  </select><br></br>
-                  <select onChange={handleColorSelect} value={colorSelected}>
-                    {colorList.map((item) => (
-                      <option value={item} key={item}>
-                        {item}
-                      </option>
-                    ))}
-                  </select>
+                  {stock === 0 
+                  ? <h>품절된 상품입니다.</h>
+                  : <select onChange={handleSizeSelect} value={sizeSelected}>
+                      {sizeList.map((item) => (
+                        <option value={item} key={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                  }
+                  
+                  <br></br>
 
+                  {stock === 0 
+                  ? <h>품절된 상품입니다.</h>
+                  : <select onChange={handleColorSelect} value={colorSelected}>
+                      {colorList.map((item) => (
+                        <option value={item} key={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                  }
+                  
                 </ul>
               </div>
             </div>
-            {(sizeSelected !== "사이즈 선택") && (colorSelected !== "색상 선택") ? 
-            
             <div className={styles.putWrap}>
-              <div className={styles.putTag}>상품명&nbsp;&nbsp;&nbsp;수량&nbsp;&nbsp;&nbsp;가격</div>
-              <div className={styles.putItem}>{id}({sizeSelected}, {colorSelected})&nbsp;&nbsp;&nbsp;
-                <input type="number" defaultValue="1" min="1"/>
-              </div>
+            <div className={styles.putTag}>
+              <div className={styles.nameDiv}>상품명</div>
+              <div className={styles.quantDiv}>수량</div>
+              <div className={styles.priceDiv}>가격</div>
             </div>
-            : ""}
+              {(sizeSelected !== "사이즈 선택") && (colorSelected !== "색상 선택") ? 
+
+              <PutItem id={products[id].id} name={products[id].name} 
+              price={products[id].price} size={sizeSelected}
+               color={colorSelected} stock={stock} quantity={quantity} onClick={handleClickCounter}/>
+               : 
+               (stock === 0 ? 
+                <div style={{borderTop:'1px solid gray', color:'gray'}} className={styles.putTag}>품절된 상품입니다.</div>
+                :<div style={{borderTop:'1px solid gray'}} className={styles.putTag}>담은 상품이 없습니다.</div>
+               )}
+               
+               
+               
+            </div>
+            {(sizeSelected !== "사이즈 선택") && (colorSelected !== "색상 선택") 
+            ? <div className={styles.totalPriceDiv}>
+            총 상품금액: {2500 + total}원</div>
+            : <div className={styles.totalPriceDiv}>총 상품금액: 0원</div>
+            }
+
+
+              {stock === 0 
+              ? <div className={styles.btnWrap}>
+                  <button style={{color:'white', backgroundColor:'gray'}} disabled>일시 품절</button>
+                  <button style={{color:'gray'}} disabled>일시 품절</button>
+                </div>
+              : 
+
+                <div className={styles.btnWrap}>
+                  <button style={{color:'white', backgroundColor:'navy'}}>바로 구매</button>
+                  <Link to="/Cart"><button>장바구니 담기</button></Link>
+                </div>
+              }
+
             
-            <div className={styles.totalPriceDiv}>총 상품금액: </div>
-            <div className={styles.btnWrap}>
-              <button style={{color:'white', backgroundColor:'navy'}}>바로 구매</button>
-              <Link to="/Cart">
-                <button>장바구니 담기</button>   
-              </Link>
               
-            </div>
+              
+              
+              
+
+
+
           </div>
         </div>
         
