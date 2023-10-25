@@ -1,0 +1,25 @@
+.section {
+  border-bottom: 1px solid rgb(197, 197, 197);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+.info1 {
+  width: 15%;
+}
+.info2 {
+  width: 55%;
+  display: flex;
+  align-items: center;
+}
+.info2 img {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+.info3 {
+  width: 15%;
+}
+.info4 {
+  width: 10%;
+}
