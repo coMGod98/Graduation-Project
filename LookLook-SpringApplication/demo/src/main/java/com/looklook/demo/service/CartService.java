@@ -46,12 +46,13 @@ public class CartService {
     //장바구니 담기
     public Long addCart(CartItemDto cartItemDto, String userId) {
 
-        LookLookUser user=userRepository.findByUserId(userId);
-        Cart cart=cartRepository.findByUserId(user.getId());
+        Optional<LookLookUser> user = userRepository.findByUserId(userId);
+        LookLookUser result = user.get();
+        Cart cart=cartRepository.findByUserId(result.getId());
 
         // 장바구니가 존재하지 않는다면 생성
         if (cart == null) {
-            cart = Cart.createCart(user);
+            cart = Cart.createCart(result);
             cartRepository.save(cart);
         }
 
@@ -77,8 +78,9 @@ public class CartService {
 
         List<CartListDto> cartListDto=new ArrayList<>();
 
-        LookLookUser user=userRepository.findByUserId(userId);
-        Cart cart=cartRepository.findByUserId(user.getId());
+        Optional<LookLookUser> user=userRepository.findByUserId(userId);
+        LookLookUser result = user.get();
+        Cart cart=cartRepository.findByUserId(result.getId());
 
         if(cart==null) {
             return cartListDto;
@@ -94,13 +96,13 @@ public class CartService {
     public boolean validateCartItem(Long cartItemId, String userId) {
 
         //로그인 이용자
-        LookLookUser curUser=userRepository.findByUserId(userId);
-
+        Optional<LookLookUser> curUser=userRepository.findByUserId(userId);
+        LookLookUser result = curUser.get();
         //수량 변경 요청 들어온 장바구니 상품 유저
         CartItem cartItem=cartItemRepository.findById(cartItemId).orElseThrow(EntityNotFoundException::new);
         LookLookUser savedUser=cartItem.getCart().getUser();
 
-        if(StringUtils.equals(curUser.getUserId(), savedUser.getUserId())) {
+        if(StringUtils.equals(result.getUserId(), savedUser.getUserId())) {
             return true;
         }
         return false;

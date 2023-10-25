@@ -1,7 +1,7 @@
-<<<<<<< HEAD
+
 package com.looklook.demo.controller;
 
-import com.looklook.demo.dto.UserDto;
+import com.looklook.demo.dto.UserForm;
 import com.looklook.demo.dto.UserResponseDto;
 import com.looklook.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("/signup")
     public String signup(Model model) {
-        model.addAttribute("userDto", new UserDto());
+        model.addAttribute("userDto", new UserForm());
         return "signup";
     }
 
@@ -39,7 +39,7 @@ public class UserController {
         return "admin";
     }
 }
-=======
+
 //package com.looklook.demo.controller;
 //
 //import com.looklook.demo.dto.UserForm;
@@ -90,4 +90,4 @@ public class UserController {
 //        return "redirect:/login";
 //    }
 //}
->>>>>>> Back-End-2
+

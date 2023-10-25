@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Table(name="order_item")
 @Getter @Setter
 public class OrderItem extends BaseEntity{
-
     @Id
     @GeneratedValue
     @Column(name = "order_item_id")

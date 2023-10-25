@@ -36,7 +36,7 @@ public class UserService {
 
     // 회원가입
     @Transactional
-    public UserResponseDto signup(UserDto userDto) {
+    public UserResponseDto signup(UserForm userDto) {
         if (userRepository.existsByUserId(userDto.getUserId())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
         }

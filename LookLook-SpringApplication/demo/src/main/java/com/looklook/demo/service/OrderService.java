@@ -26,6 +26,7 @@ import javax.persistence.EntityNotFoundException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -41,17 +42,22 @@ public class OrderService {
 
 
         Item item=itemRepository.findById(orderDto.getItemId()).orElseThrow(EntityNotFoundException::new);
-        LookLookUser user=userRepository.findByUserId(userId);
+        Optional<LookLookUser> user = userRepository.findByUserId(userId);
 
         List<OrderItem> orderItemList=new ArrayList<>();
 
         OrderItem orderItem=OrderItem.createOrderItem(item, orderDto.getCount());
         orderItemList.add(orderItem);
 
-        Order order=Order.createOrder(user, orderItemList);
-        orderRepository.save(order);
+        if (user.isPresent()){
+            LookLookUser result = user.get();
+            Order order = Order.createOrder(result, orderItemList);
+            orderRepository.save(order);
+            return order.getId();
+        }
 
-        return order.getId();
+        // Optional이 비어 있을 때 처리 미흡
+        return null;
     }
 
     // 주문 내역 조회
@@ -98,7 +104,8 @@ public class OrderService {
     public Long orders(List<OrderDto> orderDtoList, String userId) {
 
         // 로그인한 유저 조회
-        LookLookUser user = userRepository.findByUserId(userId);
+
+        Optional<LookLookUser> user = userRepository.findByUserId(userId);
 
         // orderDto 객체를 이용하여 item 객체와 count 값을 얻어낸 뒤, 이를 이용하여 OrderItem 객체(들) 생성
         List<OrderItem> orderItemList = new ArrayList<>();
@@ -109,9 +116,14 @@ public class OrderService {
         }
 
         //Order Entity 클래스에 존재하는 createOrder 메소드로 Order 생성 및 저장
-        Order order = Order.createOrder(user, orderItemList);
-        orderRepository.save(order);
-        return order.getId();
+        if (user.isPresent()){
+            LookLookUser result = user.get();
+            Order order = Order.createOrder(result, orderItemList);
+            orderRepository.save(order);
+            return order.getId();
+        }
+
+        return null;
     }
 
 

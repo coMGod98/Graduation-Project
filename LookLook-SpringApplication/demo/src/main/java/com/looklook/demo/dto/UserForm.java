@@ -15,14 +15,10 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @ToString
 @NoArgsConstructor
-<<<<<<< HEAD:LookLook-SpringApplication/demo/src/main/java/com/looklook/demo/dto/UserDto.java
-public class UserDto {
+@Builder
+public class UserForm {
     // 회원가입용
     @NotEmpty(message = "사용자ID는 필수항목입니다.")
-=======
-public class UserForm {
- @NotEmpty(message = "사용자ID는 필수항목입니다.")
->>>>>>> Back-End-2:LookLook-SpringApplication/demo/src/main/java/com/looklook/demo/dto/UserForm.java
     private String userId;
     @NotEmpty(message = "사용자 이름은 필수항목입니다.")
     private String userName;
@@ -41,7 +37,6 @@ public class UserForm {
     @NotEmpty(message = "이메일은 필수항목입니다.")
     @Email
     private String email;
-<<<<<<< HEAD:LookLook-SpringApplication/demo/src/main/java/com/looklook/demo/dto/UserDto.java
 
     public LookLookUser toUser(PasswordEncoder passwordEncoder) {
         String encodedPassword = passwordEncoder.encode(password);
@@ -59,6 +54,3 @@ public class UserForm {
     }
 
 }
-=======
-}
->>>>>>> Back-End-2:LookLook-SpringApplication/demo/src/main/java/com/looklook/demo/dto/UserForm.java
