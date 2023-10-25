@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <div class="container my-3">
-    <form sec:authorize="isAnonymous()" th:action="@{/login}" method="post">
+    <form sec:authorize="isAnonymous()" method="post" id="myForm">
         <div th:if="${param.error}">
             <div class="alert alert-danger">
                 사용자ID 또는 비밀번호를 확인해 주세요.
@@ -19,7 +19,43 @@
             <label for="password" class="form-label">비밀번호</label>
             <input type="password" name="password" id="password" class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary">로그인</button>
+<!--        <button type="submit" class="btn btn-primary">로그인</button>-->
+        <!-- 체크박스 1 -->
+        <input type="radio" name="option" value="user" id="optionA">
+        <label for="optionA">user</label>
+
+        <!-- 체크박스 2 -->
+        <input type="radio" name="option" value="admin" id="optionB">
+        <label for="optionB">admin</label>
+
+        <!-- 제출 버튼 -->
+        <input type="button" value="로그인" onclick="submitForm()">
     </form>
 </div>
+
+<script>
+    function submitForm() {
+        const form = document.getElementById("myForm");
+        const checkboxes = form.querySelectorAll('input[name="option"]');
+
+        // 선택된 체크박스 확인
+        let selectedValue = null;
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                selectedValue = checkbox.value;
+            }
+        });
+
+        // 선택된 옵션에 따라 폼 제출 URL 설정
+        if (selectedValue === "user") {
+            form.action = "/login";
+        } else if (selectedValue === "admin") {
+            form.action = "/login_admin";
+        } else {
+            alert("하나 이상의 옵션을 선택하세요.");
+        }
+        // 폼 제출
+        form.submit();
+    }
+</script>
 </html>
