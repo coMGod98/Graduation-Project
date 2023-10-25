@@ -1,0 +1,137 @@
+.productSection {
+  width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 10%;
+  border-left: 1px solid rgb(180, 180, 180);
+  border-right: 1px solid rgb(180, 180, 180);
+  display: block;
+}
+
+.detailOrder {
+  width: 1200px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.productImgWrap {
+  width: 400px;
+  height: 600px;
+  font-size: 22px;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+}
+
+.productImgWrap img {
+  border: 1px solid gray;
+  width: 400px;
+  height: 400px;
+  right: 0%;
+  margin-top: 10px;
+}
+
+.productInfoWrap {
+  width: 400px;
+  height: 100%;
+  padding: 80px 20px;
+}
+
+.productInfoWrap .productInfoTag, 
+.productInfoWrap .productInfo {
+  font-size: 17px;
+  width: 180px;
+  
+  line-height: 36px;
+}
+
+.productInfoWrap .productInfo select {
+  font-size: 14px;
+  width: 200px;
+  height: 27px;
+}
+
+.productInfoWrap table {
+  border: 1px solid black;
+  width: 300px;
+  height: 30px;
+  padding: 10px 10px;
+}
+
+.productInfoWrap .totalPriceDiv {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 17px;;
+  margin-top: 10px;
+}
+
+.productInfoWrap .btnWrap {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 18px;;
+  padding: 10px 0px;
+}
+
+.productInfoWrap .btnWrap button {
+  background-color: white;
+  width: 130px;
+  height: 38px;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.detailInfo {
+  display: block;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.detailInfoHeader {
+  height: 70px;
+  line-height: 70px;
+  font-size: 22px;
+  font-weight: bold;
+  border-bottom: 2px solid black;
+}
+
+.detailImageWrap {
+  width: 800px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.detailImageWrap img {
+  width: 100%;
+}
+
+.detailInfoWrap {
+  font-size: 18px;
+  padding: 30px 0px;
+}
+
+
+.putWrap {
+  border: 1px solid gray;
+  width: 378px;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.putWrap .putTag {
+  border-bottom: 1px solid gray;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.putWrap .putItem {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.putWrap input {
+  width: 30px;
+}
