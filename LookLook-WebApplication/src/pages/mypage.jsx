@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../components/header";
 import styles from "./myPage.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import OrderHistory from "../components/orderHistory";
+import { Navigate } from "react-router-dom";
 
 function MyPage() {
 
@@ -34,7 +35,27 @@ function MyPage() {
     }
   }
 
+
+
+
+
+  const [isLogin, setIsLogin] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(sessionStorage.getItem("user_ID") === null) {
+      navigate("/");
+      alert("로그인 후 이용할 수 있습니다.");
+    } else {
+      setIsLogin(true);
+    }
+  }, []);
+
+
+
   return (
+    
     <>
       <Header />
       <div className={styles.mypgSection}>
@@ -66,7 +87,7 @@ function MyPage() {
         {menu === "myInfo" ?
           <div className={styles.mypgWrap}>
             <div className={styles.mypgHeader}>내 정보</div>
-            <h2>님 반갑습니다.</h2>
+            <h2>{sessionStorage.getItem("user_ID")}님 반갑습니다.</h2>
             <div className={styles.listWrap}>
               <div className={styles.listTag}>가입일</div>
               <div className={styles.listInfo}>~~</div>

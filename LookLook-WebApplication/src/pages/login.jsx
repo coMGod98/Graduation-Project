@@ -6,6 +6,19 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
 
+  const navigate = useNavigate();
+
+  //입력 아이디 값
+  const[inputID, setInputID] = useState("");
+  const inputIDChange = (e) => {
+    setInputID(e.target.value);
+  }
+  //입력 비밀번호 값
+  const [inputPW, setInputPW] = useState("");
+  const passwdChange = (e) => {
+    setInputPW(e.target.value);
+  }
+
   // role 구매자:0 판매자:1 관리자:2
   const [role, setRole] = useState("0");
   const role0Change = () => {
@@ -18,27 +31,17 @@ function Login() {
     setRole("2");
   }
 
-  const navigate = useNavigate();
-
-  const[uID, setUID] = useState("");
-  const uIDChange = (e) => {
-    setUID(e.target.value);
-  }
-  const [passwd, setPasswd] = useState("");
-  const passwdChange = (e) => {
-    setPasswd(e.target.value);
-  }
-
   // 로그인 submit 버튼 입력 처리
   const submitHandler = (e) => {
     e.preventDefault();
-    if(uID === "" || passwd === "") {
+    if(inputID === "" || inputPW === "") {
       alert("ID 및 비밀번호를 입력해주세요!");
-    } else if (uID.length < 8) {
+    } else if (inputID.length < 8) {
       alert("아이디는 8~16자 이내로 입력해주세요!");
     } else {
       if(role==="0") {
         navigate("/");
+        sessionStorage.setItem("user_ID", inputID);
       } else if(role==="1") {
         alert("판매자 페이지로 이동");
       } else {
@@ -84,15 +87,15 @@ function Login() {
 
 
           <form onSubmit={submitHandler}>
-            <input onChange={uIDChange} pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$]{8,16}$"
+            <input onChange={inputIDChange} pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$]{8,16}$"
             type="text" name="id" placeholder="아이디" 
             minLength="8" maxLength="16" required/>
             <input onChange={passwdChange} type={passwordType.type}
              name="pw" placeholder="비밀번호" maxLength="20" required/>
 
             <div className={styles.hidePwWrap}>
-            {console.log(uID)}
-            {console.log(passwd)}
+            {console.log(inputID)}
+            {console.log(inputPW)}
               <img onClick={handlePasswordType}
               src={require("../images/eye_button.png")} alt="pwHide"/>
               {passwordType.type === "password" 

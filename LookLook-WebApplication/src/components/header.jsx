@@ -12,10 +12,9 @@ import Swal from "sweetalert2";
 
 
 function Header() {
-
-  const handleButtonClick = () => { 
-    Swal.fire('모달 테스트');
-    };
+  // const handleButtonClick = () => { 
+  //   Swal.fire('모달 테스트');
+  // };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
@@ -97,10 +96,13 @@ function Header() {
             {isFashionHover && <FashionDropdown />}</span>
           </div>
 
+          <Link to="/avatarPage">
             <button
-            className={styles.avatarBtn}>
+              className={styles.avatarBtn}>
               캐릭터 커스텀
             </button>
+          </Link>
+            
             
             {/* <div>
               <button onClick={openModal}>모달 열기</button>

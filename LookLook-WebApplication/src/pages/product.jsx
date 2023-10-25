@@ -6,11 +6,9 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import products from "../products.json";
 import PutItem from "../components/putItem"
-import Test from "../components/test"
 
 function Product() {
   const {id} = useParams();
-  
 
   const sizeList = ["사이즈 선택", "M", "L", "XL"];
   const colorList = ["색상 선택", "블랙", "화이트"];

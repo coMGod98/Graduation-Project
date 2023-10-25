@@ -4,17 +4,37 @@ import styles from "./cart.module.css";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import CartItem from "../components/cartItem";
+import Products from "../products.json";
 
 function Cart(prods) {
+
+  // const list = Products.slice(0, 4);
+  
+  // const removeProduct = id => {
+  //   setProduct(
+  //     product.filter(list => {
+  //       return list.id !== id;
+  //     })
+  //   );
+  //   setCheckedArr(
+  //     checkedArr.filter(checked => {
+  //       return checked.id !== id;
+  //     })
+  //   );
+  // };
+
+
   const [quantity, setQuantity] = useState(1);
   const [stock, setStock] = useState(10);
 
   return (
+    
     <>
       <Header />
       <div className={styles.CartSection}>
         <div className={styles.CartWrap}>
           <div className={styles.CartHeader}>장바구니</div>
+          {sessionStorage.setItem("size", "M")}
           
           <div className={styles.orderWrap}>
             <div style={{backgroundColor: 'rgb(184, 223, 255)'}}
@@ -53,12 +73,6 @@ function Cart(prods) {
           </div>
 
           
-
-
-
-
-
-
 
         </div>
       </div>
