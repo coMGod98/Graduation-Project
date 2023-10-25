@@ -6,21 +6,14 @@ import NewList from "../components/newList";
 import styles from "./main.module.css";
 import { Link } from "react-router-dom";
 import Products from "../products.json"
-
-// import { useDispatch, useSelector } from "react-redux";
-// import { down, up } from "../store/counterSlice.js";
-
+import { useState, useEffect } from "react";
 
 function Main() {
-  // const dispatch = useDispatch();
-  // const count = useSelector((state) => {
-  //   console.log(state);
-  //   return state.counter.value;
-  // });
-  const prods = Products.slice(0, 4);
+
   return (
     <>
       <Header />
+      {msg.map((content, idx) => <li key={`${idx} - ${content}`}>{content}</li>)}
       <Banner />
       <div className={styles.mainSection}>
         <div className={styles.mainHeader}>인기 상품</div>
