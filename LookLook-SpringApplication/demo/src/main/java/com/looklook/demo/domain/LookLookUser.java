@@ -33,16 +33,6 @@ public class LookLookUser {
     @Column(name = "EMAIL")
     private String email;
 
-    @Builder
-    public LookLookUser(String userName, String userId, String password, Authority authority, String sex, String phoneNumber, String address, String email) {
-        this.userName = userName;
-        this.userId = userId;
-        this.password = password;
-        this.sex = sex;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.email = email;
-    }
 
     public static LookLookUser createUser(UserForm userForm,
                                             PasswordEncoder passwordEncoder) {
