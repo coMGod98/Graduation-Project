@@ -1,0 +1,36 @@
+.dropdownSection {
+  background-color: white;
+  left: -326px;
+  top: 44px;
+  border: 1px solid gray;
+  position: absolute;
+  width: 1200px;
+  height: 170px;
+  display: flex;
+  justify-content: center;
+}
+
+.dropdownSection div {
+  width: 120px;
+  height: 150px;
+  display: block;
+  margin: 10px;
+  display: block;
+  text-align: center;
+}
+
+.dropdownSection div img {
+  width: 100px;
+  height: 100px;
+  left: 50%;
+  border-radius: 100%;
+  border: 1px solid rgb(180, 180, 180);
+  display: block;
+  margin: 0 auto;
+  margin-top: 5px;
+}
+
+.dropdownSection p {
+  color: black;
+  margin-top: 10px;
+}
