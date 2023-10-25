@@ -1,6 +1,5 @@
 package com.looklook.demo.domain;
 
-import com.looklook.demo.domain.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 

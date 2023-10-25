@@ -1,16 +1,16 @@
-//item테이블
-CREATE TABLE item (
-                      item_id BIGINT NOT NULL,
-                      item_detail LONGTEXT NOT NULL,
-                      item_name VARCHAR(255) NOT NULL,
-                      price INTEGER NOT NULL,
-                      stock_number INTEGER NOT NULL,
-                      item_sell_status VARCHAR(255),
-                      update_time DATETIME,
-                      PRIMARY KEY (item_id)
-);      //예전 코드임, 다시 업데이트 해서 올릴 예정
-ALTER TABLE item
-    ADD CONSTRAINT fk_item_users FOREIGN KEY (sid) REFERENCES users (uid);
+-- //item테이블
+-- CREATE TABLE item (
+--                       item_id BIGINT NOT NULL,
+--                       item_detail LONGTEXT NOT NULL,
+--                       item_name VARCHAR(255) NOT NULL,
+--                       price INTEGER NOT NULL,
+--                       stock_number INTEGER NOT NULL,
+--                       item_sell_status VARCHAR(255),
+--                       update_time DATETIME,
+--                       PRIMARY KEY (item_id)
+-- );      //예전 코드임, 다시 업데이트 해서 올릴 예정
+-- ALTER TABLE item
+--     ADD CONSTRAINT fk_item_users FOREIGN KEY (sid) REFERENCES users (uid);
 
 
 
@@ -89,16 +89,16 @@ ALTER TABLE order_item
 
 
 //item_img테이블
-create table item_img (
-                          item_img_id bigint not null,
-                          img_name varchar(30) not null,
-                          ori_img_name varchar(30) not null,
-                          img_url varchar(255) not null,
-                          rep_img varchar(30) not null,
-                          detail_img varchar(30) not null,
-                          item_id bigint not null,
-                          primary key(item_img_id)
-);
-ALTER TABLE order_item
-    ADD CONSTRAINT fk_img_url_item FOREIGN KEY (item_id) REFERENCES item (item_id);
+-- create table item_img (
+--                           item_img_id bigint not null,
+--                           img_name varchar(30) not null,
+--                           ori_img_name varchar(30) not null,
+--                           img_url varchar(255) not null,
+--                           rep_img varchar(30) not null,
+--                           detail_img varchar(30) not null,
+--                           item_id bigint not null,
+--                           primary key(item_img_id)
+-- );
+-- ALTER TABLE order_item
+--     ADD CONSTRAINT fk_img_url_item FOREIGN KEY (item_id) REFERENCES item (item_id);
 
