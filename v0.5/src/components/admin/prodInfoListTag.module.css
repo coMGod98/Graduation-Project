@@ -1,0 +1,35 @@
+.section {
+  color: white;
+  background-color: rgb(40, 60, 90);
+  font-size: 15px;
+  padding: 7px;
+  display: flex;
+  text-align: middle;
+}
+
+.section div {
+  display: flex;
+  align-items: center;
+}
+
+.item1 {
+  width: 13%;
+}
+.item2 {
+  width: 28%;
+}
+.item3 {
+  width: 14%;
+}
+.item4 {
+  width: 10%;
+}
+.item5 {
+  width: 7%;
+}
+.item6 {
+  width: 18%;
+}
+.item7 {
+  width: 10%;
+}
