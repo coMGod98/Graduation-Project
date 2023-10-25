@@ -1,11 +1,15 @@
 package com.looklook.demo.service;
 
+import com.looklook.demo.domain.ItemImg;
+//import com.looklook.demo.service.ItemImgService;
 import com.looklook.demo.dto.ItemFormDto;
 import com.looklook.demo.dto.ItemImgDto;
-import com.looklook.demo.dto.ItemSearchDto;
-
+//import com.looklook.demo.dto.ItemSearchDto;
+//import com.looklook.demo.dto.MainItemDto;
 import com.looklook.demo.domain.Item;
 import com.looklook.demo.domain.ItemImg;
+//import com.looklook.demo.dto.ItemSearchDto;
+import com.looklook.demo.dto.ItemSearchDto;
 import com.looklook.demo.repository.ItemImgRepository;
 import com.looklook.demo.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,20 +35,21 @@ public class ItemService {
     private final ItemImgRepository itemImgRepository;
 
     // 상품 등록
-    public Long saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
+    public Long saveItem(ItemFormDto itemFormDto,
+                         List<MultipartFile> itemImgFileList) throws Exception {
 
-        // 상품 등록 (1번)
+        // 상품 등록
         Item item = itemFormDto.createItem();
         itemRepository.save(item);
 
-        // 이미지 등록(2번, 순서중요)
+        // 이미지 등록
         for (int i = 0; i < itemImgFileList.size(); i++) {
             ItemImg itemimg = new ItemImg();
             itemimg.setItem(item);
             if (i == 0) {
-                itemimg.setRepimgYn("Y");
+                itemimg.setRepImgYn("Y");
             } else{
-                itemimg.setRepimgYn("N");
+                itemimg.setRepImgYn("N");
             }
             itemImgService.saveItemImg(itemimg, itemImgFileList.get(i));
         }
@@ -58,32 +63,34 @@ public class ItemService {
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
     }
 
-    // 상품 조회
-    @Transactional(readOnly = true)
-    public ItemFormDto getItemDetail(Long itemId) {
+//    // 상품 조회
+//    @Transactional(readOnly = true)
+//    public ItemFormDto getItemDetail(Long itemId) {
+//
+//        // 상품 이미지 엔티티들을 itemImgDto 객체로 변환하여 itemImgDtoList 에 담음
+//        List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
+//        List<ItemImgDto> itemImgDtoList = new ArrayList<>();
+//
+//        for (ItemImg itemImg : itemImgList) {
+//            ItemImgDto itemImgDto = ItemImgDto.of(itemImg);
+//            itemImgDtoList.add(itemImgDto);
+//        }
+//
+//        // 상품 엔티티를 ItemFormDto 객체로 변환하고 itemImgDtoList 멤버변수를 초기화
+//        Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
+//
+//        ItemFormDto itemFormDto = ItemFormDto.of(item);
+//        itemFormDto.setItemImgDtoList(itemImgDtoList);
+//        return itemFormDto;
+//
+//    }
 
-        // 상품 이미지 엔티티들을 itemImgDto 객체로 변환하여 itemImgDtoList 에 담음
-        List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
-        List<ItemImgDto> itemImgDtoList = new ArrayList<>();
 
-        for (ItemImg itemImg : itemImgList) {
-            ItemImgDto itemImgDto = ItemImgDto.of(itemImg);
-            itemImgDtoList.add(itemImgDto);
-        }
-
-        // 상품 엔티티를 ItemFormDto 객체로 변환하고 itemImgDtoList 멤버변수를 초기화
-        Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
-        ItemFormDto itemFormDto = ItemFormDto.of(item);
-        itemFormDto.setItemImgDtoList(itemImgDtoList);
-        return itemFormDto;
-
-    }
-
-    // 상품 수정
     public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws IOException {
 
         // 상품 수정
-        Item item = itemRepository.findById(itemFormDto.getId()).orElseThrow(EntityNotFoundException::new);
+        Item item=itemRepository.findById(itemFormDto.getId())
+                .orElseThrow(EntityNotFoundException::new);
         item.updateItem(itemFormDto);
 
         // 상품 이미지 수정
@@ -95,7 +102,7 @@ public class ItemService {
         return item.getId();
     }
 
-    // 메인 페이지 상품 목록 조회
+//    // 메인 페이지 상품 목록 조회
 //    @Transactional(readOnly = true)
 //    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
 //        return itemRepository.getMainItemPage(itemSearchDto, pageable);

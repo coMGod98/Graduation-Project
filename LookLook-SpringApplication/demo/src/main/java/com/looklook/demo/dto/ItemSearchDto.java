@@ -1,10 +1,11 @@
 package com.looklook.demo.dto;
 
-import com.looklook.demo.dto.ItemSellStatus;
+import com.looklook.demo.domain.ItemSellStatus;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class ItemSearchDto {
 
     private String searchDateType;

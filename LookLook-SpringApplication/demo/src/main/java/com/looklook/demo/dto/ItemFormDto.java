@@ -1,6 +1,8 @@
 package com.looklook.demo.dto;
 
-import com.looklook.demo.dto.ItemSellStatus;
+import com.looklook.demo.domain.Category;
+import com.looklook.demo.dto.ItemImgDto;
+import com.looklook.demo.domain.ItemSellStatus;
 import com.looklook.demo.domain.Item;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,17 +18,32 @@ public class ItemFormDto {
 
     private Long id;
 
-    @NotBlank(message = "상품명 필수 입력")
+    @NotBlank(message = "상품명은 필수 입력 값입니다.")
     private String itemName;
 
-    @NotNull(message = "가격 필수 입력 값.")
+    @NotNull(message = "가격은 필수 입력 값입니다.")
     private Integer price;
 
-    @NotBlank(message = "상품 상세 필수 입력")
+    @NotBlank(message = "상품 상세는 필수 입력 값입니다.")
     private String itemDetail;
 
-    @NotNull(message = "재고 필수 입력")
+    @NotNull(message = "재고는 필수 입력 값입니다.")
     private Integer stock;
+
+    @NotNull(message = "상품 카테고리는 필수 선택 값입니다.")
+    private Category category;
+
+    @NotBlank
+    private String color;
+
+    @NotBlank
+    private String pgender;
+
+    @NotBlank
+    private String size;
+
+    @NotBlank
+    private String uid;
 
     private ItemSellStatus itemSellStatus;
 
@@ -43,6 +60,6 @@ public class ItemFormDto {
 
     // Entity -> DTO
     public static ItemFormDto of(Item item){
-        return modelMapper.map(item,ItemFormDto.class);
+        return modelMapper.map(item, ItemFormDto.class);
     }
 }

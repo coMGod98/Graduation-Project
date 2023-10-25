@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 @Setter
 @NoArgsConstructor
 public class UserForm {
-    @NotEmpty(message = "사용자ID는 필수항목입니다.")
+ @NotEmpty(message = "사용자ID는 필수항목입니다.")
     private String userId;
     @NotEmpty(message = "사용자 이름은 필수항목입니다.")
     private String userName;

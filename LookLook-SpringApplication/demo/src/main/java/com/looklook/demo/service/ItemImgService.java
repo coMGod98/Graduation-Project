@@ -24,7 +24,7 @@ public class ItemImgService {
     private final ItemImgRepository itemImgRepository;
 
     // 상품 이미지 저장
-    public void saveItemImg(ItemImg itemimg, MultipartFile itemImgFile) throws IOException {
+    public void saveItemImg(ItemImg productImg, MultipartFile itemImgFile) throws IOException {
 
         String oriImgName = itemImgFile.getOriginalFilename();
         String imgName = "";
@@ -38,8 +38,8 @@ public class ItemImgService {
 
 
         // 상품 이미지 정보 저장
-        itemimg.updateItemImg(oriImgName, imgName, imgUrl);
-        itemImgRepository.save(itemimg);
+        productImg.updateItemImg(oriImgName, imgName, imgUrl);
+        itemImgRepository.save(productImg);
     }
 
     // 상품 이미지 수정
@@ -47,7 +47,8 @@ public class ItemImgService {
 
         // 상품 이미지를 수정했다면
         if (!itemImgFile.isEmpty()) {
-            ItemImg savedItemImg = itemImgRepository.findById(itemImgId).orElseThrow(EntityNotFoundException::new);
+            ItemImg savedItemImg = itemImgRepository.findById(itemImgId).
+                    orElseThrow(EntityNotFoundException::new);
 
             // 기존 이미지 파일이 존재한다면 삭제
             if (!StringUtils.isEmpty(savedItemImg.getImgName())) {

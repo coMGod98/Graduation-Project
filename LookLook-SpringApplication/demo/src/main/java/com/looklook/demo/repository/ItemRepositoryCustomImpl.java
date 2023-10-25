@@ -1,35 +1,30 @@
 package com.looklook.demo.repository;
 
-
-import com.looklook.demo.dto.ItemSellStatus;
+import com.looklook.demo.domain.Item;
+import com.looklook.demo.domain.ItemSellStatus;
+import com.looklook.demo.domain.QItem;
+import com.looklook.demo.dto.ItemSearchDto;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.looklook.demo.dto.ItemSellStatus;
-import com.looklook.demo.dto.ItemSearchDto;
-import com.looklook.demo.dto.MainItemDto;
-import com.looklook.demo.dto.QMainItemDto;
-import com.looklook.demo.domain.Item;
-import com.looklook.demo.domain.QItem;
-import com.looklook.demo.domain.QItemImg;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
+
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 
 
-public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
+public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
+
     private JPAQueryFactory queryFactory;
 
-    // 생성자 DI를 통해서 JPAQueryFactory(EntityManager) 주입
-    public ItemRepositoryCustomImpl(EntityManager em){
-        this.queryFactory = new JPAQueryFactory(em);
+    public ItemRepositoryCustomImpl(EntityManager em) {
+        this.queryFactory=new JPAQueryFactory(em);
     }
 
-    // 상품 등록일에 대한 조회 조건 BooleanExpression
     private BooleanExpression regDtsAfter(String searchDateType) {
         LocalDateTime dateTime = LocalDateTime.now();
 
@@ -45,7 +40,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
             dateTime = dateTime.minusMonths(6);
         }
 
-        return .item.regTime.after(dateTime);
+        return QItem.item.regTime.after(dateTime);
     }
 
     // 상품 상태에 대한 조회 조건 BooleanExpression
@@ -88,35 +83,6 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         long total = results.getTotal();
 
         // Page 인터페이스를 구현한 PageImpl 객체 반환
-        return new PageImpl<>(content, pageable, total);
-    }
-
-    @Override
-    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
-
-        QItem item = QItem.item;
-        QItemImg itemImg = QItemImg.itemImg;
-
-        QueryResults<MainItemDto> result = queryFactory
-                .select(
-                        new QMainItemDto(
-                                item.id,
-                                item.itemName,
-                                item.itemDetail,
-                                itemImg.imgUrl,
-                                item.price)
-                )
-                .from(itemImg)
-                .join(itemImg.item, item)
-                .where(itemImg.repimgYn.eq("Y"))
-                .where(itemNameLike(itemSearchDto.getSearchQuery()))
-                .orderBy(item.id.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetchResults();
-
-        List<MainItemDto> content = result.getResults();
-        long total = result.getTotal();
         return new PageImpl<>(content, pageable, total);
     }
 }

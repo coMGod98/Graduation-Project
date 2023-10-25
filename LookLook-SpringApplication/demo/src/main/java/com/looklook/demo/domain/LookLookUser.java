@@ -1,6 +1,8 @@
 package com.looklook.demo.domain;
 
+import com.looklook.demo.dto.UserForm;
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
@@ -8,9 +10,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name="USERS")
-@NoArgsConstructor
-
+@Table(name="users")
+@ToString
 public class LookLookUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,18 +26,15 @@ public class LookLookUser {
 
     @Column(name = "SEX")
     private String sex;
-
     @Column(name = "PNUMBER")
     private String phoneNumber;
     @Column(name = "ADDRESS")
     private String address;
-
     @Column(name = "EMAIL")
     private String email;
 
-    //    private List<Order> orders = new ArrayList<>();
     @Builder
-    public LookLookUser(String userName, String userId, String password, String sex, String phoneNumber, String address, String email) {
+    public LookLookUser() {
         this.userName = userName;
         this.userId = userId;
         this.password = password;
@@ -44,5 +42,21 @@ public class LookLookUser {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.email = email;
+    }
+
+    public static LookLookUser createUser(UserForm userForm,
+                                            PasswordEncoder passwordEncoder) {
+        LookLookUser user = new LookLookUser();
+
+        user.setUserId(userForm.getUserId());
+        user.setUserName(userForm.getUserName());
+        user.setEmail(userForm.getEmail());
+        user.setAddress(userForm.getAddress());
+        user.setSex(userForm.getSex());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        String password = passwordEncoder.encode(userForm.getPassword());
+        user.setPassword(password);
+
+        return user;
     }
 }
