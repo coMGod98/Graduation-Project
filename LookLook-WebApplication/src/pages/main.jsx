@@ -1,19 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../components/header";
 import Banner from "../components/banner";
 import HotList from "../components/hotList";
 import NewList from "../components/newList";
 import styles from "./main.module.css";
-import { Link } from "react-router-dom";
-import Products from "../products.json"
-import { useState, useEffect } from "react";
+import Products from "../products.json";
 
 function Main() {
+  const prods = Products.slice(0, 4);
 
   return (
     <>
       <Header />
-      {msg.map((content, idx) => <li key={`${idx} - ${content}`}>{content}</li>)}
       <Banner />
       <div className={styles.mainSection}>
         <div className={styles.mainHeader}>인기 상품</div>
@@ -22,24 +20,6 @@ function Main() {
         <NewList list={prods}/>
         
       </div>
-
-      {/* <div>
-        <h1>Count:{count}</h1>
-        <button
-          onClick={() => {
-            dispatch(up());
-          }}
-        >
-          +1
-        </button>
-        <button
-          onClick={() => {
-            dispatch(down());
-          }}
-        >
-          -1
-        </button>
-      </div> */}
     </>
   );
 }

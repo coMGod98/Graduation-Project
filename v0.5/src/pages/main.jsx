@@ -1,23 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../components/header";
 import Banner from "../components/banner";
 import HotList from "../components/hotList";
 import NewList from "../components/newList";
 import styles from "./main.module.css";
-import { Link } from "react-router-dom";
-import Products from "../products.json"
-
-// import { useDispatch, useSelector } from "react-redux";
-// import { down, up } from "../store/counterSlice.js";
-
+import Products from "../products.json";
 
 function Main() {
-  // const dispatch = useDispatch();
-  // const count = useSelector((state) => {
-  //   console.log(state);
-  //   return state.counter.value;
-  // });
   const prods = Products.slice(0, 4);
+
   return (
     <>
       <Header />
@@ -29,24 +20,6 @@ function Main() {
         <NewList list={prods}/>
         
       </div>
-
-      {/* <div>
-        <h1>Count:{count}</h1>
-        <button
-          onClick={() => {
-            dispatch(up());
-          }}
-        >
-          +1
-        </button>
-        <button
-          onClick={() => {
-            dispatch(down());
-          }}
-        >
-          -1
-        </button>
-      </div> */}
     </>
   );
 }
