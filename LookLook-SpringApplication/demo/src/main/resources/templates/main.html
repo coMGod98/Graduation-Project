@@ -8,7 +8,7 @@
 <body>
 <h1>main page</h1>
 <div class="btn">
-    <a th:href="@{/sign-up}">
+    <a th:href="@{/signup}">
         <button sec:authorize="!isAuthenticated()" class="btn btn-lg btn-secondary">회원가입</button>
     </a>
     <a th:href="@{/login}">

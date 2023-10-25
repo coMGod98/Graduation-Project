@@ -1,5 +1,7 @@
 package com.looklook.demo.domain;
 
+import com.looklook.demo.dto.UserDto;
+import com.looklook.demo.dto.UserResponseDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Table(name="USERS")
 @NoArgsConstructor
-
+@ToString
 public class LookLookUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +24,9 @@ public class LookLookUser {
     private String userId;
     @Column(name = "USERPW")
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
 
     @Column(name = "SEX")
     private String sex;
@@ -36,13 +41,28 @@ public class LookLookUser {
 
     //    private List<Order> orders = new ArrayList<>();
     @Builder
-    public LookLookUser(String userName, String userId, String password, String sex, String phoneNumber, String address, String email) {
+    public LookLookUser(String userName, String userId, String password, Authority authority, String sex, String phoneNumber, String address, String email) {
         this.userName = userName;
         this.userId = userId;
         this.password = password;
+        this.authority = authority;
         this.sex = sex;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.email = email;
+    }
+
+    public UserResponseDto toUserResponseDto(LookLookUser user) {
+        UserResponseDto dto = new UserResponseDto();
+        System.out.println("domain: "+user.getId());
+        dto.setUid(user.getId());
+        System.out.println("dto: "+dto.getUid());
+
+        dto.setUserId(user.getUserId());
+        dto.setUserName(user.getUserName());
+        dto.setEmail(user.getEmail());
+        dto.setPhoneNumber(user.getPhoneNumber());
+        dto.setAddress(user.getAddress());
+        return dto;
     }
 }
