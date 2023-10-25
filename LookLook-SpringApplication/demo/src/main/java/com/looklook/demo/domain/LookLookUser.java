@@ -1,8 +1,13 @@
 package com.looklook.demo.domain;
 
+<<<<<<< HEAD
 import com.looklook.demo.dto.UserDto;
 import com.looklook.demo.dto.UserResponseDto;
+=======
+import com.looklook.demo.dto.UserForm;
+>>>>>>> Back-End-2
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
@@ -10,8 +15,11 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+<<<<<<< HEAD
 @Table(name="USERS")
 @NoArgsConstructor
+=======
+>>>>>>> Back-End-2
 @ToString
 public class LookLookUser {
     @Id
@@ -30,18 +38,19 @@ public class LookLookUser {
 
     @Column(name = "SEX")
     private String sex;
-
     @Column(name = "PNUMBER")
     private String phoneNumber;
     @Column(name = "ADDRESS")
     private String address;
-
     @Column(name = "EMAIL")
     private String email;
 
-    //    private List<Order> orders = new ArrayList<>();
     @Builder
+<<<<<<< HEAD
     public LookLookUser(String userName, String userId, String password, Authority authority, String sex, String phoneNumber, String address, String email) {
+=======
+    public LookLookUser() {
+>>>>>>> Back-End-2
         this.userName = userName;
         this.userId = userId;
         this.password = password;
@@ -52,6 +61,7 @@ public class LookLookUser {
         this.email = email;
     }
 
+<<<<<<< HEAD
     public UserResponseDto toUserResponseDto(LookLookUser user) {
         UserResponseDto dto = new UserResponseDto();
         System.out.println("domain: "+user.getId());
@@ -64,5 +74,21 @@ public class LookLookUser {
         dto.setPhoneNumber(user.getPhoneNumber());
         dto.setAddress(user.getAddress());
         return dto;
+=======
+    public static LookLookUser createUser(UserForm userForm,
+                                            PasswordEncoder passwordEncoder) {
+        LookLookUser user = new LookLookUser();
+
+        user.setUserId(userForm.getUserId());
+        user.setUserName(userForm.getUserName());
+        user.setEmail(userForm.getEmail());
+        user.setAddress(userForm.getAddress());
+        user.setSex(userForm.getSex());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        String password = passwordEncoder.encode(userForm.getPassword());
+        user.setPassword(password);
+
+        return user;
+>>>>>>> Back-End-2
     }
 }
