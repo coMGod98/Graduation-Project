@@ -34,7 +34,7 @@ public class LookLookUser {
     private String email;
 
     @Builder
-    public LookLookUser() {
+    public LookLookUser(String userName, String userId, String password, Authority authority, String sex, String phoneNumber, String address, String email) {
         this.userName = userName;
         this.userId = userId;
         this.password = password;
