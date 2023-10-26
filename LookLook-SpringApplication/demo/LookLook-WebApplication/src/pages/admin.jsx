@@ -35,7 +35,7 @@ function Admin() {
           <div className={styles.adminInfoWrap}>
             <h3>님 반갑습니다.</h3>
             <img onClick={logoutClick}
-                 src={require("../images/logout.png")} alt="logout" />
+            src={require("../images/logout.png")} alt="logout" />
           </div>
 
           {menu === "userManage" 

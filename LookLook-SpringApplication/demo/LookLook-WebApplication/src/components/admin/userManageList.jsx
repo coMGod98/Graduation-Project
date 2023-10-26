@@ -19,7 +19,7 @@ function UserManageList() {
       <div className={styles.item7}>서울특별시 ~~구 ~~동 ~~</div>
       <div className={styles.item8}>
         <img onClick={modClick}
-             src={require("../../images/mod.png")} alt="mod" />
+        src={require("../../images/mod.png")} alt="mod" />
       </div>
     </div>
   );

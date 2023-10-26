@@ -7,7 +7,7 @@ function Banner() {
     <>
       <Link to="/">
         <img
-            src={require("../images/main_banner.png")} alt="logo"/>
+        src={require("../images/main_banner.png")} alt="logo"/>
       </Link>
     </>
   )

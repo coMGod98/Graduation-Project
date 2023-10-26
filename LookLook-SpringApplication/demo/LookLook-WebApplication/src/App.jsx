@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
+import axios from 'axios';
 
 import Main from "./pages/main";
 import Product from "./pages/product";
@@ -10,7 +11,7 @@ import WomanList from "./pages/womanList";
 import OuterList from "./pages/outerList";
 import ShoesList from "./pages/shoesList";
 import FashionList from "./pages/fashionList";
-import MyPage from "./pages/mypage";
+import MyPage from "./pages/myPage";
 import Cart from "./pages/cart";
 import OrderSheet from "./pages/orderSheet";
 import OrderResult from "./pages/orderResult";

@@ -19,27 +19,6 @@
   justify-content: center;
 }
 
-
-.loginSection .idInputWrap .roleWrap {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
-.loginSection .idInputWrap .roleWrap button {
-  background-color: white;
-  border: 1px solid rgb(156, 156, 156);
-  width: 200px;
-  text-align: center;
-  margin: 10px;
-  padding: 10px;
-}
-
-
-
-
-
-
 .loginSection .idInputWrap span {
   font-size: 28px;
   font-weight: 700;

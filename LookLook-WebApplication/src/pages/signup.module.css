@@ -59,7 +59,7 @@
 .signupSection .userInfo .userInfoTags {
   font-size: 17px;
   width: 150px;
-  height: 530px;
+  height: 430px;
   float: left;
   text-align: end;
   margin-right: 50px;
@@ -67,7 +67,7 @@
 
 .signupSection .userInfo .userInfoWrap {
   width: 400px;
-  height: 530px;
+  height: 430px;
   float: left;
 }
 
