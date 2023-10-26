@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import OrderHistory from "../components/orderHistory";
 import { Navigate } from "react-router-dom";
-import axios from "axios";
+import axios from 'axios';
 
 function MyPage() {
 
@@ -57,12 +57,11 @@ function MyPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
-    axios.get('', {
+    axios.get('/mypage/user', {
       params: sessionStorage.getItem("accessToken")
     })
     .then(function(response) {
-      console.log(resopnse.data);
+      console.log(response);
     })
     .catch(function(error) {
       console.log(error);

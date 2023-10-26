@@ -27,7 +27,7 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserResponseDto> signup(@Valid UserForm userDto, BindingResult bindingResult) {
+    public ResponseEntity<UserResponseDto> signup(@RequestBody @Valid UserForm userDto, BindingResult bindingResult) {
         System.out.println("UserDto: "+ userDto.toString());
         if (bindingResult.hasErrors() || !userDto.getPassword().equals(userDto.getPasswordChk())) {
             bindingResult.rejectValue("passwordChk", "passwordInCorrect", "2개의 패스워드가 일치하지 않습니다.");

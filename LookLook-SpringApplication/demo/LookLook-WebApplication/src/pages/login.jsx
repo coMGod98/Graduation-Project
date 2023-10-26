@@ -3,7 +3,7 @@ import Header from "../components/header";
 import styles from "./login.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from 'axios';
 
 function Login() {
 
@@ -43,45 +43,115 @@ function Login() {
       const axios = require('axios'); // Node.js 환경에서 사용하는 경우
 
 
-      // 첫 번째 요청 (POST /login)
-      axios.post('/login')
-        .then((firstResponse) => {
-          if (!firstResponse.data) {
-            throw new Error('First request failed');
-          }
-          const accessToken = firstResponse.data.accessToken; // accessToken 추출
-          sessionStorage.setItem('accessToken', accessToken); // localStorage에 저장
-      
-          // 두 번째 요청 (GET /admin_chk)
-          return axios.get('/admin_chk', {
-            headers: {
-              'Authorization': `Bearer ${accessToken}`,
-            },
+      fetch('/login', {
+        method: 'post',
+        headers: {
+          "Content-Type":"application/json"
+        },
+        body: {
+          userId: inputID,
+          password: inputPW
+        }
+      })
+          .then(firstResponse => {
+            const accessToken = firstResponse.data.accessToken; // accessToken 추출
+            sessionStorage.setItem('accessToken', accessToken);
+
+            return fetch('/admin_chk', {
+              headers: {
+                'Authorization': `Bearer ${accessToken}`,
+              },
+            });
+          })
+          .then((secondResponse) => {
+            const adminChk = secondResponse.data.admin_chk;
+            const accessToken = sessionStorage.getItem('accessToken');
+
+            // 세 번째 요청 (GET /admin 또는 GET /main)
+            adminChk ? navigate("/admin") : navigate("/");
+          })
+          .catch((error) => {
+            // 오류 처리
+            console.error('오류:', error);
           });
-        })
-        .then((secondResponse) => {
-          if (!secondResponse.data) {
-            throw new Error('Second request failed');
-          }
-          const adminChk = secondResponse.data.admin_chk;
-          const accessToken = sessionStorage.getItem('accessToken');
-      
-          // 세 번째 요청 (GET /admin 또는 GET /main)
-          const url = adminChk ? '/admin' : '/main';
-          return axios.get(url, {
-            headers: {
-              'Authorization': `Bearer ${accessToken}`,
-            },
-          });
-        })
-        .then((thirdResponse) => {
-          // 세 번째 응답 데이터를 처리
-          console.log(thirdResponse.data);
-        })
-        .catch((error) => {
-          // 오류 처리
-          console.error('오류:', error);
-        });
+
+
+
+      // // 첫 번째 요청 (POST /login)
+      // axios.post('/login', {
+      //   userId: inputID,
+      //   password: inputPW
+      // })
+      //   .then((firstResponse) => {
+      //     const accessToken = firstResponse.data.accessToken; // accessToken 추출
+      //     sessionStorage.setItem('accessToken', accessToken); // localStorage에 저장
+      //
+      //     return axios.get('/admin_chk', {
+      //       headers: {
+      //         'Authorization': `Bearer ${accessToken}`,
+      //       },
+      //     });
+      //   })
+      //   .then((secondResponse) => {
+      //     const adminChk = secondResponse.data.admin_chk;
+      //     const accessToken = sessionStorage.getItem('accessToken');
+      //
+      //     // 세 번째 요청 (GET /admin 또는 GET /main)
+      //     adminChk ? navigate("/admin") : navigate("/");
+      //   })
+      //   .catch((error) => {
+      //     // 오류 처리
+      //     console.error('오류:', error);
+      //   });
+
+
+
+
+
+      // axios.post('/login', {
+      //   userId: inputID,
+      //   password: inputPW
+      // })
+      //     .then((firstResponse) => {
+      //       if (!firstResponse.data) {
+      //         throw new Error('First request failed');
+      //       }
+      //       const accessToken = firstResponse.data.accessToken; // accessToken 추출
+      //       sessionStorage.setItem('accessToken', accessToken); // localStorage에 저장
+      //
+      //       // 두 번째 요청 (GET /admin_chk)
+      //       return axios.get('/admin_chk', {
+      //         headers: {
+      //           'Authorization': `Bearer ${accessToken}`,
+      //         },
+      //       });
+      //     })
+      //     .then((secondResponse) => {
+      //       if (!secondResponse.data) {
+      //         throw new Error('Second request failed');
+      //       }
+      //       const adminChk = secondResponse.data.admin_chk;
+      //       const accessToken = sessionStorage.getItem('accessToken');
+      //
+      //       // 세 번째 요청 (GET /admin 또는 GET /main)
+      //       const url = adminChk ? '/admin' : '/main';
+      //       return axios.get(url, {
+      //         headers: {
+      //           'Authorization': `Bearer ${accessToken}`,
+      //         },
+      //       });
+      //     })
+      //     .then((thirdResponse) => {
+      //       // 세 번째 응답 데이터를 처리
+      //       console.log(thirdResponse.data);
+      //     })
+      //     .catch((error) => {
+      //       // 오류 처리
+      //       console.error('오류:', error);
+      //     });
+
+
+
 
         // const inputToken = "";
 
