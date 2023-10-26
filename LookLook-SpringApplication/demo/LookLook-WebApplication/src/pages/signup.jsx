@@ -21,44 +21,32 @@ function SignUp() {
       console.log(values);
       alert("주소를 입력해주세요!");
     } else {
-
-
-
       fetch('/signup', {
         method: 'post',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(
-            {
-              userId: values.userId,
-              userName: values.userName,
-              password: values.password,
-              passwordChk: values.pwVer,
-              sex: values.gender,
-              phoneNumber: values.phoneNumber,
-              address: values.address,
-              email: values.email,
-            }
+          {
+            userId: values.userId,
+            userName: values.userName,
+            password: values.password,
+            sex: values.gender,
+            phoneNumber: values.phoneNumber,
+            address: values.address,
+            email: values.email,
+          }
         )
       })
-          .then((response) => {
-            console.log(response);
-            return response;
-          })
-          .catch((error) => {
-            // 오류 처리
-            console.log('오류:', error);
-            return error;
-          })
-
-
-
-        .then((response) => response.json())
-        .then((result) => {
-          console.log("회원가입 성공", result);
-        })
-
-      navigate("/signupResult");
-      console.log(values);
+      .then(res => res.json())
+      .then(res => {
+        if (res.status === 500) {
+          alert(res.message);
+        } else {
+          navigate("/signupResult")
+        }
+      })
+      .catch(error => {
+        console.log("오류: ", error);
+      })
     }
   }
 
