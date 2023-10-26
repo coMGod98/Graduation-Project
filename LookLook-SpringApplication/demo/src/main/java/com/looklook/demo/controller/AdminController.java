@@ -10,6 +10,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -52,4 +53,14 @@ public class AdminController {
     }
 
     // 사용자 삭제
+    @PostMapping("/admin/user-withdrawal")
+    public ResponseEntity<String> deleteUserInfo(UserRequestDto[] dtos) {
+        List<UserRequestDto> dtoList = Arrays.asList(dtos);
+
+        dtoList.stream().forEach(dto -> {
+            userService.withdrawal(dto.getUid());
+        });
+
+        return ResponseEntity.ok("탈퇴 완료");
+    }
 }
