@@ -9,6 +9,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.16'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	id 'com.github.node-gradle.node' version '3.2.1'
 }
 
 group = 'com.looklook'
@@ -56,6 +57,28 @@ dependencies {
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 }
+
+// npm install
+task appNpmInstall(type: NpmTask) {
+	workingDir = file("${project.projectDir}/LookLook-WebApplication")
+	args = ["install"]
+}
+
+// npm build
+task npmBuild(type: NpmTask) {
+	workingDir = file("${project.projectDir}/LookLook-WebApplication")
+	args = ["run", "build"]
+}
+
+// 빌드된 결과 이동
+task copyWebApp(type: Copy) {
+	from "LookLook-WebApplication/build"
+	into 'build/resources/main/static/'
+}
+
+npmBuild.dependsOn appNpmInstall
+copyWebApp.dependsOn npmBuild
+compileJava.dependsOn copyWebApp
 
 /*
 	 * queryDSL 설정 추가

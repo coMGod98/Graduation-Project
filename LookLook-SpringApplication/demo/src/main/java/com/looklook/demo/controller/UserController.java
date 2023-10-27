@@ -17,27 +17,31 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-
-    @GetMapping("/")
-    public String hi() {
-        return "main";
-    }
-    @GetMapping("/login")
-    public String login() {
-        return "login_form";
+    @GetMapping(value =  {"/"})
+    public String forward() {
+        return "forward:/index.html";
     }
 
-    @GetMapping("/signup")
-    public String signup(Model model) {
-        model.addAttribute("userDto", new UserForm());
-        return "signup";
-    }
-
-    @Secured("ROLE_ADMIN")
-    @GetMapping("/admin")
-    public String admin(){
-        return "admin";
-    }
+//    @GetMapping("/")
+//    public String hi() {
+//        return "main";
+//    }
+//    @GetMapping("/login")
+//    public String login() {
+//        return "login_form";
+//    }
+//
+//    @GetMapping("/signup")
+//    public String signup(Model model) {
+//        model.addAttribute("userDto", new UserForm());
+//        return "signup";
+//    }
+//
+//    @Secured("ROLE_ADMIN")
+//    @GetMapping("/admin")
+//    public String admin(){
+//        return "admin";
+//    }
 }
 
 //package com.looklook.demo.controller;
