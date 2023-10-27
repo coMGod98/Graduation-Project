@@ -5,13 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import OrderHistory from "../components/orderHistory";
 import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 function MyPage() {
 
   let { menu } = useParams();
-
-
-
 
   const [inputPw, setInputPw] = useState();
   const [pass, setPass] = useState(false);
@@ -23,6 +21,27 @@ function MyPage() {
   const checkPw = (e) => {
     e.preventDefault();
     if(inputPw === "pass") {
+
+
+
+      // fetch('http://localhost:60007/signup', {
+      //   method: 'post',
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({
+      //     userName: values.userName,
+      //     userId: values.userId,
+      //     password: values.password,
+      //     phoneNumber: values.phoneNumber,
+      //     address: values.address,
+      //     email: values.email,
+      //   })
+      //   .then((response) => response.json())
+      //   .then((result) => {
+      //     console.log("회원가입 성공", result);
+      //   })
+      // });
+
+
       setPass(true);
     } else {
       alert("비밀번호가 일치하지 않습니다.");
@@ -35,24 +54,21 @@ function MyPage() {
     }
   }
 
-
-
-
-
-  const [isLogin, setIsLogin] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(sessionStorage.getItem("user_ID") === null) {
-      navigate("/");
-      alert("로그인 후 이용할 수 있습니다.");
-    } else {
-      setIsLogin(true);
-    }
-  }, []);
 
+    axios.get('', {
+      params: sessionStorage.getItem("accessToken")
+    })
+    .then(function(response) {
+      console.log(resopnse.data);
+    })
+    .catch(function(error) {
+      console.log(error);
+    })
 
+  }, [])
 
   return (
     

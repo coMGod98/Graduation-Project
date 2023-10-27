@@ -1,0 +1,143 @@
+.mypgSection {
+  background-color: rgb(255, 255, 255);
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  border-left: 1px solid rgb(180, 180, 180);
+  border-right: 1px solid rgb(180, 180, 180);
+}
+
+.menuWrap {
+  width: 220px;
+  height: 700px;
+  border-right: 1px solid rgb(180, 180, 180);
+}
+
+.menuWrap h1 {
+  height: 24px;
+  font-size: 21px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.menuWrap div {
+  color: black;
+  height: 40px;
+  font-size: 16px;
+  margin-top: 5px;
+  padding: 0px 10px;
+  line-height: 40px;
+}
+
+.mypgWrap {
+  width: 920px;
+  padding: 30px;
+}
+
+.mypgWrap p {
+  margin-bottom: 8px;
+}
+
+.mypgWrap .mypgHeader {
+  font-size: 20px;
+  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid rgb(0, 0, 0);
+  margin-bottom: 20px;
+}
+
+.modWrap {
+  padding: 5px 10px;
+  align-items: center;
+  display: flex;
+}
+
+.modWrap .modTag {
+  width: 150px;
+  display: block;
+}
+
+.modWrap .modInput {
+  display: block;
+}
+
+.modWrap .modInput .zipBtn {
+  background-color: white;
+  width: 72px;
+  height: 24px;
+  padding: 0px 3px;
+  margin-left: 8px;
+}
+
+.modWrap .modInput .shorInput {
+  width: 160px;
+}
+
+.modWrap .modInput input {
+  width: 240px;
+  height: 20px;
+}
+
+.mypgBtn {
+  color: white;
+  font-size: 15px;
+  background-color: rgb(39, 63, 114);
+  padding: 3px 20px;
+  margin-top: 10px;
+}
+
+
+.listWrap {
+  padding: 10px;
+  align-items: center;
+  display: flex;
+  border-top: 1px solid rgb(180, 180, 180);
+}
+
+.listTag {
+  width: 150px;
+}
+
+.listInfo {
+  width: 300px;
+}
+
+.mypgWrap h2 {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+
+
+
+.orderTagDiv {
+  align-items: center;
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid rgb(180, 180, 180);
+  border-bottom: 1px solid rgb(180, 180, 180);
+  background-color: aliceblue;
+  font-size: 14px;
+  font-weight: bold;
+}
+.orderTagDiv .orderDateTag {
+  width: 13%;
+}
+.orderTagDiv .orderNumTag {
+  width: 14%;
+}
+.orderTagDiv .orderProdTag {
+  width: 45%;
+  display: flex;
+  align-items: center;
+}
+.orderTagDiv .orderPayTag {
+  width: 17%;
+}
+.orderTagDiv .orderStateTag {
+  width: 11%;
+}

@@ -1,0 +1,102 @@
+.orderResultSection {
+  width: 1200px;
+  min-height: 600px;
+  padding-bottom: 10%;
+  margin: 0 auto;
+  display: block;
+  border-left: 1px solid rgb(180, 180, 180);
+  border-right: 1px solid rgb(180, 180, 180);
+}
+
+.orderResultSection .orderResultWrap {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.orderResultSection .orderResultWrap .resultHeaderWrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+
+
+.orderResultSection .orderResultWrap h1 {
+  font-weight: bold;
+  font-size: 26px;
+  margin-bottom: 12px;
+}
+
+.orderResultSection .orderResultWrap p {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.orderResultSection .orderResultWrap img {
+  width: 120px;
+  height: 120px;
+  margin-right: 20px;
+}
+
+.payInfoHeader {
+  font-size: 20px;
+  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+}
+
+.orderResultSection .orderResultWrap button {
+  background-color: rgb(26, 54, 92);
+  font-size: 16px;
+  color: white;
+  height: 35px;
+  margin: 5px;
+  padding: 0 26px;
+}
+
+.shopBtnWrap {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapDiv {
+  border-bottom: 1px solid rgb(180, 180, 180);
+  padding: 15px 10px;
+  display: flex;
+}
+.wrapDiv .tagDiv {
+  width: 400%;
+}
+.wrapDiv .infoDiv {
+  width: 600%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
+
+
+.orderWrap {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.orderWrap .orderDiv {
+  font-size: 17px;
+  text-align: center;
+  line-height: 38px;
+  background-color: rgb(221, 221, 221);
+  width: 140px;
+  height: 40px;
+  border-radius: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+}

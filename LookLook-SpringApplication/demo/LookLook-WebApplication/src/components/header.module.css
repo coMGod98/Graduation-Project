@@ -1,0 +1,148 @@
+
+
+.header {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 235px;
+  position: relative;
+}
+
+.topMenu {
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgb(255, 255, 255);
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  height: 20px;
+  margin: 0 auto;
+}
+
+.topMenu h {
+  color: black;
+  font-size: 14px;
+  margin-left: 15px;
+}
+
+.logoSection {
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+}
+
+.logoSection img {
+  width: 175px;
+  height: 100px;
+  margin-top: 30px;
+}
+
+.inputSection {
+  background-color: rgb(255, 255, 255);
+  max-width: 1200px;
+  width: 100%;
+  height: 40px;
+  margin: 0 auto;
+  display: flex;
+  text-align: end;
+}
+
+.inputSection input {
+  width: 200px;
+  height: 10px;
+  border: 3px solid #242c57;
+  border-radius: 14px;
+  padding: 11px 22px;
+  font-size: 16px;
+  line-height: 20px;
+  margin-left: 905px;
+}
+
+.inputSection input::placeholder {
+  font-size: 14px;
+  line-height: 20px;
+  color: #777683;
+}
+
+.inputSection .searchBtn {
+  background-color: #243e57;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  margin-left: 5px;
+  border: 0px;
+}
+
+.inputSection .searchBtn img {
+  width: 22px;
+  height: 22px;
+}
+
+.menuWrap {
+  display: flex;
+  background-color: #262d53;
+  width: 100%;
+  height: 45px;
+}
+
+.menu {
+  background-color: #262d53;
+  width: 1200px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.menu .allCategoryWrap {
+  position: absolute;
+  width: 120px;
+  height: 44px;
+}
+
+.menu .allCategoryWrap img {
+  width: 35px;
+  height: 35px;
+  vertical-align: middle;
+  position: absolute;
+  top: 4px;
+}
+
+.menu .allCategoryWrap .allCategory {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  position: absolute;
+  left: 42px;
+  top: 13px;
+}
+
+.menu .categoryWrap {
+  width: 550px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: flex;
+  position: absolute;
+  justify-content: space-around;
+}
+
+.menu .categoryWrap span {
+  width: 80px;
+  height: 44px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu .avatarBtn {
+  width: 140px;
+  font-size: 15px;
+  font-weight: 700;
+  margin-left: 1055px;
+  background-image: linear-gradient(90deg, #6cc7eb 0%, #7b63e9 74%);
+  border-width: 0px;
+  border-radius: 20px;
+  padding: 6px 20px;
+}

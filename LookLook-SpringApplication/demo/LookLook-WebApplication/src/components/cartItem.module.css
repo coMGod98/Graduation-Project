@@ -1,0 +1,37 @@
+.cartItemDiv {
+  border-bottom: 1px solid gray;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.cartItemTag1 {
+  width: 10%;
+}
+.cartItemTag2 {
+  width: 20%;
+}
+.cartItemTag3 {
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+.cartItemTag3 img {
+  border: 1px solid rgb(180, 180, 180);
+  width: 60px;
+  height: 60px;
+  margin-right: 8px;
+}
+.cartItemTag4 {
+  width: 20%;
+}
+.cartItemTag4 input {
+  width: 28px;
+}
+.cartItemTag4 button {
+  width: 20px;
+  height: 21px;
+}
+.cartItemTag5 {
+  width: 10%;
+}

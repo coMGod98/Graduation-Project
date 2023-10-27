@@ -21,7 +21,7 @@ public class UserApiController {
     }
 
     // 사용자 조회
-    @GetMapping("/mypage/user")
+    @GetMapping("/mypage")
     public ResponseEntity<UserResponseDto> getUserInfo(Authentication authentication){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         // userDetails.getUsername은 uid를 의미하고, userService.findUserInfoById()를 사용해야함
@@ -31,7 +31,7 @@ public class UserApiController {
 
     // 사용자 정보 수정 전 비밀번호 확인
     @PostMapping("/mypage/user/auth")
-    public ResponseEntity<String> pwChkBeforeUpdateUserInfo(Authentication authentication, AuthRequestDto authRequestDto) {
+    public ResponseEntity<String> pwChkBeforeUpdateUserInfo(Authentication authentication, @RequestBody AuthRequestDto authRequestDto) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Boolean success = userService.pwChk(Long.valueOf(userDetails.getUsername()), authRequestDto);
         if (success){

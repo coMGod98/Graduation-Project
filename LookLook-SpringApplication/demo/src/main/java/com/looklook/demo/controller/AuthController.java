@@ -27,19 +27,17 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserResponseDto> signup(@Valid UserForm userDto, BindingResult bindingResult) {
+    public ResponseEntity<UserResponseDto> signup(@RequestBody @Valid UserForm userDto) {
         System.out.println("UserDto: "+ userDto.toString());
-        if (bindingResult.hasErrors() || !userDto.getPassword().equals(userDto.getPasswordChk())) {
-            bindingResult.rejectValue("passwordChk", "passwordInCorrect", "2개의 패스워드가 일치하지 않습니다.");
-            return ResponseEntity.badRequest().body(null);
-        }
 
         UserResponseDto responseDto = userService.signup(userDto);
+        System.out.println("회원가입 완료: "+ responseDto.toString());
+
         return ResponseEntity.ok(responseDto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(UserRequestDto userRequestDto) {
+    public ResponseEntity<TokenDto> login(@RequestBody UserRequestDto userRequestDto) {
         TokenDto tokenDto = userService.login(userRequestDto);
         return ResponseEntity.ok(tokenDto);
     }

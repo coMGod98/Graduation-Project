@@ -1,0 +1,20 @@
+.modalBack {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.3);
+}
+
+.modalWrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800;
+  max-width: 100%;
+  max-height: 90%;
+  overflow-y: auto;
+  background-color: aliceblue;
+}
