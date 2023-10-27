@@ -14,6 +14,8 @@ import java.util.Optional;
 @Setter
 public class UserRequestDto {
     // dto 필드명과 json 객채명을 통일시켜야 한다.
+
+    private Long uid;
     private String userId;
     private String password;
     private String userName;
