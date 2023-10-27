@@ -94,7 +94,7 @@
   padding: 10px;
   align-items: center;
   display: flex;
-  border-top: 1px solid rgb(179, 179, 179);
+  border-top: 1px solid rgb(180, 180, 180);
 }
 
 .listTag {
@@ -118,8 +118,8 @@
   align-items: center;
   display: flex;
   padding: 10px;
-  border-top: 1px solid rgb(179, 179, 179);
-  border-bottom: 1px solid rgb(179, 179, 179);
+  border-top: 1px solid rgb(180, 180, 180);
+  border-bottom: 1px solid rgb(180, 180, 180);
   background-color: aliceblue;
   font-size: 14px;
   font-weight: bold;

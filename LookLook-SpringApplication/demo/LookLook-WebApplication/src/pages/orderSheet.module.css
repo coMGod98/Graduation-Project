@@ -31,7 +31,7 @@
 
 
 .wrapDiv {
-  border-bottom: 1px solid rgb(197, 197, 197);
+  border-bottom: 1px solid rgb(180, 180, 180);
   padding: 8px;
   display: flex;
 }
@@ -55,8 +55,8 @@
 }
 
 .prodInfoTag {
-  border-top: 1px solid rgb(197, 197, 197);
-  border-bottom: 1px solid rgb(197, 197, 197);
+  border-top: 1px solid rgb(180, 180, 180);
+  border-bottom: 1px solid rgb(180, 180, 180);
   background-color: aliceblue;
   padding: 8px;
   display: flex;

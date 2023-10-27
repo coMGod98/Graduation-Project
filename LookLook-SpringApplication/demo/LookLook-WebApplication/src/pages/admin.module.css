@@ -1,6 +1,6 @@
 .adminHeader {
   height: 120px;
-  border-bottom: 1px solid rgb(187, 187, 187);
+  border-bottom: 1px solid rgb(180, 180, 180);
 }
 
 .adminHeader img {
@@ -17,7 +17,7 @@
 
 .adminMenu {
   width: 300px;
-  border-right: 1px solid rgb(187, 187, 187);
+  border-right: 1px solid rgb(180, 180, 180);
 }
 
 .adminMenu .adminInfoWrap {
@@ -43,7 +43,7 @@
 }
 
 .adminMenu .menuDiv {
-  border-bottom: 1px solid rgb(187, 187, 187);
+  border-bottom: 1px solid rgb(180, 180, 180);
   padding: 10px;
   color: black;
 }

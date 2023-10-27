@@ -7,8 +7,6 @@ import ManDropdown from "../components/dropdown/manDropdown";
 import OuterDropdown from "../components/dropdown/outerDropdown";
 import ShoesDropdown from "../components/dropdown/shoesDropdown";
 import FashionDropdown from "../components/dropdown/fashionDropdown";
-import Modal from "./modal";
-import Swal from "sweetalert2";
 import { Navigate } from "react-router-dom";
 
 
@@ -30,8 +28,8 @@ function Header() {
     if(window.confirm("로그아웃 하시겠습니까?")) {
       sessionStorage.setItem("accessToken", "");
       navigate("/");
+      console.log("로그아웃 후 세션스토리지 값: ", sessionStorage.getItem("accessToken"))
     }
-    
   }
 
   const goLogin = () => {
@@ -40,32 +38,22 @@ function Header() {
     }
   }
 
-  // useEffect(() => {
-  //   {sessionStorage.getItem("accessToken") === "" 
-  //   ? setIsLogin(false)
-  //   : setIsLogin(true)
-  //   }
-    
-  // }, [])
-  
   return (
     <div className={styles.header}>
 
-      {/* {sessionStorage.getItem("accessToken") === "임시토큰" 
-      ? 
+      {sessionStorage.getItem("accessToken") !== ""
+      ?
       <div className={styles.topMenu}>
-        {sessionStorage.getItem("accessToken")}
         <h style={{cursor:'pointer'}} onClick={logoutClick}>로그아웃</h>
         <Link to="/cart">
           <h style={{fontWeight: 'bold'}}>장바구니</h>
         </Link>
         <Link to="/myPage/myInfo">
-          <h>마이페이지</h>
+        <h>마이페이지</h>
         </Link>
       </div>
-      : */}
+      :
       <div className={styles.topMenu}>
-        {sessionStorage.getItem("accessToken")} 
         <Link to="/login">
           <h>로그인</h>
         </Link>
@@ -75,9 +63,9 @@ function Header() {
         <Link to="/myPage/myInfo">
           <h>마이페이지</h>
         </Link>
-        
+
       </div>
-      {/* } */}
+      }
 
 
 

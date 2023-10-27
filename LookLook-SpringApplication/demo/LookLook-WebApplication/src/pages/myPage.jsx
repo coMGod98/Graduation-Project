@@ -9,6 +9,16 @@ import axios from 'axios';
 
 function MyPage() {
 
+  const [userID, setUserID] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userPhone, setUserPhone] = useState("");
+  const [userAddr, setUserAddr] = useState("");
+
+  const [inputModName, setInputModName] = useState(userName);
+  const [inputModAddr, setInputModAddr] = useState(userAddr);
+  const [inputModEmail, setInputModEmail] = useState(userEmail);
+
   let { menu } = useParams();
 
   const [inputPw, setInputPw] = useState();
@@ -20,57 +30,127 @@ function MyPage() {
 
   const checkPw = (e) => {
     e.preventDefault();
-    if(inputPw === "pass") {
 
+      const accessToken = sessionStorage.getItem("accessToken");
+      fetch('/mypage/user/auth', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json",
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          password: inputPw
+        })
+      })
+      .then(res => {
+        console.log(res);
+        if (res.status === 200) {console.log("성공", res);
+          alert("인증 성공");
+          setPass(true);
+        }
+        else {console.log("실패", res); alert("인증 실패");}
+      })
+      .catch(err => {
+        console.log('오류: ', err.message);
+      })
 
-
-      // fetch('http://localhost:60007/signup', {
-      //   method: 'post',
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     userName: values.userName,
-      //     userId: values.userId,
-      //     password: values.password,
-      //     phoneNumber: values.phoneNumber,
-      //     address: values.address,
-      //     email: values.email,
-      //   })
-      //   .then((response) => response.json())
-      //   .then((result) => {
-      //     console.log("회원가입 성공", result);
-      //   })
-      // });
-
-
-      setPass(true);
-    } else {
-      alert("비밀번호가 일치하지 않습니다.");
-    }
   }
 
   const withdrawalClick = () => {
     if(window.confirm("정말 회원 탈퇴하시겠습니까?")) {
-      alert("회원 탈퇴가 완료되었습니다.");
+
+      const accessToken = sessionStorage.getItem("accessToken");
+      fetch('/mypage/user/withdrawal', {
+        method : 'post',
+        headers : {
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      })
+      .then(res => {
+        if (res.status === 200) {
+          console.log("회원탈퇴 완료", res);
+          alert("회원 탈퇴가 완료되었습니다.");
+          sessionStorage.setItem("accessToken", "");
+          navigate("/");
+        } else {
+          console.log("회원탈퇴 실패", res);
+        }
+      })
+      .catch(err => {
+        console.log('오류: ', err);
+      })
+
     }
+  }
+
+  const modNameChange = e => {
+    setInputModName(e.target.value);
+  }
+  const modAddrChange = e => {
+    setInputModAddr(e.target.value);
+  }
+  const modEmailChange = e => {
+    setInputModEmail(e.target.value);
+  }
+
+  const modClick = () => {
+    const accessToken = sessionStorage.getItem("accessToken");
+    fetch('/mypage/user/info', {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${accessToken}`,
+      },
+      body: {
+        userName: inputModName,
+        address: inputModAddr,
+        email: inputModEmail,
+      }
+    })
+    .then(res => {
+      alert("수정 완료!");
+      setUserName(inputModName);
+      setUserAddr(inputModAddr);
+      setUserEmail(inputModEmail);
+    })
+    .catch(err => {
+      console.log("오류: ", err);
+    })
+
+
   }
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/mypage/user', {
-      params: sessionStorage.getItem("accessToken")
+    const accessToken = sessionStorage.getItem("accessToken");
+    fetch('/mypage', {
+      headers : {
+        'Authorization': `Bearer ${accessToken}`,
+      }
     })
-    .then(function(response) {
-      console.log(response);
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      setUserID(res.userId);
+      setUserName(res.userName);
+      setUserEmail(res.email);
+      setUserPhone(res.phoneNumber);
+      setUserAddr(res.address);
+
+      setInputModName(res.userName);
+      setInputModAddr(res.address);
+      setInputModEmail(res.email);
     })
-    .catch(function(error) {
-      console.log(error);
+    .catch(err => {
+      console.log('오류: ', err);
+      navigate("/login");
     })
 
   }, [])
 
+
   return (
-    
     <>
       <Header />
       <div className={styles.mypgSection}>
@@ -102,19 +182,19 @@ function MyPage() {
         {menu === "myInfo" ?
           <div className={styles.mypgWrap}>
             <div className={styles.mypgHeader}>내 정보</div>
-            <h2>{sessionStorage.getItem("user_ID")}님 반갑습니다.</h2>
-            <div className={styles.listWrap}>
-              <div className={styles.listTag}>가입일</div>
-              <div className={styles.listInfo}>~~</div>
-            </div>
+            <h2>{userName}({userID})님 반갑습니다.</h2>
             <div className={styles.listWrap}>
               <div className={styles.listTag}>이메일</div>
-              <div className={styles.listInfo}>~~</div>
+              <div className={styles.listInfo}>{userEmail}</div>
+            </div>
+            <div className={styles.listWrap}>
+              <div className={styles.listTag}>휴대전화</div>
+              <div className={styles.listInfo}>{userPhone}</div>
             </div>
             <div  style={{borderBottom:'1px solid rgb(179, 179, 179)'}} 
             className={styles.listWrap}>
-              <div className={styles.listTag}>휴대전화</div>
-              <div className={styles.listInfo}>~~</div>
+              <div className={styles.listTag}>주소</div>
+              <div className={styles.listInfo}>{userAddr}</div>
             </div>
           </div>
           
@@ -126,7 +206,7 @@ function MyPage() {
           (pass === false) ? 
             <div className={styles.mypgWrap}>
               <div className={styles.mypgHeader}>회원 정보 수정</div>
-              <p>회원 정보 수정을 위해 비밀번호를 입력해주세요(임시pw:'pass')</p>
+              <p>회원 정보 수정을 위해 비밀번호를 입력해주세요</p>
               
               <form onSubmit={checkPw}>
                 <div style={{borderBottom:'1px solid rgb(179, 179, 179)'}} className={styles.listWrap}>
@@ -138,33 +218,26 @@ function MyPage() {
                 <button className={styles.mypgBtn} type="submit">확인</button>
               </form>
             </div>
-          : 
+          :
           <div className={styles.mypgWrap}>
             <div className={styles.mypgHeader}>회원 정보 수정</div>
             <div style={{borderTop:'1px solid rgb(179, 179, 179)'}} className={styles.modWrap}>
               <div className={styles.modTag}>이름</div>
-              <div className={styles.modInput}><input /></div>
+              <div className={styles.modInput}><input onChange={modNameChange} defaultValue={userName} /></div>
             </div>
             <div style={{borderTop:'1px solid rgb(179, 179, 179)'}} className={styles.modWrap}>
               <div className={styles.modTag}>주소</div>
-              <div className={styles.modInput}><input className={styles.shorInput}/>
-              <button className={styles.zipBtn}>우편번호</button></div>
+              <div className={styles.modInput}><input onChange={modAddrChange} defaultValue={userAddr} />
             </div>
-            <div className={styles.modWrap}>
-              <div className={styles.modTag}></div>
-              <div className={styles.modInput}><input /></div>
-            </div>
-            <div className={styles.modWrap}>
-              <div className={styles.modTag}></div>
-              <div className={styles.modInput}><input /></div>
             </div>
             <div style={{borderTop:'1px solid rgb(179, 179, 179)', borderBottom:'1px solid rgb(179, 179, 179)'}} className={styles.modWrap}>
               <div className={styles.modTag}>이메일</div>
-              <div className={styles.modInput}><input name="email" type="email"/></div>
+              <div className={styles.modInput}><input onChange={modEmailChange} defaultValue={userEmail} name="email" type="email"/></div>
             </div>
-            <button className={styles.mypgBtn}>수정</button>
+            <button onClick={modClick} className={styles.mypgBtn}>수정</button>
           </div>
-          
+
+
 
 
 
@@ -205,7 +278,7 @@ function MyPage() {
               <button className={styles.mypgBtn} type="submit">확인</button>
             </form>
           </div>
-          : 
+          : (menu === "withdrawal" ?
           <div className={styles.mypgWrap}>
             <div className={styles.mypgHeader}>회원 탈퇴</div>
             <p>회원탈퇴 하시겠습니까?</p>
@@ -213,6 +286,9 @@ function MyPage() {
             <button onClick={withdrawalClick}
             className={styles.mypgBtn}>회원 탈퇴</button>
           </div>
+          :
+          <div className={styles.mypgWrap}>잘못된 페이지입니다.</div>
+          )
 
 
 

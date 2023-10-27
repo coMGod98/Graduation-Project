@@ -25,8 +25,8 @@
   margin-bottom: 5px;
 }
 .cartListTag {
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
+  border-top: 1px solid rgb(180, 180, 180);
+  border-bottom: 1px solid rgb(180, 180, 180);
   background-color: aliceblue;
   display: flex;
   align-items: center;

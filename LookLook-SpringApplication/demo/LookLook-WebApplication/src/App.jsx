@@ -28,6 +28,7 @@ import products from "./products.json"
 // class Routing extends React.Component {}
 function Routing() {
   const [prods, setProds] = useState(products);
+  sessionStorage.setItem("accessToken", "");
 
   return (
     <Router>

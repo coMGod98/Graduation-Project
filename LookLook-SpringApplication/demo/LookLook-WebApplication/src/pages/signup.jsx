@@ -21,6 +21,7 @@ function SignUp() {
       console.log(values);
       alert("주소를 입력해주세요!");
     } else {
+
       fetch('/signup', {
         method: 'post',
         headers: {"Content-Type": "application/json"},

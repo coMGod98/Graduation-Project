@@ -20,18 +20,6 @@ function Login() {
     setInputPW(e.target.value);
   }
 
-  // role 구매자:0 판매자:1 관리자:2
-  const [role, setRole] = useState("0");
-  const role0Change = () => {
-    setRole("0");
-  }
-  const role1Change = () => {
-    setRole("1");
-  }
-  const role2Change = () => {
-    setRole("2");
-  }
-
   // 로그인 submit 버튼 입력 처리
   const submitHandler = (e) => {
     e.preventDefault();
@@ -40,141 +28,45 @@ function Login() {
     } else if (inputID.length < 8) {
       alert("아이디는 8~16자 이내로 입력해주세요!");
     } else {
-      const axios = require('axios'); // Node.js 환경에서 사용하는 경우
+
+
+
 
 
       fetch('/login', {
         method: 'post',
         headers: {
-          "Content-Type":"application/json"
+              "Content-Type":"application/json"
         },
-        body: {
-          userId: inputID,
-          password: inputPW
-        }
+        body: JSON.stringify({
+              userId: inputID,
+              password: inputPW
+        })
       })
-          .then(firstResponse => {
-            const accessToken = firstResponse.data.accessToken; // accessToken 추출
-            sessionStorage.setItem('accessToken', accessToken);
+      .then(res => res.json())
+      .then(res => {
+        const accessToken = res.accessToken; // accessToken 추출
+        sessionStorage.setItem('accessToken', accessToken);
+        console.log("세션스토리지에 토큰 저장: ", accessToken);
 
-            return fetch('/admin_chk', {
-              headers: {
-                'Authorization': `Bearer ${accessToken}`,
-              },
-            });
-          })
-          .then((secondResponse) => {
-            const adminChk = secondResponse.data.admin_chk;
-            const accessToken = sessionStorage.getItem('accessToken');
+        return fetch('/admin_chk', {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        });
+      })
+      .then(res => res.json())
+      .then((res) => {
+        const adminChk = res.admin_chk;
+        const accessToken = sessionStorage.getItem('accessToken');
 
-            // 세 번째 요청 (GET /admin 또는 GET /main)
-            adminChk ? navigate("/admin") : navigate("/");
-          })
-          .catch((error) => {
-            // 오류 처리
-            console.error('오류:', error);
-          });
+        // 세 번째 요청 (GET /admin 또는 GET /main)
+        adminChk ? navigate("/admin/userManage") : navigate("/");
+      })
+      .catch((error) => {
+        console.error('오류:', error);
+      });
 
-
-
-      // // 첫 번째 요청 (POST /login)
-      // axios.post('/login', {
-      //   userId: inputID,
-      //   password: inputPW
-      // })
-      //   .then((firstResponse) => {
-      //     const accessToken = firstResponse.data.accessToken; // accessToken 추출
-      //     sessionStorage.setItem('accessToken', accessToken); // localStorage에 저장
-      //
-      //     return axios.get('/admin_chk', {
-      //       headers: {
-      //         'Authorization': `Bearer ${accessToken}`,
-      //       },
-      //     });
-      //   })
-      //   .then((secondResponse) => {
-      //     const adminChk = secondResponse.data.admin_chk;
-      //     const accessToken = sessionStorage.getItem('accessToken');
-      //
-      //     // 세 번째 요청 (GET /admin 또는 GET /main)
-      //     adminChk ? navigate("/admin") : navigate("/");
-      //   })
-      //   .catch((error) => {
-      //     // 오류 처리
-      //     console.error('오류:', error);
-      //   });
-
-
-
-
-
-      // axios.post('/login', {
-      //   userId: inputID,
-      //   password: inputPW
-      // })
-      //     .then((firstResponse) => {
-      //       if (!firstResponse.data) {
-      //         throw new Error('First request failed');
-      //       }
-      //       const accessToken = firstResponse.data.accessToken; // accessToken 추출
-      //       sessionStorage.setItem('accessToken', accessToken); // localStorage에 저장
-      //
-      //       // 두 번째 요청 (GET /admin_chk)
-      //       return axios.get('/admin_chk', {
-      //         headers: {
-      //           'Authorization': `Bearer ${accessToken}`,
-      //         },
-      //       });
-      //     })
-      //     .then((secondResponse) => {
-      //       if (!secondResponse.data) {
-      //         throw new Error('Second request failed');
-      //       }
-      //       const adminChk = secondResponse.data.admin_chk;
-      //       const accessToken = sessionStorage.getItem('accessToken');
-      //
-      //       // 세 번째 요청 (GET /admin 또는 GET /main)
-      //       const url = adminChk ? '/admin' : '/main';
-      //       return axios.get(url, {
-      //         headers: {
-      //           'Authorization': `Bearer ${accessToken}`,
-      //         },
-      //       });
-      //     })
-      //     .then((thirdResponse) => {
-      //       // 세 번째 응답 데이터를 처리
-      //       console.log(thirdResponse.data);
-      //     })
-      //     .catch((error) => {
-      //       // 오류 처리
-      //       console.error('오류:', error);
-      //     });
-
-
-
-
-        // const inputToken = "";
-
-        // fetch('/login', {
-        //   method: 'post',
-        //   headers: { "Content-Type": "application/json" },
-        //   body: JSON.stringify({
-        //     userId: inputID,
-        //     password: inputID,
-        //   })
-        //   .then((response) => response.json())
-        //   .then((result) => {
-        //     console.log("로그인 성공", result);
-        //     inputToken = result;
-        //   })
-        // });
-
-        // fetch('/')
-        // .then((response) => {
-        //   response.text().then((text) => {
-        //     console.log("text안의 데이터: " + text);
-        //   })
-        // })
     }
   }
 
@@ -207,8 +99,6 @@ function Login() {
              name="pw" placeholder="비밀번호" maxLength="20" required/>
 
             <div className={styles.hidePwWrap}>
-            {console.log(inputID)}
-            {console.log(inputPW)}
               <img onClick={handlePasswordType}
               src={require("../images/eye_button.png")} alt="pwHide"/>
               {passwordType.type === "password" 
