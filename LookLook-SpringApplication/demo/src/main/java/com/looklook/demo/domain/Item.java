@@ -1,6 +1,7 @@
 package com.looklook.demo.domain;
 
 //import com.looklook.demo.dto.ItemFormDto;
+import com.looklook.demo.dto.ItemDto;
 import com.looklook.demo.dto.ItemFormDto;
 import com.looklook.demo.exception.OutOfStockException;
 import lombok.Getter;
@@ -17,40 +18,24 @@ import java.time.LocalDateTime;
 public class Item extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "item_name")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "pname", nullable = false)
     private String itemName;
-
-    @Column(nullable = false)
     private int price;
-
-    @Column(nullable = false)
     private int stock;
-
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus;
 
     private LocalDateTime regTime;
     private LocalDateTime updateTime;
+    private String category;
 
-    //카테고리 종류
-    @Column(name = "ca_id")
-    private Category category;
-
-    @Column(name = "size")
     private String size;
 
-    @Column(name="color")
     private String color;
 
-    @Column(name="pgender")
     private String pgender;
 
-    @Lob
-    @Column(name = "information", nullable = false)
     private String itemDetail;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -58,6 +43,19 @@ public class Item extends BaseEntity {
     private LookLookUser user;
 
 
+    public ItemDto of(Item item) {
+        ItemDto dto = new ItemDto();
+        dto.setPid(item.getId());
+        dto.setItemName(item.getItemName());
+        dto.setPrice(item.getPrice());
+        dto.setItemDetail(item.getItemDetail());
+        dto.setSize(item.getSize());
+        dto.setColor(item.getColor());
+        dto.setPgender(item.getPgender());
+        dto.setCategory(item.getCategory());
+        dto.setItemDetail(item.getItemDetail());
+        return dto;
+    }
 
     public void updateItem(ItemFormDto itemFormDto) {
         this.itemName = itemFormDto.getItemName();

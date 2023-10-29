@@ -47,14 +47,15 @@ public class AdminController {
     // 사용자 수정
     @Secured("ROLE_ADMIN")
     @PostMapping("/admin/user-update/{uid}")
-    public ResponseEntity<UserResponseDto> updateUser(@PathVariable String uid, UserRequestDto userRequestDto){
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable String uid, @RequestBody UserRequestDto userRequestDto){
+        System.out.println("userRequestDto: "+ userRequestDto.toString());
         UserResponseDto userResponseDto = userService.updateUser(Long.valueOf(uid), userRequestDto);
         return ResponseEntity.ok(userResponseDto);
     }
 
     // 사용자 삭제
     @PostMapping("/admin/user-withdrawal")
-    public ResponseEntity<String> deleteUserInfo(UserRequestDto[] dtos) {
+    public ResponseEntity<String> deleteUserInfo(@RequestBody UserRequestDto[] dtos) {
         List<UserRequestDto> dtoList = Arrays.asList(dtos);
 
         dtoList.stream().forEach(dto -> {

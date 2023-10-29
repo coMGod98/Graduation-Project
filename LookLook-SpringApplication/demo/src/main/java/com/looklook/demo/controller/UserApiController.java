@@ -44,7 +44,7 @@ public class UserApiController {
 
     // 사용자 정보 수정
     @PostMapping("/mypage/user/info")
-    public ResponseEntity<UserResponseDto> updateUserInfo(UserRequestDto userRequestDto, Authentication authentication) {
+    public ResponseEntity<UserResponseDto> updateUserInfo(@RequestBody UserRequestDto userRequestDto, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         UserResponseDto userResponseDto = userService.updateUser(Long.valueOf(userDetails.getUsername()), userRequestDto);
         return ResponseEntity.ok(userResponseDto);
