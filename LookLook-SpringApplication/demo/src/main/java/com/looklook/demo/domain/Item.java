@@ -2,7 +2,7 @@ package com.looklook.demo.domain;
 
 //import com.looklook.demo.dto.ItemFormDto;
 import com.looklook.demo.dto.ItemDto;
-import com.looklook.demo.dto.ItemFormDto;
+import com.looklook.demo.dto.ItemRegRequestDto;
 import com.looklook.demo.exception.OutOfStockException;
 import lombok.Getter;
 import lombok.Setter;
@@ -60,16 +60,16 @@ public class Item extends BaseEntity {
         return dto;
     }
 
-    public void updateItem(ItemFormDto itemFormDto) {
-        this.itemName = itemFormDto.getItemName();
-        this.category=itemFormDto.getCategory();
-        this.color=itemFormDto.getColor();
-        this.itemDetail = itemFormDto.getItemDetail();
-        this.stock = itemFormDto.getStock();
-        this.itemSellStatus = itemFormDto.getItemSellStatus();
-        this.pgender=itemFormDto.getPgender();
-        this.price=itemFormDto.getPrice();
-        this.size=itemFormDto.getSize();
+    public void updateItem(ItemRegRequestDto itemRegRequestDto) {
+        this.itemName = itemRegRequestDto.getItemName();
+        this.category= itemRegRequestDto.getCategory();
+        this.color= itemRegRequestDto.getColor();
+        this.itemDetail = itemRegRequestDto.getItemDetail();
+        this.stock = itemRegRequestDto.getStock();
+        this.itemSellStatus = itemRegRequestDto.getItemSellStatus();
+        this.pgender= itemRegRequestDto.getPgender();
+        this.price= itemRegRequestDto.getPrice();
+        this.size= itemRegRequestDto.getSize();
     }
 
     public void removeStock(int stock) {

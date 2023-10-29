@@ -129,12 +129,11 @@ public class UserService {
                 user1.setUserName(userRequestDto.getUserName());
             }
             if (userRequestDto.getAddress() != null){
-                user1.setUserName(userRequestDto.getAddress());
+                user1.setAddress(userRequestDto.getAddress());
             }
             if (userRequestDto.getEmail() != null){
-                user1.setUserName(userRequestDto.getEmail());
+                user1.setEmail(userRequestDto.getEmail());
             }
-            System.out.println("user: "+ user1.toString());
             userRepository.save(user1);
         });
         user.orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));

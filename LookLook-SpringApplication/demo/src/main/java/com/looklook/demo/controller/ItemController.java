@@ -1,6 +1,6 @@
 package com.looklook.demo.controller;
 
-import com.looklook.demo.dto.ItemFormDto;
+import com.looklook.demo.dto.ItemRegRequestDto;
 import com.looklook.demo.domain.Item;
 //import com.looklook.demo.dto.ItemSearchDto;
 //import com.looklook.demo.service.ItemService;
@@ -18,7 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -34,15 +33,15 @@ public class ItemController {
 
     // 상품 등록 페이지
     @GetMapping(value = "admin/item/new")
-    public String itemForm(ItemFormDto itemFormDto, Model model) {
+    public String itemForm(ItemRegRequestDto itemRegRequestDto, Model model) {
 
-        model.addAttribute("itemFormDto", itemFormDto);
+        model.addAttribute("itemFormDto", itemRegRequestDto);
         return "item/itemForm";
     }
 
     //상품 등록
     @PostMapping(value = "/admin/item/new")
-    public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
+    public String itemNew(@Valid ItemRegRequestDto itemRegRequestDto, BindingResult bindingResult, Model model,
                           @RequestParam(name = "itemImgFile") List<MultipartFile> itemImgFileList) {
 
         if (bindingResult.hasErrors()) {
@@ -50,14 +49,14 @@ public class ItemController {
         }
 
 
-        if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null) {
+        if (itemImgFileList.get(0).isEmpty() && itemRegRequestDto.getId() == null) {
             model.addAttribute("errorMessage",
                     "첫번째 상품 이미지는 필수 입력 값 입니다.");
             return "item/itemForm";
         }
 
         try {
-            itemService.saveItem(itemFormDto, itemImgFileList);
+            itemService.saveItem(itemRegRequestDto, itemImgFileList);
         } catch (Exception e) {
             model.addAttribute("errorMessage",
                     "상품 등록 중 에러가 발생하였습니다.");
@@ -99,21 +98,21 @@ public class ItemController {
 
     // 상품 수정
     @PostMapping(value = "/admin/item/{itemId}")
-    public String itemUpdate(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
+    public String itemUpdate(@Valid ItemRegRequestDto itemRegRequestDto, BindingResult bindingResult, Model model,
                              @RequestParam(name = "itemImgFile") List<MultipartFile> itemImgFileList) {
 
         if (bindingResult.hasErrors()) {
             return "item/itemForm";
         }
 
-        if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null) {
+        if (itemImgFileList.get(0).isEmpty() && itemRegRequestDto.getId() == null) {
             model.addAttribute("errorMessage",
                     "첫번째 상품 이미지는 필수 입력 값 입니다.");
             return "item/itemForm";
         }
 
         try {
-            itemService.updateItem(itemFormDto, itemImgFileList);
+            itemService.updateItem(itemRegRequestDto, itemImgFileList);
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다.");
             return "item/itemForm";

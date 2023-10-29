@@ -2,19 +2,16 @@ package com.looklook.demo.service;
 
 import com.looklook.demo.domain.ItemImg;
 //import com.looklook.demo.service.ItemImgService;
-import com.looklook.demo.dto.ItemFormDto;
-import com.looklook.demo.dto.ItemImgDto;
+import com.looklook.demo.dto.ItemRegRequestDto;
 //import com.looklook.demo.dto.ItemSearchDto;
 //import com.looklook.demo.dto.MainItemDto;
 import com.looklook.demo.domain.Item;
-import com.looklook.demo.domain.ItemImg;
 //import com.looklook.demo.dto.ItemSearchDto;
 import com.looklook.demo.dto.ItemSearchDto;
 import com.looklook.demo.repository.ItemImgRepository;
 import com.looklook.demo.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,11 +31,11 @@ public class ItemService {
     private final ItemImgRepository itemImgRepository;
 
     // 상품 등록
-    public Long saveItem(ItemFormDto itemFormDto,
+    public Long saveItem(ItemRegRequestDto itemRegRequestDto,
                          List<MultipartFile> itemImgFileList) throws Exception {
 
         // 상품 등록
-        Item item = itemFormDto.createItem();
+        Item item = itemRegRequestDto.createItem();
         itemRepository.save(item);
 
         // 이미지 등록
@@ -86,15 +82,15 @@ public class ItemService {
 //    }
 
 
-    public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws IOException {
+    public Long updateItem(ItemRegRequestDto itemRegRequestDto, List<MultipartFile> itemImgFileList) throws IOException {
 
         // 상품 수정
-        Item item=itemRepository.findById(itemFormDto.getId())
+        Item item=itemRepository.findById(itemRegRequestDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
-        item.updateItem(itemFormDto);
+        item.updateItem(itemRegRequestDto);
 
         // 상품 이미지 수정
-        List<Long> itemImgIds = itemFormDto.getItemImgIds();
+        List<Long> itemImgIds = itemRegRequestDto.getItemImgIds();
         for (int i = 0; i < itemImgFileList.size(); i++) {
             itemImgService.updateItemImg(itemImgIds.get(i), itemImgFileList.get(i));
         }

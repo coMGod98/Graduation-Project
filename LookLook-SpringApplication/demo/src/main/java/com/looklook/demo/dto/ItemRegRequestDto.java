@@ -1,7 +1,5 @@
 package com.looklook.demo.dto;
 
-import com.looklook.demo.domain.Category;
-import com.looklook.demo.dto.ItemImgDto;
 import com.looklook.demo.domain.ItemSellStatus;
 import com.looklook.demo.domain.Item;
 import lombok.Getter;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-public class ItemFormDto {
+public class ItemRegRequestDto {
 
     private Long id;
 
@@ -24,28 +22,28 @@ public class ItemFormDto {
     @NotNull(message = "가격은 필수 입력 값입니다.")
     private Integer price;
 
+    @NotNull(message = "재고는 필수 입력 값입니다.")
+    private Integer stock;
+    @NotBlank
+    private String pgender;
     @NotBlank(message = "상품 상세는 필수 입력 값입니다.")
     private String itemDetail;
 
-    @NotNull(message = "재고는 필수 입력 값입니다.")
-    private Integer stock;
+    // 대표 이미지
+
+    // 상세 이미지
+    @NotBlank
+    private List<String> size;
+    @NotBlank
+    private List<String> color;
 
     @NotNull(message = "상품 카테고리는 필수 선택 값입니다.")
     private String category;
 
     @NotBlank
-    private String color;
-
-    @NotBlank
-    private String pgender;
-
-    @NotBlank
-    private String size;
-
-    @NotBlank
     private String uid;
 
-    private ItemSellStatus itemSellStatus;
+//    private ItemSellStatus itemSellStatus;  // 삭제 필요
 
     // 상품 수정 시 사용되는 멤버변수들
     private List<ItemImgDto> itemImgDtoList = new ArrayList<>();
@@ -59,7 +57,7 @@ public class ItemFormDto {
     }
 
     // Entity -> DTO
-    public static ItemFormDto of(Item item){
-        return modelMapper.map(item, ItemFormDto.class);
+    public static ItemRegRequestDto of(Item item){
+        return modelMapper.map(item, ItemRegRequestDto.class);
     }
 }
