@@ -33,4 +33,13 @@ public class UserRequestDto {
     public UsernamePasswordAuthenticationToken toAuthentication() {
         return new UsernamePasswordAuthenticationToken(userId, password);
     }
+
+//    public UsernamePasswordAuthenticationToken toAuthentication() {
+//        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userId, password);
+//
+//        // 아래 라인을 추가하여 토큰을 콘솔에 출력합니다.
+//        System.out.println("Authentication Token: " + authenticationToken);
+//
+//        return authenticationToken;
+//    }
 }

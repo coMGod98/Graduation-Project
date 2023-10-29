@@ -31,7 +31,7 @@ public class ItemFormDto {
     private Integer stock;
 
     @NotNull(message = "상품 카테고리는 필수 선택 값입니다.")
-    private String category;
+    private Category category;
 
     @NotBlank
     private String color;
