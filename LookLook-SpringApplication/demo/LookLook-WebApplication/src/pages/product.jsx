@@ -130,7 +130,7 @@ function Product() {
 
               {stock === 0 
               ? <div className={styles.btnWrap}>
-                  <button style={{color:'white', backgroundColor:'gray'}} disabled>일시 품절</button>
+                  <button style={{color:'white', backgroundColor:'rgb(180, 180, 180)'}} disabled>일시 품절</button>
                   <button style={{color:'gray'}} disabled>일시 품절</button>
                 </div>
               : 

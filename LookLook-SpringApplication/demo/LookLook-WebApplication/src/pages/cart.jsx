@@ -22,10 +22,18 @@ function Cart(prods) {
   //     })
   //   );
   // };
-
+  const tmpList = [
+    { name: "상품명1", price: "1111" },
+    { name: "상품명2", price: "2000" },
+    { name: "상품명3", price: "3003" }
+  ];
 
   const [quantity, setQuantity] = useState(1);
   const [stock, setStock] = useState(10);
+
+  const checkedId = tmpList.map(item => {
+    return item.id;
+  });
 
   return (
     
@@ -34,7 +42,6 @@ function Cart(prods) {
       <div className={styles.CartSection}>
         <div className={styles.CartWrap}>
           <div className={styles.CartHeader}>장바구니</div>
-          {sessionStorage.setItem("size", "M")}
           
           <div className={styles.orderWrap}>
             <div style={{backgroundColor: 'rgb(184, 223, 255)'}}
@@ -55,7 +62,7 @@ function Cart(prods) {
               <div className={styles.cartTag4}>수량</div>
               <div className={styles.cartTag5}>판매가</div>
             </div>
-            <CartItem />
+            <CartItem quan/>
             <CartItem />
 
 

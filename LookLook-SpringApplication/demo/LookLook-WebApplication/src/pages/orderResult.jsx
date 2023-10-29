@@ -29,7 +29,7 @@ function OrderResult() {
           </div>
 
 
-          <div className={styles.payInfoHeader}>배송 정보</div>
+          <div className={styles.payInfoHeader}>주문 정보</div>
           <div  style={{borderTop:'1px solid rgb(197, 197, 197)'}}
             className={styles.wrapDiv}>
             <div className={styles.tagDiv}>주문자명 / 연락처</div>
@@ -53,7 +53,7 @@ function OrderResult() {
 
           <div className={styles.shopBtnWrap}>
             <Link to="/">
-              <button>쇼핑 계속하기</button>
+              <button>홈으로</button>
             </Link>
           </div>
           

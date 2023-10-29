@@ -20,6 +20,7 @@ import Signup from "./pages/signup";
 import SignupResult from "./pages/signupResult";
 import SearchResult from "./pages/searchResult";
 import Admin from "./pages/admin"
+import Seller from "./pages/seller"
 import AvartarPage from "./pages/avatarPage";
 
 import products from "./products.json"
@@ -54,6 +55,7 @@ function Routing() {
        
         <Route path="/avatarPage" element={<AvartarPage />} />
         <Route path="/admin/:menu" element={<Admin />} />
+        <Route path="/seller/:menu" element={<Seller />} />
         
       </Routes>
     </Router>

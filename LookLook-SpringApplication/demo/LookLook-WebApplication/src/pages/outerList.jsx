@@ -17,12 +17,13 @@ function OuterList() {
   const [currentPage, setCurrentPage] = useState(1);
   const prodsPerPage = 12;
 
-  useEffect(() => {setProds(Products);
+  useEffect(() => {
+    setProds(Products);
   }, []);
 
   const firstProdIndex = (currentPage - 1) * prodsPerPage;
   const lastProdIndex = firstProdIndex + prodsPerPage;
-  const currentPosts = prods.slice(firstProdIndex, lastProdIndex);
+  const currentProds = prods.slice(firstProdIndex, lastProdIndex);
 
   return (
     <>
@@ -38,7 +39,7 @@ function OuterList() {
           <Link to="/outerList/outer_jacket"><div style={{borderRight:'0'}}>자켓</div></Link>
         </div>
 
-        <ItemList list={currentPosts}/>
+        <ItemList list={currentProds}/>
         
         <Pagination
           prodsNum={prods.length}

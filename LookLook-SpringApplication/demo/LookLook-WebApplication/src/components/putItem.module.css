@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   padding: 15px 10px;
-  border-top: 1px solid
+  border-top: 1px solid gray;
 }
 
 .putItemDiv p {

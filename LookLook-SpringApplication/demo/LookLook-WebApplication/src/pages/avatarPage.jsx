@@ -15,17 +15,7 @@ const unityContext = new UnityContext({
 function AvartarPage() {
   return (
     <div className={styles.section}>
-      <Link to="/">
-        <button>홈으로 돌아가기</button>
-      </Link>
-      
-      <Unity style={{
-        width:'1200px',
-        height: '100%',
-        margin:'0 auto',
-        justifySelf: 'center',
-        alignSelf: 'center' 
-      }} unityContext={unityContext} />
+      <Unity className={styles.unity} unityContext={unityContext} />
     </div>
   )
   
