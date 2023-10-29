@@ -1,6 +1,7 @@
 package com.looklook.demo.domain;
 
 //import com.looklook.demo.dto.ItemFormDto;
+import com.looklook.demo.dto.ItemDto;
 import com.looklook.demo.dto.ItemFormDto;
 import com.looklook.demo.exception.OutOfStockException;
 import lombok.Getter;
@@ -11,34 +12,24 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "item")
+@Table(name = "items")
 @Getter @Setter
 @ToString
 public class Item extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "item_name")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "pname", nullable = false)
     private String itemName;
-
-    @Column(nullable = false)
     private int price;
-
-    @Column(nullable = false)
     private int stock;
-
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus;
-
     private LocalDateTime regTime;
     private LocalDateTime updateTime;
 
     //카테고리 종류
-    @Column(name = "ca_id")
-    private Category category;
+    private String category;
 
     @Column(name = "size")
     private String size;
@@ -49,14 +40,28 @@ public class Item extends BaseEntity {
     @Column(name="pgender")
     private String pgender;
 
-    @Lob
-    @Column(name = "information", nullable = false)
+//    @Lob
+//    @Column(name = "information", nullable = false)
     private String itemDetail;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UID")
     private LookLookUser user;
 
+    // Item 도메인 객체를 ItemDtos로 바꾸기 위한 함수
+    public static ItemDto of(Item item){
+        ItemDto dto = new ItemDto();
+        dto.setPid(item.getId());
+        dto.setItemName(item.getItemName());
+        dto.setPrice(item.getPrice());
+        dto.setItemSellStatus(String.valueOf(item.getItemSellStatus()));
+        dto.setSize(item.getSize());
+        dto.setColor(item.getColor());
+        dto.setPgender(item.getPgender());
+        dto.setCategory(String.valueOf(item.getCategory()));
+        dto.setItemDetail(item.getItemDetail());
+        return dto;
+    }
 
 
     public void updateItem(ItemFormDto itemFormDto) {
