@@ -1,4 +1,10 @@
 .section {
-  background-color: antiquewhite;
-  padding: 50px;
+  display: flex;
+  height: 800px;
+  align-items: center;
+}
+.unity {
+  width: 1200px;
+  margin: 0 auto;
+  align-items: center;
 }

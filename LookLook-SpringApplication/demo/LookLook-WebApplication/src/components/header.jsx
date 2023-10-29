@@ -49,7 +49,10 @@ function Header() {
           <h style={{fontWeight: 'bold'}}>장바구니</h>
         </Link>
         <Link to="/myPage/myInfo">
-        <h>마이페이지</h>
+          <h>마이페이지</h>
+        </Link>
+        <Link to="/seller/myProducts">
+          <h style={{color:'navy'}}>판매자</h>
         </Link>
       </div>
       :

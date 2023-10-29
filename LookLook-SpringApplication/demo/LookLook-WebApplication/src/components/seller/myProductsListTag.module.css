@@ -1,0 +1,39 @@
+.section {
+    color: white;
+    background-color: rgb(40, 60, 90);
+    font-size: 15px;
+    padding: 7px;
+    display: flex;
+    text-align: middle;
+}
+
+.section div {
+    display: flex;
+    align-items: center;
+}
+
+.item1 {
+    width: 5%;
+}
+.item1 input{
+    width: 16px;
+    height: 16px;
+}
+.item2 {
+    width: 10%;
+}
+.item3 {
+    width: 30%;
+}
+.item4 {
+    width: 10%;
+}
+.item5 {
+    width: 10%;
+}
+.item6 {
+    width: 17%;
+}
+.item7 {
+    width: 16%;
+}

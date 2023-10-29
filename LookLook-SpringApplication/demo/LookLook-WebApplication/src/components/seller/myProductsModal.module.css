@@ -1,0 +1,86 @@
+.back {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.35);
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.front {
+  font-size: 17px;
+  background-color: white;
+  position: absolute;
+  display: block;
+  width: 1000px;
+  height: 610px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  box-shadow: 1px 5px 10px 2px rgba(0, 0, 0, 0.3);
+}
+
+.front .btnWrap {
+  position: fixed;
+  display: flex;
+  border-top: 1px solid rgb(180, 180, 180);
+  width: 1000px;
+  height: 50px;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+}
+.front .btnWrap div {
+  font-size: 18px;
+  margin: 10px 30px;
+  cursor: pointer;
+}
+
+
+
+.modWrap {
+  display: flex;
+  margin-bottom: 30px;
+}
+.modWrap .modTag {
+  width: 25%;
+}
+.modWrap .modInput {
+  width: 75%;
+}
+.modWrap textarea{
+  width: 290px;
+  height: 200px;
+  resize: none;
+}
+
+
+
+
+.leftSection {
+  top: 0;
+  width: 440px;
+  display: block;
+  padding: 30px;
+}
+.rightSection {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 440px;
+  display: block;
+  padding: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+

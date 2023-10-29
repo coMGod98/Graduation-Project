@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import Header from "../components/header";
 import styles from "./orderSheet.module.css";
 import { Link } from "react-router-dom";
 import OrderProdInfoList from "../components/orderProdInfoList";
 
 function OrderSheet() {
+
+  const [isAddrNew, setIsAddrNew] = useState(false);
+
   return (
     <>
       <Header />
@@ -38,11 +41,32 @@ function OrderSheet() {
             <div className={styles.tagDiv}>주소</div>
             <div className={styles.infoDiv}>
               <div>
-                <button>기본 주소</button>
-                <button>신규 주소</button>
+                {isAddrNew === false
+                    ?
+                    <div>
+                      <button style={{backgroundColor:'#e7f3ff'}} onClick={() => setIsAddrNew(false)}>기본 주소</button>
+                      <button onClick={() => setIsAddrNew(true)}>신규 주소</button>
+                    </div>
+                    :
+                    <div>
+                      <button onClick={() => setIsAddrNew(false)}>기본 주소</button>
+                      <button style={{backgroundColor:'#e7f3ff'}} onClick={() => setIsAddrNew(true)}>신규 주소</button>
+                    </div>
+                }
+
+
               </div>
-              <div>서울시 ~~</div>
-              <div>a동</div>
+              {isAddrNew === false
+                  ?
+                  <div>
+                    <div>서울시 ~~</div>
+                  </div>
+                  :
+                  <div>
+                    <input maxLength={30} style={{width:'300px', padding:'3px'}} name="newAddr"/>
+                  </div>
+              }
+
             </div>
           </div>
 
