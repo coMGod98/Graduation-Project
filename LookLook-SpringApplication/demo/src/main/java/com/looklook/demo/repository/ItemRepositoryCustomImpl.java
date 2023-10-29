@@ -3,7 +3,10 @@ package com.looklook.demo.repository;
 import com.looklook.demo.domain.Item;
 import com.looklook.demo.domain.ItemSellStatus;
 import com.looklook.demo.domain.QItem;
+import com.looklook.demo.domain.QItemImg;
 import com.looklook.demo.dto.ItemSearchDto;
+import com.looklook.demo.dto.MainItemDto;
+import com.looklook.demo.dto.QMainItemDto;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -21,10 +24,12 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
 
     private JPAQueryFactory queryFactory;
 
+    //생성자 DI를 통해 entityManager 주입
     public ItemRepositoryCustomImpl(EntityManager em) {
         this.queryFactory=new JPAQueryFactory(em);
     }
 
+    //상품 등록일에 대한 조회 조건
     private BooleanExpression regDtsAfter(String searchDateType) {
         LocalDateTime dateTime = LocalDateTime.now();
 
@@ -36,8 +41,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
             dateTime = dateTime.minusWeeks(1);
         } else if (StringUtils.equals("1m",searchDateType)) {
             dateTime = dateTime.minusMonths(1);
-        } else if (StringUtils.equals("6m",searchDateType)) {
-            dateTime = dateTime.minusMonths(6);
+        } else if (StringUtils.equals("1y",searchDateType)) {
+            dateTime = dateTime.minusYears(1);
         }
 
         return QItem.item.regTime.after(dateTime);
@@ -58,9 +63,41 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         return null;
     }
 
+    //검색어가 포함된 상품 조회 조건 booleanExpression
     private BooleanExpression itemNameLike(String searchQuery) {
-        return StringUtils.isEmpty(searchQuery) ? null : QItem.item.itemName.like("%" + searchQuery + "%");
+        return StringUtils.isEmpty(searchQuery) ? null
+                : QItem.item.itemName.like("%" + searchQuery + "%");
     }
+
+    @Override
+    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
+
+        QItem item=QItem.item;
+        QItemImg itemImg=QItemImg.itemImg;
+
+        QueryResults<MainItemDto> result = queryFactory
+                .select(
+                        new QMainItemDto(
+                                item.id,
+                                item.itemName,
+                                item.itemDetail,
+                                itemImg.imgUrl,
+                                item.price)
+                )
+                .from(itemImg)
+                .join(itemImg.item, item)
+                .where(itemImg.repImgYn.eq("Y"))
+                .where(itemNameLike(itemSearchDto.getSearchQuery()))
+                .orderBy(item.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+
+        List<MainItemDto> content=result.getResults();
+        long total=result.getTotal();
+        return new PageImpl<>(content, pageable, total);
+    }
+
 
     @Override
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {

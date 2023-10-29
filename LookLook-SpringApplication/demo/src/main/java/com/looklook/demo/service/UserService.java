@@ -1,15 +1,32 @@
 package com.looklook.demo.service;
 
 import com.looklook.demo.domain.LookLookUser;
+<<<<<<< Updated upstream
 import com.looklook.demo.dto.UserForm;
+=======
+import com.looklook.demo.domain.RefreshToken;
+import com.looklook.demo.dto.*;
+import com.looklook.demo.jwt.TokenProvider;
+import com.looklook.demo.repository.RefreshTokenRepository;
+>>>>>>> Stashed changes
 import com.looklook.demo.repository.UserRepository;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+<<<<<<< Updated upstream
 import org.springframework.beans.factory.annotation.Autowired;
+=======
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+>>>>>>> Stashed changes
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+<<<<<<< Updated upstream
 import java.util.List;
+=======
+>>>>>>> Stashed changes
 import java.util.Optional;
 
 @Service

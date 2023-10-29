@@ -1,9 +1,8 @@
 package com.looklook.demo.dto;
 
 import com.looklook.demo.domain.Category;
-import com.looklook.demo.dto.ItemImgDto;
-import com.looklook.demo.domain.ItemSellStatus;
 import com.looklook.demo.domain.Item;
+import com.looklook.demo.domain.ItemSellStatus;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;

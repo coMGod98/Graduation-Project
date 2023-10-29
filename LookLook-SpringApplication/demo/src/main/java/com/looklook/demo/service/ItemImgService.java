@@ -24,7 +24,7 @@ public class ItemImgService {
     private final ItemImgRepository itemImgRepository;
 
     // 상품 이미지 저장
-    public void saveItemImg(ItemImg productImg, MultipartFile itemImgFile) throws IOException {
+    public void saveItemImg(ItemImg itemImg, MultipartFile itemImgFile) throws IOException {
 
         String oriImgName = itemImgFile.getOriginalFilename();
         String imgName = "";
@@ -38,12 +38,12 @@ public class ItemImgService {
 
 
         // 상품 이미지 정보 저장
-        productImg.updateItemImg(oriImgName, imgName, imgUrl);
-        itemImgRepository.save(productImg);
+        itemImg.updateItemImg(oriImgName, imgName, imgUrl);
+        itemImgRepository.save(itemImg);
     }
 
     // 상품 이미지 수정
-    public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws IOException {
+    public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception {
 
         // 상품 이미지를 수정했다면
         if (!itemImgFile.isEmpty()) {

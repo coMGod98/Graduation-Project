@@ -52,7 +52,11 @@ dependencies {
  * queryDSL 설정 추가
  */
 // querydsl에서 사용할 경로 설정
+<<<<<<< Updated upstream
 def querydslDir = "src/main/generated"
+=======
+def querydslDir = "src/java/main"
+>>>>>>> Stashed changes
 // JPA 사용 여부와 사용할 경로를 설정
 querydsl {
 	jpa = true
