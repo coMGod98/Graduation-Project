@@ -1,6 +1,8 @@
 package com.looklook.demo.service;
 
 import com.looklook.demo.domain.Item;
+import com.looklook.demo.domain.ItemColor;
+import com.looklook.demo.domain.ItemSize;
 import com.looklook.demo.dto.ItemDto;
 import com.looklook.demo.repository.ItemRepository;
 import lombok.NoArgsConstructor;
@@ -26,7 +28,7 @@ public class UserItemService {
         List<Item> items = optionalItems.orElseThrow(() -> new RuntimeException("해당 카테고리에 상품이 없습니다."));
 
         return items.stream()
-                .map(item -> item.of(item))
+                .map(item -> item.toItemDto(item, null, null))
                 .collect(Collectors.toList());
     }
 
@@ -36,11 +38,38 @@ public class UserItemService {
         Optional<Item> optionalItem = itemRepository.findById(id);
 
         if (optionalItem.isPresent()){
+            //Optional 벗기기
             Item item = optionalItem.get();
-            return item.of(item);
+
+            // 해당 id의 상품이 비어있지 않으면, 어떤 사이즈를 가지고 있는지 조회
+            List<ItemSize> sizes = item.getSizes();
+
+            List<String> sizeResult = sizes.stream()
+                        .map(ItemSize::getSizeName)
+                        .collect(Collectors.toList());
+
+            // 해당 id의 상품이 비어있지 않으면, 어떤 색상을 가지고 있는지 조회
+            List<ItemColor> colors = item.getColors();
+
+            List<String> colorResult = colors.stream()
+                    .map(ItemColor::getColor) // ItemSize 엔티티의 사이즈 이름 필드
+                    .collect(Collectors.toList());
+
+
+            return item.toItemDto(item, sizeResult, colorResult);
         }
         else {
             throw new RuntimeException("상품 정보 없습니다.");
         }
+    }
+
+    // 상품별 보유 사이즈 조회
+    public Optional<Item> getItemSizesByPid(Long pid) {
+        return itemRepository.findById(pid);
+    }
+
+    // 상품별 보유 색상 조회
+    public Optional<Item> getItemColorsByPid(Long pid){
+        return itemRepository.findById(pid);
     }
 }

@@ -10,6 +10,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "item")
@@ -25,34 +26,36 @@ public class Item extends BaseEntity {
     private int stock;
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus;
-
     private LocalDateTime regTime;
     private LocalDateTime updateTime;
+    private String size; // 삭제 필요
     private String category;
-
-    private String size;
-
-    private String color;
-
+    private String color; // 삭제 필요
     private String pgender;
-
     private String itemDetail;
+    @JoinColumn(name="product_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemSize> sizes;
 
+    @JoinColumn(name="product_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemColor> colors;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UID")
     private LookLookUser user;
 
-
-    public ItemDto of(Item item) {
+    // 상품 엔티티를 Dto로 변환
+    public ItemDto toItemDto(Item item, List<String> sizes, List<String> colors) {
         ItemDto dto = new ItemDto();
         dto.setPid(item.getId());
         dto.setItemName(item.getItemName());
         dto.setPrice(item.getPrice());
         dto.setItemDetail(item.getItemDetail());
-        dto.setSize(item.getSize());
-        dto.setColor(item.getColor());
+        dto.setSize(sizes);
+        dto.setColor(colors);
         dto.setPgender(item.getPgender());
         dto.setCategory(item.getCategory());
+        dto.setItemSellStatus(item.getItemSellStatus());
         dto.setItemDetail(item.getItemDetail());
         return dto;
     }

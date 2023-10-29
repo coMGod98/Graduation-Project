@@ -21,12 +21,17 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class OrderController {
-
     private final OrderService orderService;
 
+    // 주문서 작성
+    /*
+    배송정보: 이름, 연락처, 주소 정보 불러오기
+    상품정보: 구매하려는 상품 수량,
+    *
+    **/
 
     // 단일 상품 주문
     @PostMapping(value = "/order")

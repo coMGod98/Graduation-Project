@@ -1,5 +1,8 @@
 package com.looklook.demo.controller;
 
+import com.looklook.demo.domain.Item;
+import com.looklook.demo.domain.ItemColor;
+import com.looklook.demo.domain.ItemSize;
 import com.looklook.demo.dto.ItemDto;
 import com.looklook.demo.service.UserItemService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +32,7 @@ public class UserItemController {
         }
     }
 
+    // 상품 아이디로 상품 조회
     @GetMapping("/product/{pid}")
     public ResponseEntity<ItemDto> showItemsByPid(@PathVariable String pid) {
         ItemDto itemDto = userItemService.getItemByPid(Long.valueOf(pid));

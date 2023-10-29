@@ -1,8 +1,9 @@
 package com.looklook.demo.dto;
 
-import com.looklook.demo.domain.Item;
-import com.looklook.demo.domain.LookLookUser;
+import com.looklook.demo.domain.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,10 +14,9 @@ public class ItemDto {
     private Long pid;
     private String itemName;
     private int price;
-
-    private String itemSellStatus;
-    private String size;
-    private String color;
+    private ItemSellStatus itemSellStatus;
+    private List<String> size;
+    private List<String> color;
     private String pgender;
     private String category;
     private String itemDetail;
