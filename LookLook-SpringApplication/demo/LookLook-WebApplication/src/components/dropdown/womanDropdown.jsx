@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 
 function WomanDropdown() {
   const categorys = [
-    {cateID: "woman_shirt_blouse", cateName: "셔츠/블라우스"},
-    {cateID: "woman_knit", cateName: "니트"},
-    {cateID: "woman_tshirt", cateName: "티셔츠"},
-    {cateID: "woman_pants", cateName: "팬츠"},
-    {cateID: "woman_skirt", cateName: "스커트"},
-    {cateID: "woman_onepiece", cateName: "원피스"}
+    {cateID: "101", cateName: "셔츠/블라우스"},
+    {cateID: "102", cateName: "니트"},
+    {cateID: "103", cateName: "티셔츠"},
+    {cateID: "104", cateName: "팬츠"},
+    {cateID: "105", cateName: "스커트"},
+    {cateID: "106", cateName: "원피스"}
   ]
 
   return (

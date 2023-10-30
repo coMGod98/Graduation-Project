@@ -16,16 +16,13 @@ function MyProductsList() {
     return (
         <>
             <div className={styles.section}>
-                <div className={styles.item1}>
-                    <input type="checkbox"></input>
-                </div>
-                <div className={styles.item2}>12345678</div>
-                <div className={styles.item3}>상품명1</div>
-                <div className={styles.item4}>#,###원</div>
-                <div className={styles.item5}>5개</div>
-                <div className={styles.item6}>대분류 &gt; 소분류</div>
-                <div className={styles.item7}>2123-12-34</div>
-                <div className={styles.item8}>
+                <div className={styles.item1}>12345678</div>
+                <div className={styles.item2}>상품명1</div>
+                <div className={styles.item3}>#,###원</div>
+                <div className={styles.item4}>5개</div>
+                <div className={styles.item5}>패딩</div>
+                <div className={styles.item6}>2123-12-34</div>
+                <div className={styles.item7}>
                     <img onClick={openModal}
                          src={require("../../images/mod.png")} alt="mod" />
                     <img onClick={openModal}

@@ -159,7 +159,6 @@ function Seller() {
                             <MyProductsList />
 
                         </div>
-                        <button className={styles.blueBtn}>선택 삭제</button>
 
 
 
@@ -276,9 +275,6 @@ function Seller() {
                                 <OrderManageList />
                                 <OrderManageList />
                             </div>
-                            <button className={styles.blueBtn}>배송 준비중</button>
-                            <button className={styles.blueBtn}>배송 중</button>
-                            <button className={styles.blueBtn}>배송 완료</button>
                         </div>
                     )}
 

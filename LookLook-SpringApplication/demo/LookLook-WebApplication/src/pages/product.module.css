@@ -23,6 +23,9 @@
   align-items: center;
   padding: 50px 20px;
 }
+.productImgWrap div {
+  display: flex;
+}
 
 .productImgWrap img {
   border: 1px solid rgb(180, 180, 180);

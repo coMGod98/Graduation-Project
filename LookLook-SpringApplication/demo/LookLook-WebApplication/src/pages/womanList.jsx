@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import ItemList from "../components/itemList";
-import Products from "../products.json"
 import { Pagination } from "../components/pagination";
 
 function WomanList() {
@@ -17,8 +16,15 @@ function WomanList() {
   const [currentPage, setCurrentPage] = useState(1);
   const prodsPerPage = 12;
 
-  useEffect(() => {setProds(Products);
-  }, []);
+  useEffect(() => {
+      fetch(`/category/${cate}`, {})
+          .then(res => res.json())
+          .then(res => {
+            console.log("카테고리별 상품 목록: ", res);
+            setProds(res);
+          })
+          .catch(err => console.log("오류: ", err))
+  }, [cate]);
 
   const firstProdIndex = (currentPage - 1) * prodsPerPage;
   const lastProdIndex = firstProdIndex + prodsPerPage;
@@ -30,15 +36,16 @@ function WomanList() {
       <div className={styles.productShowSection}>
         <div className={styles.categoryHeader}><h>여성</h></div>
         <div className={styles.categoryWrap}>
-          <Link to="/womanList/woman_shirt_blouse">
+          <Link to="/womanList/101">
             <div style={{width: '150px'}}>셔츠/블라우스</div>
           </Link>
-          <Link to="/womanList/woman_knit"><div>니트</div></Link>
-          <Link to="/womanList/woman_tshit"><div>티셔츠</div></Link>
-          <Link to="/womanList/woman_pants"><div>팬츠</div></Link>
-          <Link to="/womanList/woman_skirt"><div>스커트</div></Link>
-          <Link to="/womanList/woman_onepiece"><div style={{borderRight:'0'}}>원피스</div></Link>
-          
+          <Link to="/womanList/102"><div>니트</div></Link>
+          <Link to="/womanList/103"><div>티셔츠</div></Link>
+          <Link to="/womanList/104"><div>팬츠</div></Link>
+          <Link to="/womanList/105"><div>스커트</div></Link>
+          <Link to="/womanList/106"><div style={{borderRight:'0'}}>원피스</div></Link>
+
+
         </div>
 
         <ItemList list={currentPosts}/>

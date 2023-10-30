@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Header from "../components/header";
 import styles from "./product.module.css"
 import { useState } from "react";
@@ -9,6 +9,8 @@ import PutItem from "../components/putItem"
 
 function Product() {
   const {id} = useParams();
+
+  const [prodInfo, setProdInfo] = useState([]);
 
   const sizeList = ["사이즈 선택", "M", "L", "XL"];
   const colorList = ["색상 선택", "블랙", "화이트"];
@@ -37,6 +39,17 @@ function Product() {
   };
 
 
+  useEffect(() => {
+    fetch(`/product/${id}`)
+        .then(res => res.json())
+        .then(res => {
+          console.log("상세 상품정보: ", res);
+          setProdInfo(res);
+        })
+        .catch(err => {
+          console.log("오류: ". err);
+        })
+  }, []);
 
 
   return (
@@ -46,13 +59,29 @@ function Product() {
       <div className={styles.productSection}>
         <div className={styles.detailOrder}>
           <div className={styles.productImgWrap}>
-            <div style={{fontSize:'17px'}}>전체 카테고리 &gt;</div>
+
+            <div style={{fontSize:'17px'}}>전체 카테고리 &gt;&nbsp;
+              {Number(prodInfo.category) > 100 && Number(prodInfo.category) < 200
+                ? <p>여성</p>
+                : (Number(prodInfo.category) > 200 && Number(prodInfo.category) < 300
+                  ? <p>남성</p>
+                  : (Number(prodInfo.category) > 300 && Number(prodInfo.category) < 400
+                    ? <p>아우터</p>
+                    : (Number(prodInfo.category) > 400 && Number(prodInfo.category) < 500
+                      ? <p>신발</p>
+                      : (Number(prodInfo.category) > 500 && Number(prodInfo.category) < 600
+                        ? <p>패션소품</p>
+                        : null
+              ))))}
+              <div>&nbsp;&gt;&nbsp;{prodInfo.category}</div>
+            </div>
+
             <img src={require('../images/sample.png')} alt='sample' />
             
           </div>
           <div className={styles.productInfoWrap}>
             
-            <h1 style={{fontSize:'23px', fontWeight:'bold'}}>{products[id].name}</h1>
+            <h1 style={{fontSize:'23px', fontWeight:'bold'}}>{prodInfo.itemName}</h1>
             <hr/>
 
             <div style={{display:'flex'}}>
@@ -69,10 +98,10 @@ function Product() {
 
               <div className={styles.productInfo}>
                 <ul>
-                  <li>남</li>
-                  <li>{products[id].price}원</li>
+                  <li>{prodInfo.pgender === "MAN" ? <p>남성</p> : <p>여성</p>}</li>
+                  <li>{prodInfo.price}원</li>
                   <li>2500원</li>
-                  <li>{stock}</li>
+                  <li>{stock}(임의값)</li>
 
                   {stock === 0 
                   ? <h>품절된 상품입니다.</h>

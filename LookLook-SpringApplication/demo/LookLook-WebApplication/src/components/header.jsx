@@ -26,9 +26,9 @@ function Header() {
 
   const logoutClick = () => {
     if(window.confirm("로그아웃 하시겠습니까?")) {
-      sessionStorage.setItem("accessToken", "");
+      localStorage.setItem("accessToken", "");
       navigate("/");
-      console.log("로그아웃 후 세션스토리지 값: ", sessionStorage.getItem("accessToken"))
+      console.log("로그아웃 후 세션스토리지 값: ", localStorage.getItem("accessToken"))
     }
   }
 
@@ -41,7 +41,7 @@ function Header() {
   return (
     <div className={styles.header}>
 
-      {sessionStorage.getItem("accessToken") !== ""
+      {localStorage.getItem("accessToken") !== ""
       ?
       <div className={styles.topMenu}>
         <h style={{cursor:'pointer'}} onClick={logoutClick}>로그아웃</h>

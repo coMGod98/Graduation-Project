@@ -46,7 +46,7 @@ function Login() {
       .then(res => res.json())
       .then(res => {
         const accessToken = res.accessToken; // accessToken 추출
-        sessionStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('accessToken', accessToken);
         console.log("세션스토리지에 토큰 저장: ", accessToken);
 
         return fetch('/admin_chk', {
@@ -58,7 +58,7 @@ function Login() {
       .then(res => res.json())
       .then((res) => {
         const adminChk = res.admin_chk;
-        const accessToken = sessionStorage.getItem('accessToken');
+        const accessToken = localStorage.getItem('accessToken');
 
         // 세 번째 요청 (GET /admin 또는 GET /main)
         adminChk ? navigate("/admin/userManage") : navigate("/");

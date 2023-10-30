@@ -17,8 +17,15 @@ function ManList() {
   const [currentPage, setCurrentPage] = useState(1);
   const prodsPerPage = 12;
 
-  useEffect(() => {setProds(Products);
-  }, []);
+  useEffect(() => {
+    fetch(`/category/${cate}`, {})
+        .then(res => res.json())
+        .then(res => {
+          console.log("카테고리별 상품 목록: ", res);
+          setProds(res);
+        })
+        .catch(err => console.log("오류: ", err))
+  }, [cate]);
 
   const firstProdIndex = (currentPage - 1) * prodsPerPage;
   const lastProdIndex = firstProdIndex + prodsPerPage;
@@ -30,13 +37,13 @@ function ManList() {
       <div className={styles.productShowSection}>
         <div className={styles.categoryHeader}><h>남성</h></div>
         <div className={styles.categoryWrap}>
-          <Link to="/manList/man_shirt">
+          <Link to="/manList/201">
           <div>셔츠</div>
           </Link>
-          <Link to="/manList/man_knit"><div>니트</div></Link>
-          <Link to="/manList/man_tshirt"><div>티셔츠</div></Link>
-          <Link to="/manList/man_suit"><div>정장</div></Link>
-          <Link to="/manList/man_pants"><div style={{borderRight:'0'}}>팬츠</div></Link>
+          <Link to="/manList/202"><div>니트</div></Link>
+          <Link to="/manList/203"><div>티셔츠</div></Link>
+          <Link to="/manList/204"><div>정장</div></Link>
+          <Link to="/manList/205"><div style={{borderRight:'0'}}>팬츠</div></Link>
         </div>
 
         <ItemList list={currentPosts}/>

@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 function FashionDropdown() {
   const categorys = [
-    {cateID: "bag", cateName: "가방"},
-    {cateID: "watch", cateName: "시계"},
-    {cateID: "glasses", cateName: "선글라스/안경"},
-    {cateID: "belt", cateName: "벨트"},
-    {cateID: "jewely", cateName: "쥬얼리"}
+    {cateID: "501", cateName: "가방"},
+    {cateID: "502", cateName: "시계"},
+    {cateID: "503", cateName: "선글라스/안경"},
+    {cateID: "504", cateName: "벨트"},
+    {cateID: "505", cateName: "쥬얼리"}
   ]
 
   return (

@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 
 function ShoesDropdown() {
   const categorys = [
-    {cateID: "formal_shoes", cateName: "구두"},
-    {cateID: "heels", cateName: "힐"},
-    {cateID: "plat_shoes", cateName: "플랫슈즈"},
-    {cateID: "sandals", cateName: "샌들"},
-    {cateID: "slipper", cateName: "슬리퍼"},
-    {cateID: "boots", cateName: "부츠"}
+    {cateID: "401", cateName: "구두"},
+    {cateID: "402", cateName: "힐"},
+    {cateID: "403", cateName: "플랫슈즈"},
+    {cateID: "404", cateName: "샌들"},
+    {cateID: "405", cateName: "슬리퍼"},
+    {cateID: "406", cateName: "부츠"}
   ]
 
   return (

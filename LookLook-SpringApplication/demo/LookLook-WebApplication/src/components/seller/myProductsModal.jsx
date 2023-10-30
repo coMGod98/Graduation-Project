@@ -165,7 +165,6 @@ function MyProductsModal({isOpen, closeModal}) {
                 </div>
               </div>
               <div className={styles.modWrap}>
-                <div className={styles.modTag}>카테고리 설정</div>
                 <div className={styles.modInput}>
 
                   <CategorySelecter highFunction={highFunction} lowFunction={lowFunction}/>
