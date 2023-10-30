@@ -1,5 +1,6 @@
 package com.looklook.demo.controller;
 
+import com.looklook.demo.dto.ItemDto;
 import com.looklook.demo.dto.ItemRegRequestDto;
 import com.looklook.demo.dto.SellerItemDto;
 import com.looklook.demo.service.ItemService;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,10 +26,11 @@ public class SellerItemController {
 
     // 나의 상품 조회
     @GetMapping("/seller/items")
-    public ResponseEntity<SellerItemDto> showAllItems() {
+    public ResponseEntity<List<SellerItemDto>> showAllItems(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        List<SellerItemDto> dtos = sellerItemService.showItemList(Long.valueOf(userDetails.getUsername()));
 
-        SellerItemDto dto = new SellerItemDto();
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(dtos);
     }
 
     // 이미지 등록은 없는 버전, 나중에 삭제 예정
@@ -57,6 +61,20 @@ public class SellerItemController {
 //    }
 
     // 상품 수정 (아직 요청은 아님)
+//    @PostMapping(value = "/seller/item/{pid}")
+//    public ResponseEntity<String> updateItem(
+//            @RequestParam Long pid,
+//            @RequestBody ItemRegRequestDto itemRegRequestDto
+//    ) throws Exception {
+//
+////        try {
+////            sellerItemService.addNewItem(itemRegRequestDto);
+////            return ResponseEntity.ok("상품 등록 요청이 완료되었습니다.");
+////        } catch (RuntimeException e) {
+////            return ResponseEntity.status(HttpStatus.CONFLICT).body("해당 상품명으로 등록된 상품이 이미 존재합니다.");
+////        }
+//
+//    }
 
 
     // 상품 삭제 (배송이 아직 완료되지 않은 상품이 있는 경우, 상품 삭제 불가능)

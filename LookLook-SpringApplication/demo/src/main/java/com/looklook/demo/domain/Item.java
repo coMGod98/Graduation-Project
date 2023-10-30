@@ -3,6 +3,7 @@ package com.looklook.demo.domain;
 //import com.looklook.demo.dto.ItemFormDto;
 import com.looklook.demo.dto.ItemDto;
 import com.looklook.demo.dto.ItemRegRequestDto;
+import com.looklook.demo.dto.SellerItemDto;
 import com.looklook.demo.exception.OutOfStockException;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,6 @@ public class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(unique=true)
     private String itemName;
     private int price;
@@ -29,6 +29,10 @@ public class Item extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus;
     private LocalDateTime regTime;
+    @PrePersist
+    public void prePersist() {
+        this.regTime = LocalDateTime.now();
+    }
     private LocalDateTime updateTime;
     private String size; // 삭제 필요
     private String category;
@@ -61,6 +65,23 @@ public class Item extends BaseEntity {
         dto.setPrice(item.getPrice());
         dto.setItemDetail(item.getItemDetail());
         dto.setSize(sizes);
+        dto.setColor(colors);
+        dto.setPgender(item.getPgender());
+        dto.setCategory(item.getCategory());
+        dto.setItemSellStatus(item.getItemSellStatus());
+        dto.setItemDetail(item.getItemDetail());
+        return dto;
+    }
+
+    public SellerItemDto toSellerItemDto(Item item, List<String> sizes, List<String> colors) {
+        SellerItemDto dto = new SellerItemDto();
+        dto.setPid(item.getId());
+        dto.setItemName(item.getItemName());
+        dto.setPrice(item.getPrice());
+        dto.setItemDetail(item.getItemDetail());
+        dto.setSize(sizes);
+        dto.setRegTime(item.regTime);
+        dto.setStock(item.getStock());
         dto.setColor(colors);
         dto.setPgender(item.getPgender());
         dto.setCategory(item.getCategory());

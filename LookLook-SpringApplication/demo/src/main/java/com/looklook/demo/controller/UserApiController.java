@@ -50,11 +50,20 @@ public class UserApiController {
         return ResponseEntity.ok(userResponseDto);
     }
 
+    // 회원 탈퇴
     @PostMapping("/mypage/user/withdrawal")
     public ResponseEntity<String> deleteUserInfo(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         userService.withdrawal(Long.valueOf(userDetails.getUsername()));
         return ResponseEntity.ok("탈퇴 완료");
+    }
+
+    // 판매자 페이지 이동 시 판매자 정보 반환
+    @GetMapping("/seller")
+    public ResponseEntity<UserResponseDto> sendSellerInfo(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        UserResponseDto userResponseDto = userService.findUserInfoById(Long.valueOf(userDetails.getUsername()));
+        return ResponseEntity.ok(userResponseDto);
     }
 }
 

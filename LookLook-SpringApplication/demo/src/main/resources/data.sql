@@ -6,7 +6,7 @@ INSERT INTO USERS (USERNAME, USERID, USERPW, AUTHORITY)
 VALUES ('emily', 'emily123', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER');
 
 INSERT INTO USERS (USERNAME, USERID, USERPW, AUTHORITY)
-VALUES ('testuser', 'testuser', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER');
+VALUES ('testuser', 'testuser0000', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER');
 
 
 

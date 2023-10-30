@@ -120,7 +120,6 @@ public class UserService {
     }
 
     // 사용자 정보 수정 (마이페이지-> 회원정보수정 시 비밀번호 인증 -> 이름, 주소, 이메일 변경 가능 )
-
     @Transactional
     public UserResponseDto updateUser(Long uid, UserRequestDto userRequestDto) {
         Optional<LookLookUser> user = userRepository.findById(uid);
