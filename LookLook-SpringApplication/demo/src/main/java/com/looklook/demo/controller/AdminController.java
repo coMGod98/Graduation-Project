@@ -7,11 +7,10 @@ import com.looklook.demo.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -48,10 +47,21 @@ public class AdminController {
     // 사용자 수정
     @Secured("ROLE_ADMIN")
     @PostMapping("/admin/user-update/{uid}")
-    public ResponseEntity<UserResponseDto> updateUser(@PathVariable String uid, UserRequestDto userRequestDto){
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable String uid, @RequestBody UserRequestDto userRequestDto){
+        System.out.println("userRequestDto: "+ userRequestDto.toString());
         UserResponseDto userResponseDto = userService.updateUser(Long.valueOf(uid), userRequestDto);
         return ResponseEntity.ok(userResponseDto);
     }
 
     // 사용자 삭제
+    @PostMapping("/admin/user-withdrawal")
+    public ResponseEntity<String> deleteUserInfo(@RequestBody UserRequestDto[] dtos) {
+        List<UserRequestDto> dtoList = Arrays.asList(dtos);
+
+        dtoList.stream().forEach(dto -> {
+            userService.withdrawal(dto.getUid());
+        });
+
+        return ResponseEntity.ok("탈퇴 완료");
+    }
 }

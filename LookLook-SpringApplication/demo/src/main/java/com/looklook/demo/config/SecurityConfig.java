@@ -26,9 +26,6 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-
-
-
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
@@ -65,7 +62,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority(Authority.ROLE_ADMIN.name())
-                .antMatchers("/","/login", "/signup","/static/**", "/manifest.json", "/looklook_logo.png").permitAll()
+                .antMatchers("/","/login", "/signup","/static/**", "/manifest.json", "/looklook_logo.png", "/category/**", "/product/**").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
                 .and()
                 .httpBasic()

@@ -3,7 +3,10 @@ package com.looklook.demo.dto;
 import com.looklook.demo.domain.LookLookUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Optional;
 
 @Getter
 @AllArgsConstructor
@@ -29,6 +32,7 @@ public class UserResponseDto {
     // 도메인 객체를 Dto로 바꾸기 위한 함수, UserService의 findMemberInfoByUserId()에서 사용
     public static UserResponseDto of(LookLookUser user) {
         UserResponseDto dto = new UserResponseDto();
+        dto.setUid(user.getId());
         dto.setUserId(user.getUserId());
         if (user.getUserName() != null) {
             dto.userName = user.getUserName();

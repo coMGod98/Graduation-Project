@@ -24,7 +24,7 @@ public class QItem extends EntityPathBase<Item> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final EnumPath<Category> category = createEnum("category", Category.class);
+    public final StringPath category = createString("category");
 
     public final StringPath color = createString("color");
 

@@ -24,10 +24,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-
-
-
-
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -44,6 +40,8 @@ public class CartService {
     //장바구니 담기
     public Long addCart(CartItemDto cartItemDto, String userId) {
 
+        Item item = itemRepository.findById(cartItemDto.getItemId())
+                .orElseThrow(EntityNotFoundException::new);
         Optional<LookLookUser> user = userRepository.findByUserId(userId);
         LookLookUser result = user.get();
         Cart cart=cartRepository.findByUserId(result.getId());
@@ -54,19 +52,18 @@ public class CartService {
             cartRepository.save(cart);
         }
 
-        Item item = itemRepository.findById(cartItemDto.getItemId()).orElseThrow(EntityNotFoundException::new);
-        CartItem cartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), item.getId());
+        CartItem savedCartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), item.getId());
+        //현재 상품이 장바구니에 이미 들어가 있는지 조회
 
-        // 해당 상품이 장바구니에 존재하지 않는다면 생성 후 추가
-        if (cartItem == null) {
-            cartItem = CartItem.createCartItem(cart, item, cartItemDto.getCount());
-            cartItemRepository.save(cartItem);
-
-            // 해당 상품이 장바구니에 이미 존재한다면 수량을 증가
+        // 해당 상품이 장바구니에 존재한다면 기존 수량에서 현재 장바구니에 담을 수량만큼 더해줌
+        if (savedCartItem != null) {
+            savedCartItem.addCount(cartItemDto.getCount());
+            return savedCartItem.getId();
         } else {
-            cartItem.addCount(cartItemDto.getCount());
+            CartItem cartItem = CartItem.createCartItem(cart, item, cartItemDto.getCount());
+            cartItemRepository.save(cartItem);
+            return cartItem.getId();
         }
-        return cartItem.getId();
     }
 
 
@@ -89,7 +86,7 @@ public class CartService {
     }
 
 
-    //장바구니 주인 조회
+    //장바구니 수량 변경
     @Transactional(readOnly = true)
     public boolean validateCartItem(Long cartItemId, String userId) {
 
@@ -107,7 +104,9 @@ public class CartService {
     }
 
     public void updateCartItemCount(Long cartItemId, int count){
-        CartItem cartItem=cartItemRepository.findById(cartItemId).orElseThrow(EntityNotFoundException::new);
+        CartItem cartItem=cartItemRepository.findById(cartItemId)
+                .orElseThrow(EntityNotFoundException::new);
+
         cartItem.updateCount(count);
     }
 
@@ -120,11 +119,14 @@ public class CartService {
 
     // 장바구니 상품(들) 주문
     public Long orderCartItem(List<CartOrderDto> cartOrderDtoList, String userId) {
-
         List<OrderDto> orderDtoList = new ArrayList<>();
 
         for (CartOrderDto cartOrderDto : cartOrderDtoList) {
-            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(EntityNotFoundException::new);
+            //장바구니 페이지에서 전달 받은 주문 상품 번호를 이용하여 주문 로직으로 전달할 orderDto 객체 생성
+            CartItem cartItem = cartItemRepository
+                    .findById(cartOrderDto.getCartItemId())
+                    .orElseThrow(EntityNotFoundException::new);
+
             OrderDto orderDto = new OrderDto();
             orderDto.setItemId(cartItem.getItem().getId());
             orderDto.setCount(cartItem.getCount());
@@ -132,10 +134,13 @@ public class CartService {
         }
 
         Long orderId = orderService.orders(orderDtoList, userId);
+        //장바구니에 담은 상품을 주문하도록 주문 로직 호출
 
-        // 주문한 장바구니 상품을 제거
+        // 주문한 상품 장바구니에서 제거
         for (CartOrderDto cartOrderDto : cartOrderDtoList) {
-            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(EntityNotFoundException::new);
+            CartItem cartItem = cartItemRepository
+                    .findById(cartOrderDto.getCartItemId())
+                    .orElseThrow(EntityNotFoundException::new);
             cartItemRepository.delete(cartItem);
         }
         return orderId;

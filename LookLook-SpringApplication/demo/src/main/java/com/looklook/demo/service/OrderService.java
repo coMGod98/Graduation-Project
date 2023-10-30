@@ -32,14 +32,12 @@ public class OrderService {
     private final ItemImgRepository itemImgRepository;
 
     public Long order(OrderDto orderDto, String userId) {
-
-
-        Item item=itemRepository.findById(orderDto.getItemId()).orElseThrow(EntityNotFoundException::new);
+        Item item = itemRepository.findById(orderDto.getItemId())
+                .orElseThrow(EntityNotFoundException::new);
         Optional<LookLookUser> user = userRepository.findByUserId(userId);
 
-        List<OrderItem> orderItemList=new ArrayList<>();
-
-        OrderItem orderItem=OrderItem.createOrderItem(item, orderDto.getCount());
+        List<OrderItem> orderItemList = new ArrayList<>();
+        OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
         orderItemList.add(orderItem);
 
         if (user.isPresent()){
@@ -48,7 +46,6 @@ public class OrderService {
             orderRepository.save(order);
             return order.getId();
         }
-
         // Optional이 비어 있을 때 처리 미흡
         return null;
     }
@@ -58,20 +55,25 @@ public class OrderService {
     public Page<OrderHistDto> getOrderList(String userId, Pageable pageable) {
 
         List<Order> orders=orderRepository.findOrders(userId, pageable);
+        //유저의 아이디와 페이징 조건을 이욯아ㅕ 주문 목록 조회
         Long totalCount=orderRepository.countOrder(userId);
+        //유저 주문 총 개수
 
-        List<OrderHistDto> orderHistDtos=new ArrayList<>();
+        List<OrderHistDto> orderHistDtos = new ArrayList<>();
 
         for (Order order : orders) {
             OrderHistDto orderHistDto = new OrderHistDto(order);
             List<OrderItem> orderItems = order.getOrderItems();
             for (OrderItem orderItem : orderItems) {
-                ItemImg itemImg = itemImgRepository.findByItemIdAndRepImgYn(orderItem.getItem().getId(), "Y");
+                ItemImg itemImg = itemImgRepository.findByItemIdAndRepImgYn
+                        (orderItem.getItem().getId(), "Y"); //주문한 상품의 대표 이미지 조회
                 OrderItemDto orderItemDto = new OrderItemDto(orderItem, itemImg.getImgUrl());
                 orderHistDto.addOrderItemDto(orderItemDto);
             }
+
             orderHistDtos.add(orderHistDto);
         }
+
         return new PageImpl<OrderHistDto>(orderHistDtos, pageable, totalCount);
     }
 
@@ -98,17 +100,15 @@ public class OrderService {
     public Long orders(List<OrderDto> orderDtoList, String userId) {
 
         // 유저 조회
-
         Optional<LookLookUser> user = userRepository.findByUserId(userId);
-
         // orderDto 객체를 이용하여 item 객체와 count 값을 얻어낸 뒤, 이를 이용하여 OrderItem 객체(들) 생성
         List<OrderItem> orderItemList = new ArrayList<>();
+
         for (OrderDto orderDto : orderDtoList) {
             Item item = itemRepository.findById(orderDto.getItemId()).orElseThrow(EntityNotFoundException::new);
             OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
             orderItemList.add(orderItem);
         }
-
         //Order Entity 클래스에 존재하는 createOrder 메소드로 Order 생성 및 저장
         if (user.isPresent()){
             LookLookUser result = user.get();

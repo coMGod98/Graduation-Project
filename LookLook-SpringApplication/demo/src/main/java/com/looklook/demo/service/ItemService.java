@@ -2,10 +2,7 @@ package com.looklook.demo.service;
 
 import com.looklook.demo.domain.Item;
 import com.looklook.demo.domain.ItemImg;
-import com.looklook.demo.dto.ItemFormDto;
-import com.looklook.demo.dto.ItemImgDto;
-import com.looklook.demo.dto.ItemSearchDto;
-import com.looklook.demo.dto.MainItemDto;
+import com.looklook.demo.dto.*;
 import com.looklook.demo.repository.ItemImgRepository;
 import com.looklook.demo.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,12 +26,12 @@ public class ItemService {
     private final ItemImgService itemImgService;
     private final ItemImgRepository itemImgRepository;
 
-    // 상품 등록
-    public Long saveItem(ItemFormDto itemFormDto,
+    //등록하기
+    public Long saveItem(ItemRegRequestDto itemRegRequestDto,
                          List<MultipartFile> itemImgFileList) throws Exception {
 
-        // 상품 등록
-        Item item = itemFormDto.createItem();
+        //상품 등록
+        Item item = itemRegRequestDto.createItem();
         itemRepository.save(item);
 
         // 이미지 등록
@@ -53,14 +50,13 @@ public class ItemService {
     }
 
 
-    //관리자 상품 정보 조회
-    @Transactional(readOnly = true)
-    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
-        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
-    }
 
+
+    //상품 데이터를 읽어오는 트랜잭션을 읽기 전용으로 설정
+    //상품의 이미지를 아이디 오름차순으로 조회하고 조회한 itemImg 엔티티를 itemImgDto 객체로 만들어 리스트에 추가
+    //상품 아이디가 존재하지 않을 땐 EntityNotFoundException 발생
     @Transactional(readOnly = true)
-    public ItemFormDto getItemDetail(Long itemId) {
+    public ItemRegRequestDto getItemDetail(Long itemId) {
 
         // 상품 이미지 엔티티들을 itemImgDto 객체로 변환하여 itemImgDtoList 에 담음
         List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
@@ -73,28 +69,52 @@ public class ItemService {
 
         // 상품 엔티티를 ItemFormDto 객체로 변환하고 itemImgDtoList 멤버변수를 초기화
         Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
-
-        ItemFormDto itemFormDto = ItemFormDto.of(item);
-        itemFormDto.setItemImgDtoList(itemImgDtoList);
-        return itemFormDto;
+        ItemRegRequestDto itemRegRequestDto = ItemRegRequestDto.of(item);
+        itemRegRequestDto.setItemImgDtoList(itemImgDtoList);
+        return itemRegRequestDto;
 
     }
 
 
-    public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
+    public Long updateItem(ItemRegRequestDto itemRegRequestDto, List<MultipartFile> itemImgFileList) throws Exception {
 
         // 상품 수정
-        Item item=itemRepository.findById(itemFormDto.getId())
+        Item item = itemRepository.findById(itemRegRequestDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
-        item.updateItem(itemFormDto);
-
+        item.updateItem(itemRegRequestDto);
         // 상품 이미지 수정
-        List<Long> itemImgIds = itemFormDto.getItemImgIds();
-        for (int i = 0; i < itemImgFileList.size(); i++) {
-            itemImgService.updateItemImg(itemImgIds.get(i), itemImgFileList.get(i));
+        List<Long> itemImgIds = itemRegRequestDto.getItemImgIds();
+
+        if (itemImgFileList.size() != itemImgIds.size()) {
+            throw new IllegalArgumentException("itemImgFileList size and itemImgIds size do not match.");
         }
 
+        //수정한 이미지 등록
+        for (int i = 0; i < itemImgFileList.size(); i++) {
+            itemImgService.updateItemImg(itemImgIds.get(i), itemImgFileList.get(i));
+        }   //updateItemImg() 메소드에 상품 이미지 아이디와 상품 이미지 파일 정보 파라미터로 전달
+
         return item.getId();
+    }
+
+    //등록한 상품 삭제
+    public void deleteItem(Long itemId) {
+        Item item=itemRepository.findById(itemId)
+                .orElseThrow(EntityNotFoundException::new);
+        itemRepository.delete(item);
+
+        //관련 이미지 삭제
+        List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
+        for (ItemImg itemImg : itemImgList) {
+            itemImgRepository.delete(itemImg);
+        }
+    }
+
+    //관리자 상품 정보 조회
+    //ItemService 클래스에 상품 조회 조건과 페이지 정보를 파라미터로 받아서 상품 데이터 조회하는 getAdminItemPage() 메소드 추가
+    @Transactional(readOnly = true)
+    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
     }
 
     // 메인 페이지 상품 목록 조회

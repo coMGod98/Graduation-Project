@@ -21,11 +21,11 @@ public class ItemImgService {
     private String itemImgLocation;
 
     private final FileService fileService;
+
     private final ItemImgRepository itemImgRepository;
 
     // 상품 이미지 저장
-    public void saveItemImg(ItemImg itemImg, MultipartFile itemImgFile) throws IOException {
-
+    public void saveItemImg(ItemImg itemImg, MultipartFile itemImgFile) throws Exception {
         String oriImgName = itemImgFile.getOriginalFilename();
         String imgName = "";
         String imgUrl = "";
@@ -43,6 +43,9 @@ public class ItemImgService {
     }
 
     // 상품 이미지 수정
+    // 상품 이미지 아이디를 이용하여 기존의 상품 이미지 엔티티 조회
+    ///기존에 등록된 상품이 있을 경우, 해당 파일 삭제
+    //업데이트한 상품 이미지 파일 업로드
     public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception {
 
         // 상품 이미지를 수정했다면
@@ -52,12 +55,13 @@ public class ItemImgService {
 
             // 기존 이미지 파일이 존재한다면 삭제
             if (!StringUtils.isEmpty(savedItemImg.getImgName())) {
-                fileService.deleteFile(itemImgLocation + "/" + savedItemImg);
+                fileService.deleteFile(itemImgLocation + "/" + savedItemImg.getImgName());
             }
 
             String oriImgName = itemImgFile.getOriginalFilename();
             String imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
             String imgUrl = "/images/item/" + imgName;
+            //변경된 상품 이미지 정보 세팅
             savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
 
         }

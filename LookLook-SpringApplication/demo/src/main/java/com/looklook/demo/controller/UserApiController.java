@@ -1,41 +1,3 @@
-<<<<<<< Updated upstream
-//package com.looklook.demo.controller;
-//
-//import com.looklook.demo.dto.UserForm;
-//import com.looklook.demo.service.UserService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//@RestController
-//@RequiredArgsConstructor
-//public class UserApiController {
-////    private final UserService userService;
-////
-////    @GetMapping("/")
-////    public String hi() {
-////        return "hi";
-////    }
-////    @GetMapping("/login")
-////    public String login() {
-////        return "login_form";
-////    }
-////
-////    @GetMapping("/sign-up")
-////    public String signup(Model model) {
-////        model.addAttribute("userForm", new UserForm());
-////        return "sign-up";
-////    }
-////
-////    @PostMapping("/sign-up")
-////    public String signup(UserForm userForm) {
-////        userService.join(userForm.getUserName(),userForm.getUserId(),userForm.getPassword());
-////        return "redirect:/login";
-////    }
-//}
-=======
 
 package com.looklook.demo.controller;
 
@@ -47,9 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserApiController {
@@ -61,7 +21,7 @@ public class UserApiController {
     }
 
     // 사용자 조회
-    @GetMapping("/mypage/user")
+    @GetMapping("/mypage")
     public ResponseEntity<UserResponseDto> getUserInfo(Authentication authentication){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         // userDetails.getUsername은 uid를 의미하고, userService.findUserInfoById()를 사용해야함
@@ -71,7 +31,7 @@ public class UserApiController {
 
     // 사용자 정보 수정 전 비밀번호 확인
     @PostMapping("/mypage/user/auth")
-    public ResponseEntity<String> pwChkBeforeUpdateUserInfo(Authentication authentication, AuthRequestDto authRequestDto) {
+    public ResponseEntity<String> pwChkBeforeUpdateUserInfo(Authentication authentication, @RequestBody AuthRequestDto authRequestDto) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Boolean success = userService.pwChk(Long.valueOf(userDetails.getUsername()), authRequestDto);
         if (success){
@@ -84,7 +44,7 @@ public class UserApiController {
 
     // 사용자 정보 수정
     @PostMapping("/mypage/user/info")
-    public ResponseEntity<UserResponseDto> updateUserInfo(UserRequestDto userRequestDto, Authentication authentication) {
+    public ResponseEntity<UserResponseDto> updateUserInfo(@RequestBody UserRequestDto userRequestDto, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         UserResponseDto userResponseDto = userService.updateUser(Long.valueOf(userDetails.getUsername()), userRequestDto);
         return ResponseEntity.ok(userResponseDto);
@@ -97,4 +57,3 @@ public class UserApiController {
         return ResponseEntity.ok("탈퇴 완료");
     }
 }
->>>>>>> Stashed changes

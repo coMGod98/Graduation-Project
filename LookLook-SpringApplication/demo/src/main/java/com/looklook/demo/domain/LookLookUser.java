@@ -1,7 +1,9 @@
 package com.looklook.demo.domain;
 
+import com.looklook.demo.dto.UserForm;
 import com.looklook.demo.dto.UserResponseDto;
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
@@ -61,6 +63,14 @@ public class LookLookUser {
         dto.setAddress(user.getAddress());
         return dto;
 
+    }
+    //테스트 용도
+    public static LookLookUser createUser(UserForm userForm) {
+
+        LookLookUser user = new LookLookUser();
+        user.setUserName(userForm.getUserName());
+        user.setUserId(userForm.getUserId());
+        return user;
     }
 }
 

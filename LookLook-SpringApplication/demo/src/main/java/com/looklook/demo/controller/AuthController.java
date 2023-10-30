@@ -1,18 +1,23 @@
 package com.looklook.demo.controller;
 
 import com.looklook.demo.dto.*;
+import com.looklook.demo.jwt.JwtFilter;
 import com.looklook.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.Collection;
 import java.util.Map;
 
@@ -22,19 +27,17 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserResponseDto> signup(@Valid UserForm userDto, BindingResult bindingResult) {
+    public ResponseEntity<UserResponseDto> signup(@RequestBody @Valid UserForm userDto) {
         System.out.println("UserDto: "+ userDto.toString());
-        if (bindingResult.hasErrors() || !userDto.getPassword().equals(userDto.getPasswordChk())) {
-            bindingResult.rejectValue("passwordChk", "passwordInCorrect", "2개의 패스워드가 일치하지 않습니다.");
-            return ResponseEntity.badRequest().body(null);
-        }
 
         UserResponseDto responseDto = userService.signup(userDto);
+        System.out.println("회원가입 완료: "+ responseDto.toString());
+
         return ResponseEntity.ok(responseDto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(UserRequestDto userRequestDto) {
+    public ResponseEntity<TokenDto> login(@RequestBody UserRequestDto userRequestDto) {
         TokenDto tokenDto = userService.login(userRequestDto);
         return ResponseEntity.ok(tokenDto);
     }
