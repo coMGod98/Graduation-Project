@@ -39,16 +39,16 @@ public class ItemService {
         itemRepository.save(item);
 
         // 이미지 등록
-        for (int i = 0; i < itemImgFileList.size(); i++) {
-            ItemImg itemimg = new ItemImg();
-            itemimg.setItem(item);
-            if (i == 0) {
-                itemimg.setRepImgYn("Y");
-            } else{
-                itemimg.setRepImgYn("N");
-            }
-            itemImgService.saveItemImg(itemimg, itemImgFileList.get(i));
-        }
+//        for (int i = 0; i < itemImgFileList.size(); i++) {
+//            ItemImg itemimg = new ItemImg();
+//            itemimg.setItem(item);
+//            if (i == 0) {
+//                itemimg.setRepImgYn("Y");
+//            } else{
+//                itemimg.setRepImgYn("N");
+//            }
+//            itemImgService.saveItemImg(itemimg, itemImgFileList.get(i));
+//        }
         return item.getId();
 
     }
@@ -82,21 +82,21 @@ public class ItemService {
 //    }
 
 
-    public Long updateItem(ItemRegRequestDto itemRegRequestDto, List<MultipartFile> itemImgFileList) throws IOException {
-
-        // 상품 수정
-        Item item=itemRepository.findById(itemRegRequestDto.getId())
-                .orElseThrow(EntityNotFoundException::new);
-        item.updateItem(itemRegRequestDto);
-
-        // 상품 이미지 수정
-        List<Long> itemImgIds = itemRegRequestDto.getItemImgIds();
-        for (int i = 0; i < itemImgFileList.size(); i++) {
-            itemImgService.updateItemImg(itemImgIds.get(i), itemImgFileList.get(i));
-        }
-
-        return item.getId();
-    }
+//    public Long updateItem(ItemRegRequestDto itemRegRequestDto, List<MultipartFile> itemImgFileList) throws IOException {
+//
+//        // 상품 수정
+//        Item item=itemRepository.findById(itemRegRequestDto.getId())
+//                .orElseThrow(EntityNotFoundException::new);
+//        item.updateItem(itemRegRequestDto);
+//
+//        // 상품 이미지 수정
+//        List<Long> itemImgIds = itemRegRequestDto.getItemImgIds();
+//        for (int i = 0; i < itemImgFileList.size(); i++) {
+//            itemImgService.updateItemImg(itemImgIds.get(i), itemImgFileList.get(i));
+//        }
+//
+//        return item.getId();
+//    }
 
 //    // 메인 페이지 상품 목록 조회
 //    @Transactional(readOnly = true)

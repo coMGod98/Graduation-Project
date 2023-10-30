@@ -55,12 +55,9 @@ public class AdminController {
 
     // 사용자 삭제
     @PostMapping("/admin/user-withdrawal")
-    public ResponseEntity<String> deleteUserInfo(@RequestBody UserRequestDto[] dtos) {
-        List<UserRequestDto> dtoList = Arrays.asList(dtos);
-
-        dtoList.stream().forEach(dto -> {
-            userService.withdrawal(dto.getUid());
-        });
+    public ResponseEntity<String> deleteUserInfo(@RequestBody UserRequestDto dto) {
+        
+        userService.withdrawal(dto.getUid());
 
         return ResponseEntity.ok("탈퇴 완료");
     }

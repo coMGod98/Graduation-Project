@@ -11,17 +11,15 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
     CartItem findByCartIdAndItemId(Long cartId, Long itemId);
 
-    @Query("select new com.looklook.demo.dto.CartListDto(ci.id, i.itemName, i.price, ci.count, im.imgUrl)" +
-            "from CartItem ci, ItemImg im " +
-            "join ci.item i " +
-            "where ci.cart.id = :cartId " +
-            "and im.item.id = ci.item.id " +
-            "and im.repImgYn = 'Y' " +
-            "order by ci.regTime desc")
+//    @Query("select new com.looklook.demo.dto.CartListDto(ci.id, i.itemName, i.price, ci.count, im.imgUrl)" +
+//            "from CartItem ci, ItemImg im " +
+//            "join ci.item i " +
+//            "where ci.cart.id = :cartId " +
+//            "and im.item.id = ci.item.id " +
+//            "and im.represent = true " +
+//            "order by ci.regTime desc")
 
-    List<CartListDto> findCartListDto(Long cartId);
-
-
+//    List<CartListDto> findCartListDto(Long cartId);
 
 
 }

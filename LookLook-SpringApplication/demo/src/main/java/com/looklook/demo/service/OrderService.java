@@ -61,26 +61,26 @@ public class OrderService {
     }
 
     // 주문 내역 조회
-    @Transactional(readOnly = true)
-    public Page<OrderHistDto> getOrderList(String userId, Pageable pageable) {
-
-        List<Order> orders=orderRepository.findOrders(userId, pageable);
-        Long totalCount=orderRepository.countOrder(userId);
-
-        List<OrderHistDto> orderHistDtos=new ArrayList<>();
-
-        for (Order order : orders) {
-            OrderHistDto orderHistDto = new OrderHistDto(order);
-            List<OrderItem> orderItems = order.getOrderItems();
-            for (OrderItem orderItem : orderItems) {
-                ItemImg itemImg = itemImgRepository.findByItemIdAndRepImgYn(orderItem.getItem().getId(), "Y");
-                OrderItemDto orderItemDto = new OrderItemDto(orderItem, itemImg.getImgUrl());
-                orderHistDto.addOrderItemDto(orderItemDto);
-            }
-            orderHistDtos.add(orderHistDto);
-        }
-        return new PageImpl<>(orderHistDtos, pageable, totalCount);
-    }
+//    @Transactional(readOnly = true)
+//    public Page<OrderHistDto> getOrderList(String userId, Pageable pageable) {
+//
+//        List<Order> orders=orderRepository.findOrders(userId, pageable);
+//        Long totalCount=orderRepository.countOrder(userId);
+//
+//        List<OrderHistDto> orderHistDtos=new ArrayList<>();
+//
+//        for (Order order : orders) {
+//            OrderHistDto orderHistDto = new OrderHistDto(order);
+//            List<OrderItem> orderItems = order.getOrderItems();
+//            for (OrderItem orderItem : orderItems) {
+//                ItemImg itemImg = itemImgRepository.findByItemIdAndRepImgYn(orderItem.getItem().getId(), "Y");
+//                OrderItemDto orderItemDto = new OrderItemDto(orderItem, itemImg.getImgUrl());
+//                orderHistDto.addOrderItemDto(orderItemDto);
+//            }
+//            orderHistDtos.add(orderHistDto);
+//        }
+//        return new PageImpl<>(orderHistDtos, pageable, totalCount);
+//    }
 
     @Transactional(readOnly = true)
     public boolean validateOrder(Long orderId, String userId) {

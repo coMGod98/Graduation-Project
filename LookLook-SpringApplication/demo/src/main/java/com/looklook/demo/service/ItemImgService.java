@@ -38,8 +38,8 @@ public class ItemImgService {
 
 
         // 상품 이미지 정보 저장
-        productImg.updateItemImg(oriImgName, imgName, imgUrl);
-        itemImgRepository.save(productImg);
+//        productImg.updateItemImg(oriImgName, imgName, imgUrl);
+//        itemImgRepository.save(productImg);
     }
 
     // 상품 이미지 수정
@@ -58,7 +58,7 @@ public class ItemImgService {
             String oriImgName = itemImgFile.getOriginalFilename();
             String imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
             String imgUrl = "/images/item/" + imgName;
-            savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
+//            savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
 
         }
     }

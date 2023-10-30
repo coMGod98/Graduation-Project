@@ -58,17 +58,17 @@ public class OrderController {
     }
 
     // 주문 내역 조회
-    @GetMapping(value = {"/orders", "/orders/{page}"})
-    public String orderHist(@PathVariable(name = "page") Optional<Integer> page, Principal principal, Model model) {
-
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
-
-        Page<OrderHistDto> orderHistDtos = orderService.getOrderList(principal.getName(), pageable);
-        model.addAttribute("orders", orderHistDtos);
-        model.addAttribute("page", pageable.getPageNumber());
-        model.addAttribute("maxPage", 5);
-        return "order/orderHist";
-    }
+//    @GetMapping(value = {"/orders", "/orders/{page}"})
+//    public String orderHist(@PathVariable(name = "page") Optional<Integer> page, Principal principal, Model model) {
+//
+//        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
+//
+//        Page<OrderHistDto> orderHistDtos = orderService.getOrderList(principal.getName(), pageable);
+//        model.addAttribute("orders", orderHistDtos);
+//        model.addAttribute("page", pageable.getPageNumber());
+//        model.addAttribute("maxPage", 5);
+//        return "order/orderHist";
+//    }
 
     // 주문 취소
     @PostMapping(value = "/order/{orderId}/cancel")
