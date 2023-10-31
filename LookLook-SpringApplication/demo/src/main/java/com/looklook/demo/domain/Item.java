@@ -68,6 +68,7 @@ public class Item extends BaseEntity {
         dto.setColor(colors);
         dto.setPgender(item.getPgender());
         dto.setCategory(item.getCategory());
+        dto.setPrice(item.getPrice());
         dto.setItemSellStatus(item.getItemSellStatus());
         dto.setItemDetail(item.getItemDetail());
         return dto;
