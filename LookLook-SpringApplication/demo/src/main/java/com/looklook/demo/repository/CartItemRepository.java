@@ -20,6 +20,10 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
     // 장바구니 아이디로 모든 장바구니 아이템 불러오기
     List<CartItem> findAllByCartId(Long cartId);
 
+    // 장바구니 아이템 아이디로 장바구니 아이템 불러오기
+
+    Optional<CartItem> findById(Long cartItemId);
+
     void deleteById(Long cartItemId);
 
 }

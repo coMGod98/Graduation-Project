@@ -28,12 +28,13 @@ public class Item extends BaseEntity {
     private int stock;
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus;
-    private LocalDateTime regTime;
     @PrePersist
     public void prePersist() {
         this.regTime = LocalDateTime.now();
     }
-    private LocalDateTime updateTime;
+    private LocalDateTime regTime;
+
+    //private LocalDateTime updateTime;
     private String size; // 삭제 필요
     private String category;
     private String color; // 삭제 필요
@@ -71,6 +72,7 @@ public class Item extends BaseEntity {
         dto.setPrice(item.getPrice());
         dto.setItemSellStatus(item.getItemSellStatus());
         dto.setItemDetail(item.getItemDetail());
+        dto.setStock(item.getStock());
         return dto;
     }
 

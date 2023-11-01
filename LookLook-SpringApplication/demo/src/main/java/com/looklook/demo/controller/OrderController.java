@@ -1,6 +1,7 @@
 package com.looklook.demo.controller;
 
 import com.looklook.demo.dto.OrderDto;
+import com.looklook.demo.dto.OrderRequestDto;
 import com.looklook.demo.dto.OrderSheetRequestDto;
 import com.looklook.demo.dto.OrderSheetResponseDto;
 import com.looklook.demo.service.OrderService;
@@ -24,7 +25,7 @@ public class OrderController {
     private final OrderService orderService;
 
     // 주문서 작성으로 이동
-    @PostMapping("/cart/order")
+    @PostMapping("/orderSheet")
     public ResponseEntity<OrderSheetResponseDto> orderCartItem(@RequestBody OrderSheetRequestDto orderSheetRequestDto, Authentication authentication) {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -36,32 +37,39 @@ public class OrderController {
         return ResponseEntity.ok(dto);
     }
 
-    // 상품 상세페이지에서 주문서 작성으로 이동 -> 필요 없을 듯
+    // 결제하기
+    @PostMapping("/order")
+    public ResponseEntity<String> order(@RequestBody OrderRequestDto orderRequestDto, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
 
 
-    @PostMapping(value = "/product/order")
-    @ResponseBody
-    public ResponseEntity order(@RequestBody @Valid OrderDto orderDto,
-                                BindingResult bindingResult, Principal principal) {
-
-        if (bindingResult.hasErrors()) {
-            StringBuilder sb = new StringBuilder();
-            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-            for (FieldError fieldError : fieldErrors) {
-                sb.append(fieldError.getDefaultMessage());
-            }
-            return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
-        }
-
-        Long orderId;
-        try {
-            orderId = orderService.order(orderDto, principal.getName());
-        } catch (Exception e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
+        return ResponseEntity.ok("");
     }
+
+
+//    @PostMapping(value = "/product/order")
+//    @ResponseBody
+//    public ResponseEntity order(@RequestBody @Valid OrderDto orderDto,
+//                                BindingResult bindingResult, Principal principal) {
+//
+//        if (bindingResult.hasErrors()) {
+//            StringBuilder sb = new StringBuilder();
+//            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+//            for (FieldError fieldError : fieldErrors) {
+//                sb.append(fieldError.getDefaultMessage());
+//            }
+//            return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
+//        }
+//
+//        Long orderId;
+//        try {
+//            orderId = orderService.order(orderDto, principal.getName());
+//        } catch (Exception e) {
+//            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
+//    }
 
 
     // 주문하기

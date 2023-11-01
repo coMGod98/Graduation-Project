@@ -46,6 +46,19 @@ public class CartItem extends BaseEntity {
         return dto;
     }
 
+    // 장바구니에서 상품 주문 시 장바구니 상품이 주문 상품으로 변경
+    // 아직 상품 주문 전이므로, orderStatus는 자동으로 false
+    public OrderItem toOrderItem(CartItem cartItem) {
+        OrderItem orderItem = new OrderItem();
+        // 연관된 상품 엔티티, 구매 개수, 구매 옵션(색상, 사이즈), 구매상태 세팅
+        orderItem.setItem(cartItem.getItem());
+        orderItem.setCount(cartItem.getCount());
+        orderItem.setColor(cartItem.getColor());
+        orderItem.setSize(cartItem.getSize());
+        orderItem.setOrderStatus(false);
+        return orderItem;
+    }
+
 
 
 

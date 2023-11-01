@@ -13,11 +13,11 @@ import java.util.List;
 @Getter @Setter
 public class OrderHistDto {
 
-    public OrderHistDto(Order order) {
-        this.orderId=order.getId();
-        this.orderDate=order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        this.orderStatus=order.getOrderStatus();
-    }
+//    public OrderHistDto(Order order) {
+//        this.orderId=order.getId();
+//        this.orderDate=order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+//        this.orderStatus=order.getOrderStatus();
+//    }
 
     private Long orderId;
     private String orderDate;

@@ -21,44 +21,42 @@ public class Order extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="order_id")
     private Long id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uid")
     private LookLookUser user;
+    private String newAddress; // 새로운 배송지 추가 시 사용
+    private LocalDateTime orderDate;  //주문일
+    @PrePersist
+    public void prePersist() {
+        this.orderDate = LocalDateTime.now();
+    }
 
-    @Column(name = "order_date")
-    private LocalDateTime orderDate;        //주문일
-
-    @Column
-    private String address;
-
-    @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
-
+    // 나중에 지적받으면 Enum으로 변경해서 더 다양한 상태 추가
+    // 일단 배송 완료면 true, 미완이면 false -> 판매자 주문관리쪽에서 설정
+    private Boolean shipmentStatus;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    private LocalDateTime regTime;
-    private LocalDateTime updateTime;
+//    private LocalDateTime updateTime;
 
 
 
-    public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);      //주문 객체에 주문 상품 객체 연결
-        orderItem.setOrder(this);       //주문 상품 객체에 주문 객체 연결(연관 관계 주의)
-    }
+//    public void addOrderItem(OrderItem orderItem) {
+//        orderItems.add(orderItem);      //주문 객체에 주문 상품 객체 연결
+//        orderItem.setOrder(this);       //주문 상품 객체에 주문 객체 연결(연관 관계 주의)
+//    }
 
-    public static Order createOrder(LookLookUser user, List<OrderItem> orderItemList) {
-
-        Order order = new Order();
-        order.setUser(user);
-        for (OrderItem orderItem : orderItemList) {
-            order.addOrderItem(orderItem);
-        }
-        order.setOrderDate(LocalDateTime.now());
-        order.setOrderStatus(OrderStatus.ORDER);
-        return order;
-    }
+//    public static Order createOrder(LookLookUser user, List<OrderItem> orderItemList) {
+//
+//        Order order = new Order();
+//        order.setUser(user);
+//        for (OrderItem orderItem : orderItemList) {
+//            order.addOrderItem(orderItem);
+//        }
+//        order.setOrderDate(LocalDateTime.now());
+//        order.setOrderStatus(OrderStatus.ORDER);
+//        return order;
+//    }
 
 //    public int getTotalPrice() {
 //        int totalPrice = 0;
