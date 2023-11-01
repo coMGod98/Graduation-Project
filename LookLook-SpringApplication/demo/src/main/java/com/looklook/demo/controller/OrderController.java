@@ -1,16 +1,14 @@
 package com.looklook.demo.controller;
 
 import com.looklook.demo.dto.OrderDto;
-import com.looklook.demo.dto.OrderHistDto;
+import com.looklook.demo.dto.OrderSheetRequestDto;
+import com.looklook.demo.dto.OrderSheetResponseDto;
 import com.looklook.demo.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -26,15 +23,24 @@ import java.util.Optional;
 public class OrderController {
     private final OrderService orderService;
 
-    // 주문서 작성
-    /*
-    배송정보: 이름, 연락처, 주소 정보 불러오기
-    상품정보: 구매하려는 상품 수량,
-    *
-    **/
+    // 주문서 작성으로 이동
+    @PostMapping("/cart/order")
+    public ResponseEntity<OrderSheetResponseDto> orderCartItem(@RequestBody OrderSheetRequestDto orderSheetRequestDto, Authentication authentication) {
 
-    // 단일 상품 주문
-    @PostMapping(value = "/order")
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        // orderResponseDto를 보내줘야함. 주문 내역 조회 시애는 orderInfoDto로 새로 만들기
+        OrderSheetResponseDto dto = orderService.composeOrderSheet(orderSheetRequestDto, Long.valueOf(userDetails.getUsername()));
+
+
+        return ResponseEntity.ok(dto);
+    }
+
+    // 상품 상세페이지에서 주문서 작성으로 이동 -> 필요 없을 듯
+
+
+
+    @PostMapping(value = "/product/order")
     @ResponseBody
     public ResponseEntity order(@RequestBody @Valid OrderDto orderDto,
                                 BindingResult bindingResult, Principal principal) {
@@ -57,6 +63,10 @@ public class OrderController {
         return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
 
+
+    // 주문하기
+
+
     // 주문 내역 조회
 //    @GetMapping(value = {"/orders", "/orders/{page}"})
 //    public String orderHist(@PathVariable(name = "page") Optional<Integer> page, Principal principal, Model model) {
@@ -71,15 +81,15 @@ public class OrderController {
 //    }
 
     // 주문 취소
-    @PostMapping(value = "/order/{orderId}/cancel")
-    @ResponseBody
-    public ResponseEntity orderCancel(@PathVariable(name = "orderId") Long orderId, Principal principal) {
-
-        if (!orderService.validateOrder(orderId, principal.getName())) {
-            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
-        }
-        orderService.orderCancel(orderId);
-        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
-    }
+//    @PostMapping(value = "/order/{orderId}/cancel")
+//    @ResponseBody
+//    public ResponseEntity orderCancel(@PathVariable(name = "orderId") Long orderId, Principal principal) {
+//
+//        if (!orderService.validateOrder(orderId, principal.getName())) {
+//            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
+//        }
+//        orderService.orderCancel(orderId);
+//        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
+//    }
 
 }

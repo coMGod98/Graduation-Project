@@ -18,7 +18,7 @@ import java.util.List;
 public class Order extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="order_id")
     private Long id;
 
@@ -27,7 +27,7 @@ public class Order extends BaseEntity{
     private LookLookUser user;
 
     @Column(name = "order_date")
-    private LocalDate orderDate;        //주문일
+    private LocalDateTime orderDate;        //주문일
 
     @Column
     private String address;
@@ -37,7 +37,6 @@ public class Order extends BaseEntity{
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
-
 
     private LocalDateTime regTime;
     private LocalDateTime updateTime;
@@ -56,29 +55,29 @@ public class Order extends BaseEntity{
         for (OrderItem orderItem : orderItemList) {
             order.addOrderItem(orderItem);
         }
-        order.setOrderDate(LocalDate.now());
+        order.setOrderDate(LocalDateTime.now());
         order.setOrderStatus(OrderStatus.ORDER);
         return order;
     }
 
-    public int getTotalPrice() {
-        int totalPrice = 0;
-
-        // 각 상품 TotalPrice 모두 더한 가격
-        for (OrderItem orderItem : orderItems) {
-            totalPrice += orderItem.getTotalPrice();
-        }
-        return totalPrice;
-    }
+//    public int getTotalPrice() {
+//        int totalPrice = 0;
+//
+//        // 각 상품 TotalPrice 모두 더한 가격
+//        for (OrderItem orderItem : orderItems) {
+//            totalPrice += orderItem.getTotalPrice();
+//        }
+//        return totalPrice;
+//    }
 
     //주문 취소
-    public void orderCancel() {
-
-        this.orderStatus = OrderStatus.CANCEL;
-        for (OrderItem orderItem : orderItems) {
-            orderItem.cancel();
-        }
-    }
+//    public void orderCancel() {
+//
+//        this.orderStatus = OrderStatus.CANCEL;
+//        for (OrderItem orderItem : orderItems) {
+//            orderItem.cancel();
+//        }
+//    }
 
 
 }

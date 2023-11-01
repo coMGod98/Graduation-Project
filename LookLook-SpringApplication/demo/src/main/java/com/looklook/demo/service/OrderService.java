@@ -1,9 +1,7 @@
 package com.looklook.demo.service;
 
 import com.looklook.demo.domain.*;
-import com.looklook.demo.dto.OrderDto;
-import com.looklook.demo.dto.OrderHistDto;
-import com.looklook.demo.dto.OrderItemDto;
+import com.looklook.demo.dto.*;
 import com.looklook.demo.repository.ItemImgRepository;
 import com.looklook.demo.repository.ItemRepository;
 import com.looklook.demo.repository.OrderRepository;
@@ -37,6 +35,45 @@ public class OrderService {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final ItemImgRepository itemImgRepository;
+
+    // 주문서 작성 시 필요한 정보 보내주기
+    @Transactional
+    public OrderSheetResponseDto composeOrderSheet(OrderSheetRequestDto orderSheetRequestDto, Long uid) {
+
+        /*
+         * 1. 배송정보 (이름, 연락처, DB에 저장된 사용자 주소)
+         * 2. orderItems
+         * 3. 결제 금액 (상품 가격, 배송비 포함 총 가격)
+         *
+         * cf) 위 3가지에 배송정보, 결제 정보(결제 수단, 타입) 업데이트해서 주문할 떄 OrderRequest로 구성하기
+         * */
+
+        OrderSheetResponseDto dto = new OrderSheetResponseDto();
+        // 1. 배송 정보 가져오기
+        Optional<LookLookUser> optionalUser = userRepository.findById(uid);
+        if (optionalUser.isPresent()) {
+            LookLookUser user = optionalUser.get();
+            dto.setUserName(user.getUserName());
+            dto.setPhoneNumber(user.getPhoneNumber());
+            dto.setAddress(user.getAddress());
+        }
+
+        // 2. orderItems
+        // 만약 orderSheetRequestDto에 cartId가 null이 아니면, cartItem을 orderItem으로 바꾸기
+        // 주문을 완료해야 장바구니가 비워짐. 주문서 작성까지 와도 주문을 완료하지 않으면 cart, cartItem은 유지되어야 함
+
+        if (orderSheetRequestDto.getCartItemId() != null) { // 장바구니 -> 주문서 작성
+            // 1. CartItem에 있는걸 OrderItem으로
+        } else { // 상품 상세 페이지 -> 주문서 작성
+
+        }
+
+        return dto;
+    }
+
+//1. 주문서 작성 단계에서 주문 상품 테이블에 데이터를 추가 (이때 주문 상태는 false)
+//2. 주문하기 버튼을 누르면 주문 테이블에 새로 레코드가 추가
+//3. 이때 주문 상품과 연결되고, 주문 상품의 상태 정보가 true로 업데이트
 
     public Long order(OrderDto orderDto, String userId) {
 
@@ -95,10 +132,10 @@ public class OrderService {
     }
 
     // 주문 취소
-    public void orderCancel(Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
-        order.orderCancel();
-    }
+//    public void orderCancel(Long orderId) {
+//        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+//        order.orderCancel();
+//    }
 
     // 장바구니 상품(들) 주문
     public Long orders(List<OrderDto> orderDtoList, String userId) {

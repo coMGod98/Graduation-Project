@@ -76,6 +76,8 @@ public class ItemRegRequestDto {
             colorResult.add(itemColor);
         }
         item.setColors(colorResult);
+        // 자동으로 NORMAL로 저장
+        item.setItemSellStatus(ItemSellStatus.NORMAL);
 
         item.setCategory(dto.getCategory());
         item.setPgender(dto.getPgender());
