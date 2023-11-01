@@ -13,7 +13,7 @@ public class OrderSheetRequestDto {
     //    {
     //        "cartItemId": [1, 2, 3]
     //    }
-    private List<Long> cartItemId;
+    private List<Long> cartItemIds;
 
 
     // 상품 상세 페이지에서 구매하는 거라면 cartItemId는 비우고, 상품 id, 사이즈, 색상, 수량 필요

@@ -19,9 +19,7 @@ import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,6 +32,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final CartItemRepository cartItemRepository;
+    private final CartRepository cartRepository;
     private final ItemImgRepository itemImgRepository;
 
     // 주문서 작성 시 필요한 정보 보내주기
@@ -63,9 +62,9 @@ public class OrderService {
         // 만약 orderSheetRequestDto에 cartId가 null이 아니면, cartItem을 orderItem으로 바꾸기
         // 주문을 완료해야 장바구니가 비워짐. 주문서 작성까지 와도 주문을 완료하지 않으면 cart, cartItem은 유지되어야 함
 
-        if (orderSheetRequestDto.getCartItemId() != null) { // 장바구니 -> 주문서 작성
+        if (orderSheetRequestDto.getCartItemIds() != null) { // 장바구니 -> 주문서 작성
             // 1. CartItemId로 장바구니 상품 불러오기
-            List<Long> cartItemIds = orderSheetRequestDto.getCartItemId();
+            List<Long> cartItemIds = orderSheetRequestDto.getCartItemIds();
 
             List<CartItem> cartItems = new ArrayList<>();
 
@@ -82,17 +81,22 @@ public class OrderService {
                     .map(cartItem -> cartItem.toOrderItem(cartItem))
                     .collect(Collectors.toList());
 
+
             // 3. OrderItem 테이블에 저장
             for (OrderItem orderItem : orderItems) {
                 orderItemRepository.save(orderItem);
+
             }
 
             // 4. dto에 OrderItem 담아주기
             dto.setOrderItems(orderItems);
 
             // 5. dto에 orderItemPrice 담아주기
-            int totalPrice = orderItems.stream().mapToInt(item -> (item.getItem().getPrice())*(item.getCount())).sum();
-            dto.setOrderItemPrice(totalPrice);
+            int orderItemPrice = orderItems.stream().mapToInt(item -> (item.getItem().getPrice())*(item.getCount())).sum();
+            dto.setOrderItemPrice(orderItemPrice);
+
+            int totalPrice = orderItemPrice + dto.getSHIPMENT_FEE();
+            dto.setTotalPrice(totalPrice);
 
         } else { // 상품 상세 페이지 -> 주문서 작성
             OrderItem orderItem = new OrderItem();
@@ -122,8 +126,11 @@ public class OrderService {
             dto.setOrderItems(orderItems);
 
             // 6. dto에 orderItemPrice 담아주기
-            int totalPrice = orderItem.getCount() * orderItem.getItem().getPrice();
-            dto.setOrderItemPrice(totalPrice);
+            int orderItemPrice = orderItem.getCount() * orderItem.getItem().getPrice();
+            dto.setOrderItemPrice(orderItemPrice);
+
+            int totalPrice = orderItemPrice + dto.getSHIPMENT_FEE();
+            dto.setTotalPrice(totalPrice);
         }
 
         return dto;
@@ -136,53 +143,114 @@ public class OrderService {
 // 4. 해당 Order의 모든 OrderItem의 orderStatus가 true로 업데이트
 // 5. 장바구니 db 삭제
 
+    @Transactional
     public void order(OrderRequestDto orderRequestDto, Long uid) {
+        Order order = new Order();
 
+        // 회원 정보 불러와서 order 설정
+        Optional<LookLookUser> optionalUser = userRepository.findById(uid);
+
+        if (optionalUser.isPresent()) {
+            order.setUser(optionalUser.get());
+        }
+
+        // 주문 상품 아이디 불러오기
+        List<Long> orderItemIds = orderRequestDto.getOrderItemIds();
+
+        // 주문 상품 아이디로 주문 상품 불러와서 리스트 만들기
+        List<OrderItem> orderItems = new ArrayList<>();
+
+        for (Long orderItemId : orderItemIds) {
+            Optional<OrderItem> optionalOrderItem = orderItemRepository.findById(orderItemId);
+
+            if (optionalOrderItem.isPresent()) {
+                OrderItem item = optionalOrderItem.get();
+                orderItems.add(item);
+            }
+        }
+        // order에 주문 상품 리스트 설정
+        order.setOrderItems(orderItems);
+
+        // 배송지 설정 (dto에 새 배송지 있으면 새 배송지로 설정, 없으면 user 정보에서 가져오기)
+        if (orderRequestDto.getNewAddress() != null) {
+            order.setAddress(orderRequestDto.getNewAddress());
+        } else {
+            if (optionalUser.isPresent()) {
+                order.setAddress(optionalUser.get().getAddress());
+            }
+        }
+        // 결제 정보 설정
+        order.setPaymentMethod(orderRequestDto.getPaymentMethod());
+        order.setPaymentType(orderRequestDto.getPaymentType());
+
+
+        // 결제 금액 설정
+        int orderItemPrice = orderItems.stream().mapToInt(item -> (item.getItem().getPrice())*(item.getCount())).sum();
+
+        final int SHIPMENT_FEE = 2500; // 배송비 고정
+        int totalPrice = orderItemPrice + SHIPMENT_FEE;
+        order.setTotalPrice(totalPrice);
+
+
+        // 배송 상태 설정 -> 아직 배송 안된 상태이므로 false
+        order.setShipmentStatus(false);
+
+        // DB에 저장, 배송 일자는 자동으로 설정
+        orderRepository.save(order);
+
+        // 해당 Order의 모든 OrderItem의 orderStatus가 true로 업데이트, order_ID도 다시 세팅
+        for (OrderItem orderItem : order.getOrderItems()) {
+            orderItem.setOrderStatus(true);
+            orderItem.setOrder(order);
+            orderItemRepository.save(orderItem);
+        }
+
+        // 장바구니 db 삭제
+        // 현재는 장바구니에서 선택 구매가 안되기 때문에 그냥 통째로 날려버리면 되는데,
+        // 선택 구매가 가능해지면... orderItem과 cartItem이 연결되어있지 않기 때문에.. findByOrderItemItemIdAndSizeAndColor로 찾아서 삭제
+        if (optionalUser.isPresent()) {
+            Optional<Cart> optionalCart = cartRepository.findByUserId(optionalUser.get().getId());
+
+            if (optionalCart.isPresent()) {
+                Optional<List<CartItem>> optionalCartItems = Optional.ofNullable(cartItemRepository.findAllByCartId(optionalCart.get().getId()));
+
+                List<CartItem> cartItems = optionalCartItems.get();
+                for (CartItem cartItem : cartItems) {
+                    cartItemRepository.deleteById(cartItem.getId());
+                }
+            }
+        }
     }
 
-//    public Long order(OrderDto orderDto, String userId) {
-//
-//
-//        Item item=itemRepository.findById(orderDto.getItemId()).orElseThrow(EntityNotFoundException::new);
-//        Optional<LookLookUser> user = userRepository.findByUserId(userId);
-//
-//        List<OrderItem> orderItemList=new ArrayList<>();
-//
-//        OrderItem orderItem=OrderItem.createOrderItem(item, orderDto.getCount());
-//        orderItemList.add(orderItem);
-//
-//        if (user.isPresent()){
-//            LookLookUser result = user.get();
-//            Order order = Order.createOrder(result, orderItemList);
-//            orderRepository.save(order);
-//            return order.getId();
-//        }
-//
-//        // Optional이 비어 있을 때 처리 미흡
-//        return null;
-//    }
+    // 주문 정보 조회
+    public List<OrderInfoDto> showOrderInfo(Long uid) {
+        Optional<LookLookUser> optionalUser = userRepository.findById(uid);
+        List<OrderInfoDto> orderInfoDtos = new ArrayList<>();
 
-    // 주문 내역 조회
-//    @Transactional(readOnly = true)
-//    public Page<OrderHistDto> getOrderList(String userId, Pageable pageable) {
-//
-//        List<Order> orders=orderRepository.findOrders(userId, pageable);
-//        Long totalCount=orderRepository.countOrder(userId);
-//
-//        List<OrderHistDto> orderHistDtos=new ArrayList<>();
-//
-//        for (Order order : orders) {
-//            OrderHistDto orderHistDto = new OrderHistDto(order);
-//            List<OrderItem> orderItems = order.getOrderItems();
-//            for (OrderItem orderItem : orderItems) {
-//                ItemImg itemImg = itemImgRepository.findByItemIdAndRepImgYn(orderItem.getItem().getId(), "Y");
-//                OrderItemDto orderItemDto = new OrderItemDto(orderItem, itemImg.getImgUrl());
-//                orderHistDto.addOrderItemDto(orderItemDto);
-//            }
-//            orderHistDtos.add(orderHistDto);
-//        }
-//        return new PageImpl<>(orderHistDtos, pageable, totalCount);
-//    }
+        // 주문정보와 주문 상품 정보를 하나의 dto로 구성하고, 그걸 리스트로 만들기
+        if (optionalUser.isPresent()) {
+            List<Order> orders = orderRepository.findAllByUserId(optionalUser.get().getId());
+            for (Order order : orders) {
+                OrderInfoDto orderInfoDto = new OrderInfoDto();
+                orderInfoDto.setOrder(order);
+
+
+                List<OrderItem> orderItems = orderItemRepository.findAllByOrderId(order.getId());
+
+                Map<String, Object> orderItemsWithItemName = new HashMap<>();
+                orderItemsWithItemName.put("firstItemName", orderItems.get(0).getItem().getItemName());
+                orderItemsWithItemName.put("orderItems", orderItems);
+
+                orderInfoDto.setOrderItems(orderItemsWithItemName);
+
+                orderInfoDtos.add(orderInfoDto);
+            }
+
+        }
+        return orderInfoDtos;
+    }
+
+
 
 //    @Transactional(readOnly = true)
 //    public boolean validateOrder(Long orderId, String userId) {
@@ -202,31 +270,7 @@ public class OrderService {
 //        order.orderCancel();
 //    }
 
-    // 장바구니 상품(들) 주문
-//    public Long orders(List<OrderDto> orderDtoList, String userId) {
-//
-//        // 로그인한 유저 조회
-//
-//        Optional<LookLookUser> user = userRepository.findByUserId(userId);
-//
-//        // orderDto 객체를 이용하여 item 객체와 count 값을 얻어낸 뒤, 이를 이용하여 OrderItem 객체(들) 생성
-//        List<OrderItem> orderItemList = new ArrayList<>();
-//        for (OrderDto orderDto : orderDtoList) {
-//            Item item = itemRepository.findById(orderDto.getItemId()).orElseThrow(EntityNotFoundException::new);
-//            OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
-//            orderItemList.add(orderItem);
-//        }
-//
-//        //Order Entity 클래스에 존재하는 createOrder 메소드로 Order 생성 및 저장
-//        if (user.isPresent()){
-//            LookLookUser result = user.get();
-//            Order order = Order.createOrder(result, orderItemList);
-//            orderRepository.save(order);
-//            return order.getId();
-//        }
-//
-//        return null;
-//    }
+
 
 
 }

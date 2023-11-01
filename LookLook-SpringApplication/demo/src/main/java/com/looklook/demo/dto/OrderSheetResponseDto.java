@@ -21,6 +21,6 @@ public class OrderSheetResponseDto {
     private List<OrderItem> orderItems;
     private final int SHIPMENT_FEE = 2500;
     private int orderItemPrice;  // 배송비 뺀 상품 가격
-    private int totalPrice = SHIPMENT_FEE + orderItemPrice; // 배송비 포함 상품 가격
+    private int totalPrice; // 배송비 포함 상품 가격
 
 }

@@ -1,9 +1,6 @@
 package com.looklook.demo.controller;
 
-import com.looklook.demo.dto.OrderDto;
-import com.looklook.demo.dto.OrderRequestDto;
-import com.looklook.demo.dto.OrderSheetRequestDto;
-import com.looklook.demo.dto.OrderSheetResponseDto;
+import com.looklook.demo.dto.*;
 import com.looklook.demo.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,7 +22,7 @@ public class OrderController {
     private final OrderService orderService;
 
     // 주문서 작성으로 이동
-    @PostMapping("/orderSheet")
+    @PostMapping("/order-sheet")
     public ResponseEntity<OrderSheetResponseDto> orderCartItem(@RequestBody OrderSheetRequestDto orderSheetRequestDto, Authentication authentication) {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -37,16 +34,24 @@ public class OrderController {
         return ResponseEntity.ok(dto);
     }
 
-    // 결제하기
+    // 결제하기 -> 302 응답
     @PostMapping("/order")
-    public ResponseEntity<String> order(@RequestBody OrderRequestDto orderRequestDto, Authentication authentication) {
+    public ResponseEntity<Void> order(@RequestBody OrderRequestDto orderRequestDto, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
+        orderService.order(orderRequestDto, Long.valueOf(userDetails.getUsername()));
 
-
-        return ResponseEntity.ok("");
+        return new ResponseEntity<>(HttpStatus.FOUND);
     }
 
+    // 마이페이지에서 주문정보 조회
+    @GetMapping("/mypage/order-info")
+    public ResponseEntity<List<OrderInfoDto>> showOrderInfo(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        List<OrderInfoDto> dtos = orderService.showOrderInfo(Long.valueOf(userDetails.getUsername()));
+        return ResponseEntity.ok(dtos);
+    }
 
 //    @PostMapping(value = "/product/order")
 //    @ResponseBody

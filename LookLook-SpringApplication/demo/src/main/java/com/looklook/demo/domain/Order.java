@@ -1,6 +1,7 @@
 package com.looklook.demo.domain;
 
 //import com.looklook.demo.service.OrderService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,18 +24,28 @@ public class Order extends BaseEntity{
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uid")
+    @JsonIgnore
     private LookLookUser user;
-    private String newAddress; // 새로운 배송지 추가 시 사용
+    private String address;
     private LocalDateTime orderDate;  //주문일
+
+    private String paymentMethod; // 카드정보
+    private String paymentType; // 일시불, 할부
+
+    private int totalPrice; // 배송비 포함 결제 총액
+
     @PrePersist
     public void prePersist() {
-        this.orderDate = LocalDateTime.now();
+        if (this.orderDate == null) {
+            this.orderDate = LocalDateTime.now();
+        }
     }
 
     // 나중에 지적받으면 Enum으로 변경해서 더 다양한 상태 추가
     // 일단 배송 완료면 true, 미완이면 false -> 판매자 주문관리쪽에서 설정
     private Boolean shipmentStatus;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<OrderItem> orderItems = new ArrayList<>();
 
 //    private LocalDateTime updateTime;

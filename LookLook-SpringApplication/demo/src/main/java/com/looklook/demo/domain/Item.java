@@ -30,7 +30,9 @@ public class Item extends BaseEntity {
     private ItemSellStatus itemSellStatus;
     @PrePersist
     public void prePersist() {
-        this.regTime = LocalDateTime.now();
+        if (this.regTime == null) {
+            this.regTime = LocalDateTime.now();
+        }
     }
     private LocalDateTime regTime;
 
