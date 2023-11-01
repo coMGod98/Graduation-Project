@@ -2,7 +2,7 @@ package com.looklook.demo.dto;
 
 import com.looklook.demo.domain.Order;
 import com.looklook.demo.domain.OrderStatus;
-import com.looklook.demo.domain.QItem;
+//import com.looklook.demo.domain.QItem;
 import lombok.Getter;
 import lombok.Setter;
 

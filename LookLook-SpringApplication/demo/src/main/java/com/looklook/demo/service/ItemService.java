@@ -54,10 +54,10 @@ public class ItemService {
     }
 
     // 상품 관리 페이지 상품 목록 조회
-    @Transactional(readOnly = true)
-    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
-        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
-    }
+//    @Transactional(readOnly = true)
+//    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+//        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
+//    }
 
 //    // 상품 조회
 //    @Transactional(readOnly = true)
