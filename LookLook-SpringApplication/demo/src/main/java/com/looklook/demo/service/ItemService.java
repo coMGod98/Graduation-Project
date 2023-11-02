@@ -1,24 +1,13 @@
 package com.looklook.demo.service;
 
-import com.looklook.demo.domain.ItemImg;
-//import com.looklook.demo.service.ItemImgService;
 import com.looklook.demo.dto.ItemRegRequestDto;
-//import com.looklook.demo.dto.ItemSearchDto;
-//import com.looklook.demo.dto.MainItemDto;
 import com.looklook.demo.domain.Item;
-//import com.looklook.demo.dto.ItemSearchDto;
-import com.looklook.demo.dto.ItemSearchDto;
 import com.looklook.demo.repository.ItemImgRepository;
 import com.looklook.demo.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.EntityNotFoundException;
-import java.io.IOException;
 import java.util.List;
 
 @Service

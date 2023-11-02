@@ -18,7 +18,7 @@ public class OrderSheetResponseDto {
     private String userName;
     private String phoneNumber;
     private String address;
-    private List<OrderItem> orderItems;
+    private List<OrderItemInfoDto> orderiteminfo;
     private final int SHIPMENT_FEE = 2500;
     private int orderItemPrice;  // 배송비 뺀 상품 가격
     private int totalPrice; // 배송비 포함 상품 가격

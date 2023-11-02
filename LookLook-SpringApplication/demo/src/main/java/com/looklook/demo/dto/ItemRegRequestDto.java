@@ -1,7 +1,6 @@
 package com.looklook.demo.dto;
 
 import com.looklook.demo.domain.ItemColor;
-import com.looklook.demo.domain.ItemSellStatus;
 import com.looklook.demo.domain.Item;
 import com.looklook.demo.domain.ItemSize;
 import lombok.Getter;
@@ -13,7 +12,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter @Setter
 @ToString
@@ -41,7 +39,6 @@ public class ItemRegRequestDto {
 
     private Long uid;
 
-//    private ItemSellStatus itemSellStatus;  // 삭제 필요
 
     // 상품 수정 시 사용되는 멤버변수들
     private List<ItemImgDto> itemImgDtoList = new ArrayList<>();
@@ -76,8 +73,6 @@ public class ItemRegRequestDto {
             colorResult.add(itemColor);
         }
         item.setColors(colorResult);
-        // 자동으로 NORMAL로 저장
-        item.setItemSellStatus(ItemSellStatus.NORMAL);
 
         item.setCategory(dto.getCategory());
         item.setPgender(dto.getPgender());

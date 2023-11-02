@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "item_img")
 @Getter @Setter
 @RequiredArgsConstructor
-public class ItemImg extends BaseTimeEntity {
+public class ItemImg {
     @Id
     @Column(name="item_img_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

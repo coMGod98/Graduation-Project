@@ -1,6 +1,5 @@
 package com.looklook.demo.dto;
 
-import com.looklook.demo.domain.ItemSellStatus;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,7 +14,6 @@ public class SellerItemDto {
     private Long pid;
     private String itemName;
     private int price;
-    private ItemSellStatus itemSellStatus;
     private LocalDateTime regTime;
     private int stock;
     private List<String> size;

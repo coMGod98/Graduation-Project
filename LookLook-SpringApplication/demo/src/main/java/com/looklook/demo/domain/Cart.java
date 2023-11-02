@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name="cart")
 @Getter @Setter
 @ToString
-public class Cart extends BaseEntity{
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cart_id")

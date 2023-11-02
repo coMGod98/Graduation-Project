@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="cart_item")
 @Getter @Setter
-public class CartItem extends BaseEntity {
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_item_id")
@@ -55,7 +55,7 @@ public class CartItem extends BaseEntity {
         orderItem.setCount(cartItem.getCount());
         orderItem.setColor(cartItem.getColor());
         orderItem.setSize(cartItem.getSize());
-        orderItem.setOrderStatus(false);
+        orderItem.setOrderStatus(OrderStatus.INCOMPLETED);
         return orderItem;
     }
 

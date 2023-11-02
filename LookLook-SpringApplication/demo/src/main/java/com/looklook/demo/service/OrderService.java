@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private final ItemRepository itemRepository;        //상품을 불러와서 재고 변경
+    private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
@@ -68,10 +68,19 @@ public class OrderService {
 
             List<CartItem> cartItems = new ArrayList<>();
 
+            // 주문서 작성이 결제로 이어지지 않을 때, 주문 상품에 중복 저장
+            Boolean chkOrderItemConstraint = true;
+
             for (Long cartItemId : cartItemIds) {
                 Optional<CartItem> optionalCartItem = cartItemRepository.findById(cartItemId);
                 if (optionalCartItem.isPresent()) {
                     CartItem item = optionalCartItem.get();
+
+                    // 주문서 작성이 결제로 이어지지 않을 때, 주문 상품에 중복 저장 방지
+                    Optional<OrderItem> chkOrderitem = orderItemRepository.findByColorAndCountAndSizeAndItemIdAndOrderIdIsNull(item.getColor(), item.getCount(), item.getSize(), item.getItem().getId());
+                    if (chkOrderitem.isPresent()) {
+                        chkOrderItemConstraint = false;
+                    }
                     cartItems.add(item);
                 }
             }
@@ -81,15 +90,35 @@ public class OrderService {
                     .map(cartItem -> cartItem.toOrderItem(cartItem))
                     .collect(Collectors.toList());
 
+            List<OrderItemInfoDto> orderItemInfoDtos = new ArrayList<>();
 
             // 3. OrderItem 테이블에 저장
             for (OrderItem orderItem : orderItems) {
-                orderItemRepository.save(orderItem);
+                // 아직 주문 전이므로 orderStatus = INCOMPLETED
+                orderItem.setOrderStatus(OrderStatus.INCOMPLETED);
 
+
+                OrderItem savedDrderItem = orderItemRepository.save(orderItem);
+
+                // OrderInfoDto에 추가해 줄 주문상품 정보 세팅
+                OrderItemInfoDto orderItemInfoDto = new OrderItemInfoDto();
+                orderItemInfoDto.setOrderItemId(savedDrderItem.getId());
+                orderItemInfoDto.setCount(orderItem.getCount());
+                orderItemInfoDto.setSize(orderItem.getSize());
+                orderItemInfoDto.setColor(orderItem.getColor());
+
+                Optional<Item> optionalItem = itemRepository.findByOrderItems(savedDrderItem);
+                if (optionalItem.isPresent()) {
+                    orderItemInfoDto.setItemName(optionalItem.get().getItemName());
+                    orderItemInfoDto.setPrice(optionalItem.get().getPrice());
+                    orderItemInfoDto.setPid(optionalItem.get().getId());
+                }
+
+                orderItemInfoDtos.add(orderItemInfoDto);
             }
 
             // 4. dto에 OrderItem 담아주기
-            dto.setOrderItems(orderItems);
+            dto.setOrderiteminfo(orderItemInfoDtos);  // List 형식
 
             // 5. dto에 orderItemPrice 담아주기
             int orderItemPrice = orderItems.stream().mapToInt(item -> (item.getItem().getPrice())*(item.getCount())).sum();
@@ -101,11 +130,18 @@ public class OrderService {
         } else { // 상품 상세 페이지 -> 주문서 작성
             OrderItem orderItem = new OrderItem();
 
+            List<OrderItemInfoDto> orderItemInfoDtos = new ArrayList<>();
+            OrderItemInfoDto orderItemInfoDto = new OrderItemInfoDto();
+
+
             // 1. 연관된 item 설정
             Optional<Item> optionalItem = itemRepository.findById(orderSheetRequestDto.getPid());
             if (optionalItem.isPresent()) {
                 Item item = optionalItem.get();
                 orderItem.setItem(item);
+                orderItemInfoDto.setItemName(item.getItemName());
+                orderItemInfoDto.setPid(item.getId());
+                orderItemInfoDto.setPrice(item.getPrice());
             }
 
             // 2. size, color, count 설정
@@ -113,17 +149,24 @@ public class OrderService {
             orderItem.setColor(orderSheetRequestDto.getColor());
             orderItem.setCount(orderSheetRequestDto.getCount());
 
-            // 3. 아직 주문 전이므로 orderStatus = false
-            orderItem.setOrderStatus(false);
+            // 3. 아직 주문 전이므로 orderStatus = INCOMPLETED
+            orderItem.setOrderStatus(OrderStatus.INCOMPLETED);
 
             // 4. orderItem 테이블에 저장
-            orderItemRepository.save(orderItem);
+            Long id = orderItemRepository.save(orderItem).getId();
 
             // 5. OrderSheetResponseDto에 orderItem 설정
             // dto에서 List<OrderItem> 타입으로 설정되어 있어서 1개밖에 없어도 리스트에 넣어주기
             List<OrderItem> orderItems = new ArrayList<>();
             orderItems.add(orderItem);
-            dto.setOrderItems(orderItems);
+
+            orderItemInfoDto.setOrderItemId(id);
+            orderItemInfoDto.setSize(orderItem.getSize());
+            orderItemInfoDto.setCount(orderItem.getCount());
+            orderItemInfoDto.setColor(orderItem.getColor());
+
+            orderItemInfoDtos.add(orderItemInfoDto);
+            dto.setOrderiteminfo(orderItemInfoDtos);
 
             // 6. dto에 orderItemPrice 담아주기
             int orderItemPrice = orderItem.getCount() * orderItem.getItem().getPrice();
@@ -192,15 +235,16 @@ public class OrderService {
         order.setTotalPrice(totalPrice);
 
 
-        // 배송 상태 설정 -> 아직 배송 안된 상태이므로 false
-        order.setShipmentStatus(false);
+        // 배송 상태 설정 -> 아직 배송 안된 상태이므로 PREPARING
+        order.setShipmentStatus(ShipmentStatus.PREPARING);
 
         // DB에 저장, 배송 일자는 자동으로 설정
         orderRepository.save(order);
 
         // 해당 Order의 모든 OrderItem의 orderStatus가 true로 업데이트, order_ID도 다시 세팅
         for (OrderItem orderItem : order.getOrderItems()) {
-            orderItem.setOrderStatus(true);
+            // 주문 완료 했으므로 주문 상태 정보 업데이트
+            orderItem.setOrderStatus(OrderStatus.COMPLETED);
             orderItem.setOrder(order);
             orderItemRepository.save(orderItem);
         }
@@ -234,43 +278,60 @@ public class OrderService {
                 OrderInfoDto orderInfoDto = new OrderInfoDto();
                 orderInfoDto.setOrder(order);
 
-
+                List<OrderItemInfoDto> orderItemInfoDtos = new ArrayList<>();
                 List<OrderItem> orderItems = orderItemRepository.findAllByOrderId(order.getId());
+                for (OrderItem orderItem : orderItems) {
+                    OrderItemInfoDto orderItemInfoDto = new OrderItemInfoDto();
 
-                Map<String, Object> orderItemsWithItemName = new HashMap<>();
-                orderItemsWithItemName.put("firstItemName", orderItems.get(0).getItem().getItemName());
-                orderItemsWithItemName.put("orderItems", orderItems);
+                    orderItemInfoDto.setOrderItemId(orderItem.getId());
+                    orderItemInfoDto.setCount(orderItem.getCount());
+                    orderItemInfoDto.setSize(orderItem.getSize());
+                    orderItemInfoDto.setColor(orderItem.getColor());
 
-                orderInfoDto.setOrderItems(orderItemsWithItemName);
+                    Optional<Item> optionalItem = itemRepository.findByOrderItems(orderItem);
+                    if (optionalItem.isPresent()) {
+                        orderItemInfoDto.setItemName(optionalItem.get().getItemName());
+                        orderItemInfoDto.setPrice(optionalItem.get().getPrice());
+                        orderItemInfoDto.setPid(optionalItem.get().getId());
+                    }
+                    orderItemInfoDtos.add(orderItemInfoDto);
 
+                }
+                orderInfoDto.setOrderiteminfo(orderItemInfoDtos);
                 orderInfoDtos.add(orderInfoDto);
             }
-
         }
         return orderInfoDtos;
     }
 
+    public OrderInfoDto orderSuccess(Long orderId) {
+        OrderInfoDto orderInfoDto = new OrderInfoDto();
+        List<OrderItemInfoDto> orderItemInfoDtos = new ArrayList<>();
 
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isPresent()) {
+            orderInfoDto.setOrder(optionalOrder.get());
 
-//    @Transactional(readOnly = true)
-//    public boolean validateOrder(Long orderId, String userId) {
-//
-//        //상품 주문한 유저
-//        Order order=orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
-//
-//        if (StringUtils.equals(order.getUser().getUserId(),userId)) {
-//            return true;
-//        }
-//        return false;
-//    }
+            List<OrderItem> orderItems = orderItemRepository.findAllByOrderId(optionalOrder.get().getId());
+            for (OrderItem orderItem : orderItems) {
+                OrderItemInfoDto orderItemInfoDto = new OrderItemInfoDto();
 
-    // 주문 취소
-//    public void orderCancel(Long orderId) {
-//        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
-//        order.orderCancel();
-//    }
+                orderItemInfoDto.setOrderItemId(orderItem.getId());
+                orderItemInfoDto.setCount(orderItem.getCount());
+                orderItemInfoDto.setSize(orderItem.getSize());
+                orderItemInfoDto.setColor(orderItem.getColor());
 
+                Optional<Item> optionalItem = itemRepository.findByOrderItems(orderItem);
+                if (optionalItem.isPresent()) {
+                    orderItemInfoDto.setItemName(optionalItem.get().getItemName());
+                    orderItemInfoDto.setPrice(optionalItem.get().getPrice());
+                    orderItemInfoDto.setPid(optionalItem.get().getId());
+                }
 
-
-
+                orderItemInfoDtos.add(orderItemInfoDto);
+            }
+            orderInfoDto.setOrderiteminfo(orderItemInfoDtos);
+        }
+        return orderInfoDto;
+    }
 }

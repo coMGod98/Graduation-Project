@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @Table (name="orders")
-public class Order extends BaseEntity{
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,9 +41,8 @@ public class Order extends BaseEntity{
         }
     }
 
-    // 나중에 지적받으면 Enum으로 변경해서 더 다양한 상태 추가
-    // 일단 배송 완료면 true, 미완이면 false -> 판매자 주문관리쪽에서 설정
-    private Boolean shipmentStatus;
+    @Enumerated(EnumType.STRING)
+    private ShipmentStatus shipmentStatus;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<OrderItem> orderItems = new ArrayList<>();

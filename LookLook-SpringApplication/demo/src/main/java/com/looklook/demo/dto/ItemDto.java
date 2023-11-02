@@ -15,7 +15,6 @@ public class ItemDto {
     private Long pid;
     private String itemName;
     private int price;
-    private ItemSellStatus itemSellStatus;
     private int stock;
     private List<String> size;
     private List<String> color;
