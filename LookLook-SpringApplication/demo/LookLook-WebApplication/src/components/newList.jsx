@@ -15,7 +15,7 @@ function NewList({list}) {
             <Link to={`/Product/${id}`}>
               <div className={styles.productImgDiv}>
                 <div className={styles.productImgWrap}>
-                  <img src={image} alt="prod_img"/>
+                  {/*<img src={image} alt="prod_img"/>*/}
                 </div>
               </div>
               <h2 className={styles.productTitle}>{name}</h2>

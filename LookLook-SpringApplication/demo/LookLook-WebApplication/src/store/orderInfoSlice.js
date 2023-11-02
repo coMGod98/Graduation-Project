@@ -5,9 +5,10 @@ const orderInfoSlice = createSlice({
     initialState: {
         address: "",
         orderItemPrice: 0,
-        orderiteminfo: [{
-            color: "", count: 0, itemName: "", orderItemId: 0, pid: 0, price: 0, size: "",
-        }],
+        orderiteminfo: [],
+        // orderiteminfo: [{
+        //     color: "", count: 0, itemName: "", orderItemId: 0, pid: 0, price: 0, size: "",
+        // }],
         phoneNumber: "",
         shipment_FEE: 0,
         totalPrice: 0,
@@ -26,9 +27,10 @@ const orderInfoSlice = createSlice({
         deleteOrderInfo: (state) => {
             state.address = "";
             state.orderItemPrice = 0;
-            state.orderiteminfo = [{
-            color: "", count: 0, itemName: "", orderItemId: 0, pid: 0, price: 0, size: "",
-            }];
+            state.orderiteminfo = [];
+            // state.orderiteminfo = [{
+            // color: "", count: 0, itemName: "", orderItemId: 0, pid: 0, price: 0, size: "",
+            // }];
             state.phoneNumber = "";
             state.shipment_FEE = 0;
             state.totalPrice = 0;
