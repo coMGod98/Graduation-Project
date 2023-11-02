@@ -3,7 +3,7 @@ package com.looklook.demo.controller;
 import com.looklook.demo.dto.ItemDto;
 import com.looklook.demo.dto.ItemRegRequestDto;
 import com.looklook.demo.dto.SellerItemDto;
-import com.looklook.demo.service.ItemService;
+//import com.looklook.demo.service.ItemService;
 import com.looklook.demo.service.SellerItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
