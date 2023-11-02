@@ -77,10 +77,10 @@ public class OrderService {
                     CartItem item = optionalCartItem.get();
 
                     // 주문서 작성이 결제로 이어지지 않을 때, 주문 상품에 중복 저장 방지
-                    Optional<OrderItem> chkOrderitem = orderItemRepository.findByColorAndCountAndSizeAndItemIdAndOrderIdIsNull(item.getColor(), item.getCount(), item.getSize(), item.getItem().getId());
-                    if (chkOrderitem.isPresent()) {
-                        chkOrderItemConstraint = false;
-                    }
+//                    Optional<OrderItem> chkOrderitem = orderItemRepository.findByColorAndCountAndSizeAndItemIdAndOrderIdIsNull(item.getColor(), item.getCount(), item.getSize(), item.getItem().getId());
+//                    if (chkOrderitem.isPresent()) {
+//                        chkOrderItemConstraint = false;
+//                    }
                     cartItems.add(item);
                 }
             }
