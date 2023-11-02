@@ -26,7 +26,7 @@ function SearchResult() {
       <div className={styles.searchResultSection}>
         <div className={styles.searchHeader}>
           <img src={require("../images/search_header.png")} alt="searchHeader"/>
-          <h> 검색 결과입니다()</h></div>
+          <h1> 검색 결과입니다()</h1></div>
 
         <ItemList list={currentPosts}/>
         

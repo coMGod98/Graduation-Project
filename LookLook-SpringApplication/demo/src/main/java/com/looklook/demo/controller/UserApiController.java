@@ -44,17 +44,26 @@ public class UserApiController {
 
     // 사용자 정보 수정
     @PostMapping("/mypage/user/info")
-    public ResponseEntity<UserResponseDto> updateUserInfo(UserRequestDto userRequestDto, Authentication authentication) {
+    public ResponseEntity<UserResponseDto> updateUserInfo(@RequestBody UserRequestDto userRequestDto, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         UserResponseDto userResponseDto = userService.updateUser(Long.valueOf(userDetails.getUsername()), userRequestDto);
         return ResponseEntity.ok(userResponseDto);
     }
 
+    // 회원 탈퇴
     @PostMapping("/mypage/user/withdrawal")
     public ResponseEntity<String> deleteUserInfo(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         userService.withdrawal(Long.valueOf(userDetails.getUsername()));
         return ResponseEntity.ok("탈퇴 완료");
+    }
+
+    // 판매자 페이지 이동 시 판매자 정보 반환
+    @GetMapping("/seller")
+    public ResponseEntity<UserResponseDto> sendSellerInfo(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        UserResponseDto userResponseDto = userService.findUserInfoById(Long.valueOf(userDetails.getUsername()));
+        return ResponseEntity.ok(userResponseDto);
     }
 }
 

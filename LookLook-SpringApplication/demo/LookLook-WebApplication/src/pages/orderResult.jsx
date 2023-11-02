@@ -37,7 +37,7 @@ function OrderResult() {
           </div>
           <div className={styles.wrapDiv}>
             <div className={styles.tagDiv}>최종 결제 금액</div>
-            <div className={styles.infoDiv}>#,###원</div>
+            <div className={styles.infoDiv}>{Number(0).toLocaleString()}원</div>
           </div>
           <div className={styles.wrapDiv}>
             <div className={styles.tagDiv}>결제수단</div>

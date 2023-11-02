@@ -1,12 +1,87 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../components/header";
 import styles from "./orderSheet.module.css";
 import { Link } from "react-router-dom";
 import OrderProdInfoList from "../components/orderProdInfoList";
 
+import { useDispatch, useSelector } from "react-redux";
+import { addOrderItem, deleteOrderItem } from "../store/orderSlice";
+
+
+
 function OrderSheet() {
 
+  const dispatch = useDispatch();
+
+  const [pAddr, setPAddr] = useState("서울");
+  const [pIds, setPIds] = useState([1,3,5,7]);
+  const [pMethod, setPMethod] = useState("신한카드");
+  const [pType, setPType] = useState("일시불");
+
+
+
+  const orderAddr = useSelector((state) => state.orderItem.newAddress);
+  const orderIds = useSelector((state) => state.orderItem.orderItemIds);
+  const orderPayMethod = useSelector((state) => state.orderItem.paymentMethod);
+  const orderPayType = useSelector((state) => state.orderItem.paymentType);
+  const onClickAdd = () => {
+    dispatch(addOrderItem({pAddr, pIds, pMethod, pType}));
+  }
+  const onClickDelete = () => {
+    dispatch(deleteOrderItem());
+  }
+  const onClickView = () => {
+    console.log(orderAddr);
+    console.log(orderIds);
+    console.log(orderPayMethod);
+    console.log(orderPayType);
+  }
+
+
+
+
+
   const [isAddrNew, setIsAddrNew] = useState(false);
+
+  const [orderListInfo, setOrderListInfo] = useState([]);
+  const [numCount, setNumCount] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+
+    // const accessToken = localStorage.getItem("accessToken");
+    // fetch('/order-sheet', {
+    //   method: 'post',
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     'Authorization': `Bearer ${accessToken}`,
+    //   },
+    //   body: JSON.stringify({
+    //     cartItemIds: orderIds,
+    //   })
+    // })
+    //     .then(res => res.json())
+    //     .then(res => {
+    //       console.log("리덕스 ids", orderIds);
+    //       console.log("주문상품 리스트 가져오기", res);
+    //
+    //
+    //
+    //       setOrderListInfo(res.orderiteminfo);
+    //       setTotalPrice(res.totalPrice);
+    //
+    //       const tmp = [...numCount];
+    //       let i
+    //       for (i = 0; i < res.orderiteminfo.length; i++) {
+    //         tmp[i] = i + 1;
+    //       }
+    //       setNumCount(tmp);
+    //     })
+    //     .catch(err => {
+    //       console.log("오류: ", err);
+    //     })
+
+  }, [])
 
   return (
     <>
@@ -28,13 +103,13 @@ function OrderSheet() {
           <div className={styles.orderInfoHeader}>
             배송 정보
           </div>
-          <div style={{borderTop:'1px solid rgb(197, 197, 197)'}}
+          <div style={{borderTop:'1px solid rgb(180, 180, 180)'}}
           className={styles.wrapDiv}>
             <div className={styles.tagDiv}>이름</div>
-            <div className={styles.infoDiv}>~~~</div>
+            <div className={styles.infoDiv}>{orderListInfo.userName}</div>
           </div>
           <div className={styles.wrapDiv}>
-            <div className={styles.tagDiv}>연락처</div>
+            <div className={styles.tagDiv}>휴대전화</div>
             <div className={styles.infoDiv}>~~~</div>
           </div>
           <div className={styles.wrapDiv}>
@@ -81,15 +156,19 @@ function OrderSheet() {
             <div className={styles.prodInfoTag3}>수량</div>
             <div className={styles.prodInfoTag4}>판매가</div>
           </div>
-          <OrderProdInfoList />
-          <OrderProdInfoList />
-
-
+          <div>
+            {/*{orderListInfo.map((item, id) => {*/}
+            {/*  return <OrderProdInfoList key={id} list={item} num={numCount[id]} />;*/}
+            {/*})}*/}
+            {/*{orderListInfo.length < 1*/}
+            {/*    ? <div className={styles.emptyDiv}>주문한 상품이 없습니다.</div>*/}
+            {/*    : null}*/}
+          </div>
 
           <div className={styles.orderInfoHeader}>
             결제 정보
           </div>
-          <div style={{alignItems:'center', borderTop:'1px solid rgb(197, 197, 197)'}}
+          <div style={{alignItems:'center', borderTop:'1px solid rgb(180, 180, 180)'}}
           className={styles.wrapDiv}>
             <div className={styles.tagDiv}>결제 수단</div>
             <div className={styles.infoDiv}>
@@ -112,26 +191,31 @@ function OrderSheet() {
           <div className={styles.orderInfoHeader}>
             결제 금액
           </div>
-          <div style={{borderTop:'1px solid rgb(197, 197, 197)'}}
+          <div style={{borderTop:'1px solid rgb(180, 180, 180)'}}
           className={styles.wrapDiv}>
             <div className={styles.tagDiv}>배송비</div>
-            <div className={styles.infoDiv}>#,###원</div>
+            <div className={styles.infoDiv}>{Number(2500).toLocaleString()}원</div>
           </div>
           <div className={styles.wrapDiv}>
             <div className={styles.tagDiv}>상품 가격</div>
-            <div className={styles.infoDiv}>#,###원</div>
+            <div className={styles.infoDiv}>{Number(0).toLocaleString()}원</div>
           </div>
           <div className={styles.wrapDiv}>
             <div style={{fontWeight:'bold'}} className={styles.tagDiv}>총 결제 금액</div>
-            <div style={{fontWeight:'bold'}} className={styles.infoDiv}>#,###원</div>
+            <div style={{fontWeight:'bold'}} className={styles.infoDiv}>{Number(0).toLocaleString()}원</div>
           </div>
 
 
 
           <div className={styles.payBtnWrap}>
             <Link to="/orderResult"><button>결제하기</button></Link>
-            
           </div>
+
+
+
+          <button onClick={onClickAdd}>설정</button>
+          <button onClick={onClickDelete}>삭제</button>
+          <button onClick={onClickView}>콘솔</button>
 
 
 

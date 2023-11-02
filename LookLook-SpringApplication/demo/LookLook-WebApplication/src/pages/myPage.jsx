@@ -31,7 +31,7 @@ function MyPage() {
   const checkPw = (e) => {
     e.preventDefault();
 
-      const accessToken = sessionStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem("accessToken");
       fetch('/mypage/user/auth', {
         method: 'POST',
         headers: { "Content-Type": "application/json",
@@ -58,7 +58,7 @@ function MyPage() {
   const withdrawalClick = () => {
     if(window.confirm("정말 회원 탈퇴하시겠습니까?")) {
 
-      const accessToken = sessionStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem("accessToken");
       fetch('/mypage/user/withdrawal', {
         method : 'post',
         headers : {
@@ -70,7 +70,7 @@ function MyPage() {
         if (res.status === 200) {
           console.log("회원탈퇴 완료", res);
           alert("회원 탈퇴가 완료되었습니다.");
-          sessionStorage.setItem("accessToken", "");
+          localStorage.setItem("accessToken", "");
           navigate("/");
         } else {
           console.log("회원탈퇴 실패", res);
@@ -94,7 +94,7 @@ function MyPage() {
   }
 
   const modClick = () => {
-    const accessToken = sessionStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken");
     fetch('/mypage/user/info', {
       method: 'post',
       headers: {
@@ -123,7 +123,9 @@ function MyPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const accessToken = sessionStorage.getItem("accessToken");
+
+    const accessToken = localStorage.getItem("accessToken");
+
     fetch('/mypage', {
       headers : {
         'Authorization': `Bearer ${accessToken}`,
@@ -131,7 +133,7 @@ function MyPage() {
     })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
+      console.log("사용자 정보", res);
       setUserID(res.userId);
       setUserName(res.userName);
       setUserEmail(res.email);
@@ -146,6 +148,20 @@ function MyPage() {
       console.log('오류: ', err);
       navigate("/login");
     })
+
+
+    fetch('/mypage/order-info', {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
+    })
+        .then(res => res.json)
+        .then(res => {
+          console.log("주문내역", res);
+        })
+        .catch(err => {
+          console.log("오류:", err);
+        })
 
   }, [])
 

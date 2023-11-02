@@ -9,8 +9,12 @@ import ShoesDropdown from "../components/dropdown/shoesDropdown";
 import FashionDropdown from "../components/dropdown/fashionDropdown";
 import { Navigate } from "react-router-dom";
 
-
 function Header() {
+
+  const accessToken = localStorage.getItem("accessToken");
+  const [isStorageNull, setIsStorageNull] = useState(true);
+
+
   const navigate = useNavigate();
   
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,9 +30,9 @@ function Header() {
 
   const logoutClick = () => {
     if(window.confirm("로그아웃 하시겠습니까?")) {
-      sessionStorage.setItem("accessToken", "");
+      localStorage.removeItem("accessToken");
       navigate("/");
-      console.log("로그아웃 후 세션스토리지 값: ", sessionStorage.getItem("accessToken"))
+      console.log("로그아웃 후 세션스토리지 값: ", localStorage.getItem("accessToken"))
     }
   }
 
@@ -37,44 +41,53 @@ function Header() {
       navigate("/login")
     }
   }
+  const clickAvatarBtn = () => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken === null) {
+      alert("로그인 후 이용하실 수 있습니다.");
+    } else {
+      navigate("/AvatarPage");
+    }
+  }
 
   return (
     <div className={styles.header}>
 
-      {sessionStorage.getItem("accessToken") !== ""
+      {accessToken === null
       ?
-      <div className={styles.topMenu}>
-        <h style={{cursor:'pointer'}} onClick={logoutClick}>로그아웃</h>
-        <Link to="/cart">
-          <h style={{fontWeight: 'bold'}}>장바구니</h>
-        </Link>
-        <Link to="/myPage/myInfo">
-          <h>마이페이지</h>
-        </Link>
-        <Link to="/seller/myProducts">
-          <h style={{color:'navy'}}>판매자</h>
-        </Link>
-      </div>
-      :
-      <div className={styles.topMenu}>
-        <Link to="/login">
-          <h>로그인</h>
-        </Link>
-        <Link to="/signup">
-          <h style={{color: '#227acc'}}>회원가입</h>
-        </Link>
-        <Link to="/myPage/myInfo">
-          <h>마이페이지</h>
-        </Link>
+          <div className={styles.topMenu}>
+            <Link to="/login">
+              <h1>로그인</h1>
+            </Link>
+            <Link to="/signup">
+              <h1 style={{color: '#227acc'}}>회원가입</h1>
+            </Link>
+            <Link to="/myPage/myInfo">
+              <h1>마이페이지</h1>
+            </Link>
 
-      </div>
+          </div>
+      :
+          <div className={styles.topMenu}>
+            <h1 style={{cursor:'pointer'}} onClick={logoutClick}>로그아웃</h1>
+            <Link to="/cart">
+              <h1 style={{fontWeight: 'bold'}}>장바구니</h1>
+            </Link>
+            <Link to="/myPage/myInfo">
+              <h1>마이페이지</h1>
+            </Link>
+            <Link to="/seller/myProducts">
+              <h1 style={{color:'navy'}}>판매자</h1>
+            </Link>
+          </div>
+
       }
 
 
 
 
 
-      
+
       <div className={styles.logoSection}>
         <Link to="/">
           <img src={require("../images/looklook_logo.png")} alt="logo"/>
@@ -95,7 +108,7 @@ function Header() {
             onMouseOver={() => setIsCategoryHover(true)}
             onMouseOut={() => setIsCategoryHover(false)}>
             <img src={require("../images/hamburger_icon.png")} alt="전체카테고리" />
-            <h className={styles.allCategory}>카테고리</h>
+            <h1 className={styles.allCategory}>카테고리</h1>
             {isCategoryHover && <CategoryDropdown />}
           </div>
 
@@ -121,12 +134,11 @@ function Header() {
             {isFashionHover && <FashionDropdown />}</span>
           </div>
 
-          <Link to="/avatarPage">
             <button
+                onClick={clickAvatarBtn}
               className={styles.avatarBtn}>
               캐릭터 커스텀
             </button>
-          </Link>
             
         </div>
       </div>

@@ -37,12 +37,12 @@ function SignUp() {
           }
         )
       })
-      .then(res => res.json())
       .then(res => {
-        if (res.status === 500) {
-          alert(res.message);
-        } else {
+        if (res.status === 200) {
+          console.log(res);
           navigate("/signupResult")
+        } else {
+          console.log("회원가입 실패:", res);
         }
       })
       .catch(error => {
@@ -69,11 +69,11 @@ function SignUp() {
       <Header />
       <div className={styles.signupSection}>
         <div className={styles.signupHeader}>
-          <h>회원가입</h>
+          <h1>회원가입</h1>
         </div>
         <div className={styles.userInfo}>
           <div className={styles.userInfoHeader}>
-            <h>회원정보 입력</h>
+            <h1>회원정보 입력</h1>
           </div>
           <div className={styles.userInfoTags}>
             이름<br/>아이디<br/><br/>비밀번호<br/>비밀번호확인
@@ -98,12 +98,12 @@ function SignUp() {
                 placeholder="영문, 숫자 포함 / 8~16자 이내"/>
               </div>
               <div>
-                <h>영문 포함, 숫자 포함, 8~16자 이내</h>
+                <h1>영문 포함, 숫자 포함, 8~16자 이내</h1>
               </div>
               <div><input type="password" name="password" required onChange={handleChange}/></div>
               <div><input type="password" name="pwVer" required onChange={handleChange}/></div>
               <div>
-                <h>비밀번호를 입력해주세요.</h>
+                <h1>비밀번호를 입력해주세요.</h1>
               </div>
               <div>
                 <input type="radio" name="gender" id="male" value="male" required onChange={handleChange}
@@ -121,7 +121,7 @@ function SignUp() {
             </div>
             <div className={styles.signupBtnWrap}>
                 <button type="submit">회원가입</button>
-                <button onClick={onclickQuit}
+                <button type="button" onClick={onclickQuit}
                 style={{color:'black', 
                 backgroundColor:'white'}}>회원가입 취소</button>
               </div>

@@ -1,7 +1,8 @@
 package com.looklook.demo.domain;
 
-//import com.looklook.demo.dto.ItemFormDto;
-import com.looklook.demo.dto.ItemFormDto;
+import com.looklook.demo.dto.ItemDto;
+import com.looklook.demo.dto.ItemRegRequestDto;
+import com.looklook.demo.dto.SellerItemDto;
 import com.looklook.demo.exception.OutOfStockException;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,80 +10,86 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "item")
 @Getter @Setter
 @ToString
-public class Item extends BaseEntity {
-
+@Table(name = "item")
+public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "item_name")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "pname", nullable = false)
+    @Column(unique=true)
     private String itemName;
-
-    @Column(nullable = false)
     private int price;
-
-    @Column(nullable = false)
     private int stock;
+    @PrePersist
+    public void prePersist() {
+        if (this.regTime == null) {
+            this.regTime = LocalDateTime.now();
+        }
+    }
 
-    @Enumerated(EnumType.STRING)
-    private ItemSellStatus itemSellStatus;
-
+    // 판매자가 해당 상품을 등록한 날짜
     private LocalDateTime regTime;
-    private LocalDateTime updateTime;
-
-    //카테고리 종류
-    @Column(name = "ca_id")
-    private Category category;
-
-    @Column(name = "size")
-    private String size;
-
-    @Column(name="color")
-    private String color;
-
-    @Column(name="pgender")
+    private String category;
     private String pgender;
-
-    @Lob
-    @Column(name = "information", nullable = false)
     private String itemDetail;
+    @JoinColumn(name="product_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemSize> sizes;
+    @JoinColumn(name="product_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemColor> colors;
 
+    @OneToMany(mappedBy = "item")
+    private List<OrderItem> orderItems;
+
+    // 해당 상품을 등록한 판매자의 uid
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UID")
     private LookLookUser user;
 
+    @OneToMany(
+            mappedBy = "item",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true
+    )
+    private List<ItemImg> imgs = new ArrayList<>();
 
 
-    public void updateItem(ItemFormDto itemFormDto) {
-        this.itemName = itemFormDto.getItemName();
-        this.category=itemFormDto.getCategory();
-        this.color=itemFormDto.getColor();
-        this.itemDetail = itemFormDto.getItemDetail();
-        this.stock = itemFormDto.getStock();
-        this.itemSellStatus = itemFormDto.getItemSellStatus();
-        this.pgender=itemFormDto.getPgender();
-        this.price=itemFormDto.getPrice();
-        this.size=itemFormDto.getSize();
+    // 상품 엔티티를 Dto로 변환
+    public ItemDto toItemDto(Item item, List<String> sizes, List<String> colors) {
+        ItemDto dto = new ItemDto();
+        dto.setPid(item.getId());
+        dto.setItemName(item.getItemName());
+        dto.setPrice(item.getPrice());
+        dto.setItemDetail(item.getItemDetail());
+        dto.setSize(sizes);
+        dto.setColor(colors);
+        dto.setPgender(item.getPgender());
+        dto.setCategory(item.getCategory());
+        dto.setPrice(item.getPrice());
+        dto.setItemDetail(item.getItemDetail());
+        dto.setStock(item.getStock());
+        return dto;
     }
 
-    public void removeStock(int stock) {
-
-        int restStock = this.stock - stock;
-        if (restStock < 0) {
-            throw new OutOfStockException("상품의 재고가 부족합니다. (현재 재고 수량: " + this.stock + ")");
-        }
-        this.stock = restStock;
+    public SellerItemDto toSellerItemDto(Item item, List<String> sizes, List<String> colors) {
+        SellerItemDto dto = new SellerItemDto();
+        dto.setPid(item.getId());
+        dto.setItemName(item.getItemName());
+        dto.setPrice(item.getPrice());
+        dto.setItemDetail(item.getItemDetail());
+        dto.setSize(sizes);
+        dto.setRegTime(item.regTime);
+        dto.setStock(item.getStock());
+        dto.setColor(colors);
+        dto.setPgender(item.getPgender());
+        dto.setCategory(item.getCategory());
+        dto.setItemDetail(item.getItemDetail());
+        return dto;
     }
-
-    //주문 취소할때
-    public void addStock(int stock) {
-        this.stock += stock;
-    }
-
 }

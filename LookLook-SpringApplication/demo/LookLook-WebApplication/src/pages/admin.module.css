@@ -6,8 +6,16 @@
 .adminHeader img {
   width: 140px;
   height: 80px;
-  margin-left: 75px;
+  margin-left: 40px;
   margin-top: 20px;
+}
+
+.adminHeader p {
+  color: #545454;
+  font-size: 17px;
+  font-weight: bold;
+  margin-left: 182px;
+  margin-top: -22px;
 }
 
 .adminSection {
@@ -21,7 +29,7 @@
 }
 
 .adminMenu .adminInfoWrap {
-  background-color: rgb(38, 51, 87);
+  background-color: #25324f;
   height: 50px;
   display: flex;
   align-items: center;
@@ -77,12 +85,12 @@
 
 .adminWorkSpace .searchWrap button {
   color: white;
-  background-color: rgb(49, 69, 107);
+  background-color: #25324f;
   padding: 4px 20px;
 }
 
 .adminWorkSpace .workWrap {
-  border: 1px solid rgb(54, 63, 95);
+  border: 1px solid #25324f;
   width: 1200px;
   height: 600px;
 }
@@ -95,7 +103,7 @@
 }
 
 .adminWorkSpace .deleteBtn button {
-  background-color: rgb(38, 51, 87);
+  background-color: #25324f;
   color: white;
   padding: 4px 15px;
   margin-left: 5px;

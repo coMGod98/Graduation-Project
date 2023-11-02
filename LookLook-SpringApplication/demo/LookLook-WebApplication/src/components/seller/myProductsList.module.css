@@ -1,6 +1,6 @@
 .section {
     font-size: 15px;
-    padding: 7px;
+    padding: 8px;
     display: flex;
     text-align: middle;
     border-bottom: 1px solid rgb(180, 180, 180);
@@ -12,34 +12,27 @@
 }
 
 .item1 {
-    width: 5%;
-}
-.item1 input{
-    width: 16px;
-    height: 16px;
-}
-.item2 {
     width: 10%;
 }
-.item3 {
+.item2 {
     width: 30%;
+}
+.item3 {
+    width: 10%;
 }
 .item4 {
     width: 10%;
 }
 .item5 {
-    width: 10%;
+    width: 12%;
 }
 .item6 {
-    width: 17%;
+    width: 24%;
 }
 .item7 {
-    width: 14%;
-}
-.item8 {
     width: 4%;
 }
-.item8 img {
+.item7 img {
     width: 15px;
     height: 15px;
     cursor: pointer;
