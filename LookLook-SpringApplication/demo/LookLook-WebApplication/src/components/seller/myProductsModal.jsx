@@ -106,6 +106,7 @@ function MyProductsModal({mpid, mprice, mstock, mpgender, mitemDetail, msize
   }, []);
 
   const modSubmit = e => {
+    const accessToken = localStorage.getItem("accessToken");
     e.preventDefault();
     if (lowCategory === '') {
       alert("카테고리를 선택해주세요")
@@ -116,6 +117,7 @@ function MyProductsModal({mpid, mprice, mstock, mpgender, mitemDetail, msize
         method: 'post',
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
           price: Number(values.modPrice),

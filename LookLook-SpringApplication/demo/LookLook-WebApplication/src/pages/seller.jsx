@@ -108,6 +108,8 @@ function Seller() {
 
 
     const regiSubmit = e => {
+
+        const accessToken = localStorage.getItem("accessToken");
         e.preventDefault();
 
         // 이미지 (파일명.확장자)만 추출
@@ -121,7 +123,10 @@ function Seller() {
         } else {
             fetch('/seller/items/new', {
                 method: 'post',
-                headers: {"Content-Type": "application/json"},
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${accessToken}`,
+                },
                 body: JSON.stringify({
                     uid: Number(sellerInfo.uid),
                     itemName: values.inputPrName,

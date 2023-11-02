@@ -20,8 +20,12 @@ function MyProductsList({list, psize, pcolor}) {
 
     const deleteProduct = () => {
 
+        const accessToken = localStorage.getItem("accessToken");
         fetch(`/seller/item/${list.pid}`, {
             method: 'delete',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+            }
         })
             .then(res => {
                 if (res.status === 200) {
