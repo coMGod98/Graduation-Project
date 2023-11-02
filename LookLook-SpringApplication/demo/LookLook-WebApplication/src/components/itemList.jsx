@@ -7,13 +7,7 @@ import products from "../products.json"
 
 function ItemList({ list }) {
 
-
   const [prods, setProds] = useState(products);
-
-
-  useEffect(() => {
-    console.log(list);
-  }, []);
 
   return (
     <div className={styles.productContainer}>
@@ -24,11 +18,13 @@ function ItemList({ list }) {
 
             <Link to={`/Product/${item.pid}`}>
               <div className={styles.productImgDiv}>
-                {/*<img src={image} alt="prod_img"/>*/}
+                <div className={styles.productImgWrap}>
+                  {/*<img src={image} alt="prod_img"/>*/}
+                </div>
               </div>
               <h2 className={styles.productTitle}>{item.itemName}</h2>
             </Link>
-            <div className={styles.productPrice}>{item.price}원</div>
+            <div className={styles.productPrice}>{Number(item.price).toLocaleString()}원</div>
             
           </div>
         );

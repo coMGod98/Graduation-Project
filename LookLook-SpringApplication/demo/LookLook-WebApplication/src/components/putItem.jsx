@@ -24,7 +24,7 @@ function PutItem({id, name, price, size, color, stock, quantity, onClick}) {
 
 
       </div>
-      <div className={styles.priceDiv}>{price}원</div>
+      <div className={styles.priceDiv}>{Number(price).toLocaleString()}원</div>
     </div>
   );
 }

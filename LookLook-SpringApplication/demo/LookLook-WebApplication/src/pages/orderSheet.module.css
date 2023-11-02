@@ -29,6 +29,11 @@
   margin-top: 20px;
 }
 
+.emptyDiv {
+  padding: 8px;
+  border-bottom: 1px solid rgb(180, 180, 180);
+}
+
 
 .wrapDiv {
   border-bottom: 1px solid rgb(180, 180, 180);
@@ -87,7 +92,7 @@
 }
 
 .OrderWrap .payBtnWrap button {
-  background-color: rgb(26, 54, 92);
+  background-color: #25324f;
   font-size: 15px;
   color: white;
   height: 38px;

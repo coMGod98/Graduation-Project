@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./orderManageList.module.css"
 
 function OrderManageList() {
+
     return (
         <div className={styles.section}>
             <div className={styles.item1}>12345678</div>
@@ -12,7 +13,11 @@ function OrderManageList() {
             <div className={styles.item6}>#,###원</div>
             <div className={styles.item7}>결제 완료</div>
             <div className={styles.item8}>
-                <input />
+                <select>
+                    <option>배송 준비중</option>
+                    <option>배송 중</option>
+                    <option>배송 완료</option>
+                </select>
             </div>
         </div>
     );

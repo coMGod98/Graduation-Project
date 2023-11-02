@@ -1,32 +1,34 @@
 import React, {useEffect, useState} from "react";
 import styles from "./modUserModal.module.css";
 
-function ModUserModal({muid, memail, mphoneNumber, maddress, isOpen, closeModal}) {
+function ModUserModal({muid, muserName, maddress, memail, isOpen, closeModal}) {
 
-    const [inputEmail, seInputEmail] = useState(memail);
-    const [inputNumber, seInputNumber] = useState(mphoneNumber);
+    const accessToken = localStorage.getItem("accessToken");
+
+
+    const [inputName, seInputName] = useState(muserName);
     const [inputAddr, seInputAddr] = useState(maddress);
+    const [inputEmail, seInputEmail] = useState(memail);
 
-    const emailChangeHandler = (e) => {
-        seInputEmail(e.target.value);
-    }
-    const phoneChangeHandler = (e) => {
-        seInputNumber(e.target.value);
+    const nameChangeHandler = (e) => {
+        seInputName(e.target.value);
     }
     const addrChangeHandler = (e) => {
         seInputAddr(e.target.value);
     }
-
+    const emailChangeHandler = (e) => {
+        seInputEmail(e.target.value);
+    }
 
     // const [firstInfo, setFirstInfo] = useState([]);
 
     useEffect(() => {
-        console.log(`모달(user${muid}) 로드: `, memail, mphoneNumber, maddress);
+        console.log(`모달(user${muid}) 로드: `, muserName, maddress, memail);
     }, []);
 
     const modSubmit = (e) => {
         e.preventDefault();
-        const accessToken = sessionStorage.getItem("accessToken");
+
         fetch(`/admin/user-update/${muid}`, {
             method: 'post',
             headers: {
@@ -34,12 +36,11 @@ function ModUserModal({muid, memail, mphoneNumber, maddress, isOpen, closeModal}
                 'Authorization': `Bearer ${accessToken}`,
             },
             body: JSON.stringify({
-                email: inputEmail,
-                phoneNumber: inputNumber,
+                userName: inputName,
                 address: inputAddr,
+                email: inputEmail,
             })
         })
-            .then(res => res.json())
             .then(res => {
                 console.log(res);
                 alert("사용자 정보 수정이 완료되었습니다.");
@@ -59,21 +60,22 @@ function ModUserModal({muid, memail, mphoneNumber, maddress, isOpen, closeModal}
                     <form onSubmit={modSubmit}>
                         <div className={styles.section}>
                             <div className={styles.wrap}>
-                                <div className={styles.tags}>이메일</div>
+                                <div className={styles.tags}>이름</div>
                                 <div className={styles.inputs}>
-                                    <input onChange={emailChangeHandler} defaultValue={inputEmail} />
-                                </div>
-                            </div>
-                            <div className={styles.wrap}>
-                                <div className={styles.tags}>휴대전화</div>
-                                <div className={styles.inputs}>
-                                    <input onChange={phoneChangeHandler} defaultValue={inputNumber}/>
+                                    <input onChange={nameChangeHandler} maxLength="20"
+                                           defaultValue={inputName}/>
                                 </div>
                             </div>
                             <div className={styles.wrap}>
                                 <div className={styles.tags}>주소</div>
                                 <div className={styles.inputs}>
                                     <input onChange={addrChangeHandler} defaultValue={inputAddr}/>
+                                </div>
+                            </div>
+                            <div className={styles.wrap}>
+                                <div className={styles.tags}>이메일</div>
+                                <div className={styles.inputs}>
+                                    <input onChange={emailChangeHandler} defaultValue={inputEmail} />
                                 </div>
                             </div>
                         </div>

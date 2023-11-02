@@ -13,8 +13,8 @@ function ManDropdown() {
 
   return (
     <div className={styles.dropdownSection}>
-      {categorys && categorys.map(cate => (
-        <div>
+      {categorys && categorys.map((cate, id) => (
+        <div key={id}>
           <Link to={`/manList/${cate.cateID}`}>
             <img src={require(`../../images/man/${cate.cateID}.png`)} alt="outer_item"/>
             <p>{cate.cateName}</p>

@@ -23,13 +23,13 @@ import Admin from "./pages/admin"
 import Seller from "./pages/seller"
 import AvartarPage from "./pages/avatarPage";
 
-import products from "./products.json"
 
 
 // class Routing extends React.Component {}
 function Routing() {
-  const [prods, setProds] = useState(products);
-  localStorage.setItem("accessToken", "");
+  // useEffect(() => {
+  //   localStorage.setItem("accessToken", "");
+  // }, []);
 
   return (
     <Router>
@@ -46,9 +46,9 @@ function Routing() {
         <Route path="/fashionList/:cate" element={<FashionList />} />
         <Route path="/searchResult" element={<SearchResult />} />
 
-        <Route path="/product/:id" element={<Product />} />
         <Route path="/myPage/:menu" element={<MyPage />} />
-        
+
+        <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orderSheet" element={<OrderSheet />} />
         <Route path="/orderResult" element={<OrderResult />} />

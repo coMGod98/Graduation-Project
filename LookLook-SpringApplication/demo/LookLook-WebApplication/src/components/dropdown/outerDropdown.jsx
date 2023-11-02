@@ -14,8 +14,8 @@ function OuterDropdown() {
 
   return (
     <div className={styles.dropdownSection}>
-      {categorys && categorys.map(cate => (
-        <div>
+      {categorys && categorys.map((cate, id) => (
+        <div key={id}>
           <Link to={`/outerList/${cate.cateID}`}>
             <img src={require(`../../images/outer/${cate.cateID}.png`)} alt="outer_item"/>
             <p>{cate.cateName}</p>

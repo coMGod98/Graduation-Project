@@ -123,7 +123,9 @@ function MyPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+
     const accessToken = localStorage.getItem("accessToken");
+
     fetch('/mypage', {
       headers : {
         'Authorization': `Bearer ${accessToken}`,
@@ -131,7 +133,7 @@ function MyPage() {
     })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
+      console.log("사용자 정보", res);
       setUserID(res.userId);
       setUserName(res.userName);
       setUserEmail(res.email);
@@ -146,6 +148,20 @@ function MyPage() {
       console.log('오류: ', err);
       navigate("/login");
     })
+
+
+    fetch('/mypage/order-info', {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
+    })
+        .then(res => res.json)
+        .then(res => {
+          console.log("주문내역", res);
+        })
+        .catch(err => {
+          console.log("오류:", err);
+        })
 
   }, [])
 

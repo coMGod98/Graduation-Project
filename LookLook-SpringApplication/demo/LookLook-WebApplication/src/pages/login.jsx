@@ -102,8 +102,8 @@ function Login() {
               <img onClick={handlePasswordType}
               src={require("../images/eye_button.png")} alt="pwHide"/>
               {passwordType.type === "password" 
-              ? <h onClick={handlePasswordType}>비밀번호 보기</h>
-              : <h onClick={handlePasswordType}>비밀번호 숨기기</h>
+              ? <h1 onClick={handlePasswordType}>비밀번호 보기</h1>
+              : <h1 onClick={handlePasswordType}>비밀번호 숨기기</h1>
               }
             </div>
             <button type="submit" className={styles.loginBtn}>

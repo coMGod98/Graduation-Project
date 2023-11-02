@@ -1,6 +1,6 @@
 .section {
   color: white;
-  background-color: rgb(40, 60, 90);
+  background-color: #25324f;
   font-size: 15px;
   padding: 8px;
   display: flex;
@@ -22,11 +22,11 @@
   width: 15%;
 }
 .item4 {
-  width: 17%;
+  width: 20%;
 }
 .item5 {
-  width: 15%;
+  width: 18%;
 }
 .item6 {
-  width: 26%;
+  width: 20%;
 }

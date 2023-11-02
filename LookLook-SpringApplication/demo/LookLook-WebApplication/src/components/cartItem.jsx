@@ -2,26 +2,41 @@ import React from "react";
 import styles from "./cartItem.module.css"
 import { useState } from "react";
 
-function CartItem() {
-  
+function CartItem({list, num}) {
+
+    const deleteItemClick = () => {
+
+        const accessToken = localStorage.getItem("accessToken");
+        fetch(`/cart/${list.cartItemId}`, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+            },
+            method: 'delete',
+        })
+            .then(res => {
+                alert("삭제 성공!");
+                console.log("삭제 성공", res);
+                window.location.reload();
+            })
+            .catch(err => {
+                console.log("삭제 실패", err);
+            })
+    }
 
   return (
     <div className={styles.cartItemDiv}>
-      <div className={styles.cartItemTag1}>
-        <input type="checkbox"></input>
-      </div>
-      <div className={styles.cartItemTag2}>1</div>
-      <div className={styles.cartItemTag3}>
+      <div className={styles.cartItemTag1}>{num}</div>
+      <div className={styles.cartItemTag2}>
         <img src={require("../images/looklook_logo.png")} alt="sample" />
-        <p>상품명1</p>
+        <p>{list.itemName} ({list.size}, {list.color})</p>
       </div>
-      <div className={styles.cartItemTag4}>
-        <button type="button" aria-label="수량 내리기">-</button>
-        <input value={1}
-        type="number" min={1} max={1} readOnly></input>
-        <button type="button" aria-label="수량 올리기">+</button>
+      <div className={styles.cartItemTag3}>
+          <p>{list.count}개</p>
       </div>
-      <div className={styles.cartItemTag5}>###원</div>
+      <div className={styles.cartItemTag4}><p>{Number(list.price).toLocaleString()}원</p></div>
+        <div className={styles.cartItemTag5}>
+            <button onClick={deleteItemClick}>X</button>
+        </div>
     </div>
 
 
