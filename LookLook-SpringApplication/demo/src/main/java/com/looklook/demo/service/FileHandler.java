@@ -1,26 +1,25 @@
-package com.looklook.demo.service;
-
-import com.looklook.demo.domain.ItemImg;
-import com.looklook.demo.dto.ItemImgDto;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.time.LocalDateTime;
-
-
+//package com.looklook.demo.service;
+//
+//import com.looklook.demo.domain.ItemImg;
+//import com.looklook.demo.dto.ItemImgDto;
+//import lombok.NoArgsConstructor;
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.stereotype.Component;
+//import org.springframework.util.CollectionUtils;
+//import org.springframework.util.ObjectUtils;
+//import org.springframework.web.multipart.MultipartFile;
+//
+//import java.io.File;
+//import java.time.format.DateTimeFormatter;
+//import java.util.ArrayList;
+//import java.util.List;
+//import java.time.LocalDateTime;
+//
+//
 //@Component
 //@RequiredArgsConstructor
 //public class FileHandler {
 //    private final ItemImgService itemImgService;
-//
 //    public List<ItemImg> parseImgInfo(List<MultipartFile> multipartFiles) throws Exception {
 //
 //        // 반환할 이미지 리스트

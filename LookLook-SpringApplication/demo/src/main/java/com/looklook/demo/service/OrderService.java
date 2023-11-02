@@ -107,7 +107,9 @@ public class OrderService {
                 orderItemInfoDto.setSize(orderItem.getSize());
                 orderItemInfoDto.setColor(orderItem.getColor());
 
+                //
                 Optional<Item> optionalItem = itemRepository.findByOrderItems(savedDrderItem);
+
                 if (optionalItem.isPresent()) {
                     orderItemInfoDto.setItemName(optionalItem.get().getItemName());
                     orderItemInfoDto.setPrice(optionalItem.get().getPrice());
