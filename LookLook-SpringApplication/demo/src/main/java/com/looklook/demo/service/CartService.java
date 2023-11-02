@@ -47,15 +47,15 @@ public class CartService {
         if (!optionalCart.isPresent()) {
             cart = new Cart();
             cart.setUser(user);
-            cartRepository.save(cart);
+            cart = cartRepository.save(cart);
         }
         else {
             cart = optionalCart.get();
         }
 
         // 2. dto를 검사해서 기존 장바구니에 같은 사이즈, 색상으로 동일 상품이 담겨있으면 새로 추가하지 말고 count만 증가시키기
-        Optional<CartItem> ifDuplicated = cartItemRepository.findByItemIdAndColorAndSize(
-                cartItemRegRequestDto.getPid(), cartItemRegRequestDto.getColor(), cartItemRegRequestDto.getSize());
+        Optional<CartItem> ifDuplicated = cartItemRepository.findByItemIdAndColorAndSizeAndCartId(
+                cartItemRegRequestDto.getPid(), cartItemRegRequestDto.getColor(), cartItemRegRequestDto.getSize(), cart.getId());
 
         if (ifDuplicated.isPresent()) {
             CartItem pastCartItem = ifDuplicated.get();
