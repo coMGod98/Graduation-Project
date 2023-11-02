@@ -33,7 +33,6 @@ public class ChestControl : MonoBehaviour
 
     public void OnValueChangedEvent(string str)
     {
-
         if (MalePreview.activeSelf == true)
         {
             BoneSize = MaleBone.transform.localScale;

@@ -37,7 +37,6 @@ public class LegControl : MonoBehaviour
 
     public void OnValueChangedEvent(string str)
     {
-
         if (MalePreview.activeSelf == true)
         {
             LeftBoneSize = MaleLeftBone.transform.localScale;
