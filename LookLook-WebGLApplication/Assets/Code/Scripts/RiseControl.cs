@@ -19,13 +19,13 @@ public class RiseControl : MonoBehaviour
     {
         if (MalePreview.activeSelf == true)
         {
-            origintSize = 28.2f;
+            origintSize = 13.2f;
             currentSize = MaleBone.transform.localScale.y;
             inputSize.text = (currentSize * origintSize).ToString();
         }
         else if (FemalePreview.activeSelf == true)
         {
-            origintSize = 22.4f;
+            origintSize = 10.8f;
             currentSize = FemaleBone.transform.localScale.y;
             inputSize.text = (currentSize * origintSize).ToString();
         }

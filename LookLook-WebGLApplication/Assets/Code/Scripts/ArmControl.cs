@@ -28,7 +28,7 @@ public class ArmControl : MonoBehaviour
         }
         else if (FemalePreview.activeSelf == true)
         {
-            origintSize = 51f;
+            origintSize = 48f;
             currentSize = FemaleLeftBone.transform.localScale.y;
             inputSize.text = (currentSize * origintSize).ToString();
         }

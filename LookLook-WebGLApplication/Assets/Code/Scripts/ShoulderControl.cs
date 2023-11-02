@@ -20,13 +20,13 @@ public class ShoulderControl : MonoBehaviour
     {
         if (MalePreview.activeSelf == true)
         {
-            origintSize = 40.2f;
+            origintSize = 34.2f;
             currentSize = MaleBone.transform.localScale.x;
             inputSize.text = (currentSize * origintSize).ToString();
         }
         else if (FemalePreview.activeSelf == true)
         {
-            origintSize = 35.8f;
+            origintSize = 24f;
             currentSize = FemaleBone.transform.localScale.x;
             inputSize.text = (currentSize * origintSize).ToString();
         }

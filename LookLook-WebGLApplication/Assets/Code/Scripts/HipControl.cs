@@ -19,13 +19,13 @@ public class HipControl : MonoBehaviour
     {
         if (MalePreview.activeSelf == true)
         {
-            origintSize = 96.2f;
+            origintSize = 120f;
             currentSize = MaleBone.transform.localScale.z;
             inputSize.text = (currentSize * origintSize).ToString();
         }
         else if (FemalePreview.activeSelf == true)
         {
-            origintSize = 89.2f;
+            origintSize = 105f;
             currentSize = FemaleBone.transform.localScale.z;
             inputSize.text = (currentSize * origintSize).ToString();
         }

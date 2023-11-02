@@ -19,13 +19,13 @@ public class ChestControl : MonoBehaviour
     {
         if (MalePreview.activeSelf == true)
         {
-            origintSize = 98.4f;
+            origintSize = 123f;
             currentSize = MaleBone.transform.localScale.z;
             inputSize.text = (currentSize * origintSize).ToString();
         }
         else if (FemalePreview.activeSelf == true)
         {
-            origintSize = 84.3f;
+            origintSize = 94.2f;
             currentSize = FemaleBone.transform.localScale.z;
             inputSize.text = (currentSize * origintSize).ToString();
         }
@@ -33,7 +33,6 @@ public class ChestControl : MonoBehaviour
 
     public void OnValueChangedEvent(string str)
     {
-
         if (MalePreview.activeSelf == true)
         {
             BoneSize = MaleBone.transform.localScale;
