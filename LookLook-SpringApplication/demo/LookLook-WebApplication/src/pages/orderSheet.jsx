@@ -18,7 +18,8 @@ function OrderSheet() {
   const [pMethod, setPMethod] = useState("신한카드");
   const [pType, setPType] = useState("일시불");
 
-
+  const orderOAddress = useSelector((state) => state.orderInfoItem.oAddress);
+  const orderItemInfo = useSelector((state) => state.orderInfoItem.orderiteminfo);
 
   const orderAddr = useSelector((state) => state.orderItem.newAddress);
   const orderIds = useSelector((state) => state.orderItem.orderItemIds);
@@ -48,6 +49,9 @@ function OrderSheet() {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
+
+    console.log("리덕스 주소", orderOAddress);
+    console.log("리덕스 상품리스트", orderItemInfo);
 
     // const accessToken = localStorage.getItem("accessToken");
     // fetch('/order-sheet', {

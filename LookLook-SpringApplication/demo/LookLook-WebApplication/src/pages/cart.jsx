@@ -9,9 +9,23 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 import { setIdsOrderItem } from "../store/orderSlice";
-import { setOrderInfo } from "../store/orderInfoSlice"
+import { setOrderInfo } from "../store/orderInfoSlice";
 
 function Cart() {
+
+    const orderOAddress = useSelector((state) => state.orderInfoItem.oAddress);
+    const orderItemInfo = useSelector((state) => state.orderInfoItem.orderiteminfo);
+
+
+
+  const [oAddress, setOAddress] = useState("");
+  const [oItemPrice, setOItemPrice] = useState(0);
+  const [oItemInfo, setOItemInfo] = useState([]);
+  const [oPhoneNumber, setOPhoneNumber] = useState("");
+  const [oShipment_FEE, setOShipment_FEE] = useState(0);
+  const [oTotalPrice, setOTotalPrice] = useState(0);
+  const [oUserName, setOUserName] = useState("");
+
 
   const dispatch = useDispatch();
 
@@ -22,10 +36,10 @@ function Cart() {
   const orderPayMethod = useSelector((state) => state.orderItem.paymentMethod);
   const orderPayType = useSelector((state) => state.orderItem.paymentType);
   const onClickView = () => {
-    console.log(orderAddr);
-    console.log(orderIds);
-    console.log(orderPayMethod);
-    console.log(orderPayType);
+    console.log("itemIds", itemIds);
+
+      console.log("리덕스 주소", orderOAddress);
+      console.log("리덕스 상품리스트", orderItemInfo);
   }
 
 
@@ -76,8 +90,8 @@ function Cart() {
         let i;
         for (i = 0; i < res.CartItemList.length; i++) {
           tmp[i] = res.CartItemList[i].cartItemId;
-          setItemIds(tmp);
         }
+        setItemIds(tmp);
 
         const tmp2 = [...numCount];
         let j
@@ -105,7 +119,7 @@ function Cart() {
   const orderClick = () => {
 
     dispatch(setIdsOrderItem({itemIds}));
-    // navigate("/orderSheet");
+
 
     const accessToken = localStorage.getItem("accessToken");
     fetch('/order-sheet', {
@@ -120,17 +134,22 @@ function Cart() {
     })
         .then(res => res.json())
         .then(res => {
-          if (res.status === 200) {
-            console.log(itemIds);
-            // dispatch(setOrderInfo({itemIds}));
+            console.log("itemIds:", itemIds);
+            console.log(res);
+
+            setOAddress(res.address);
+            setOItemPrice(res.orderItemPrice);
+            setOItemInfo(res.orderiteminfo);
+            setOPhoneNumber(res.phoneNumber);
+            setOShipment_FEE(res.shipment_FEE);
+            setOTotalPrice(res.totalPrice);
+            setOUserName(res.userName);
+
+            dispatch(setOrderInfo({oAddress, oItemPrice, oItemInfo, oPhoneNumber, oShipment_FEE, oTotalPrice, oUserName}));
 
             // alert("주문서 작성 페이지로 이동합니다.");
-            console.log("작성 페이지 이동", res);
-            // navigate("/orderSheet");
-          } else {
-            console.log(itemIds);
-            console.log("실패", res);
-          }
+
+            navigate("/orderSheet");
         })
         .catch(err => {
           console.log("오류:", err);

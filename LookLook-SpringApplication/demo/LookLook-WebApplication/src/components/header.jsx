@@ -42,12 +42,8 @@ function Header() {
     }
   }
   const clickAvatarBtn = () => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken === null) {
-      alert("로그인 후 이용하실 수 있습니다.");
-    } else {
       navigate("/AvatarPage");
-    }
+
   }
 
   return (
@@ -133,12 +129,14 @@ function Header() {
             onMouseOut={() => setIsFashionHover(false)}>패션소품
             {isFashionHover && <FashionDropdown />}</span>
           </div>
-
+          <Link to="/AvatarPage">
             <button
-                onClick={clickAvatarBtn}
-              className={styles.avatarBtn}>
+                // onClick={clickAvatarBtn}
+                className={styles.avatarBtn}>
               캐릭터 커스텀
             </button>
+          </Link>
+
             
         </div>
       </div>

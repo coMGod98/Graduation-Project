@@ -200,7 +200,7 @@ function Product() {
               </div>
             </Link>
               <div className={styles.imgWrap}>
-                  <img src={require('../images/sample.png')} alt='sample' />
+                  {/*<img src={require('../images/sample.png')} alt='sample' />*/}
               </div>
 
           </div>
@@ -299,7 +299,7 @@ function Product() {
             상품 정보
           </div>
           <div className={styles.detailImageWrap}>
-            <img src={require('../images/looklook_logo.png')} alt='detailed_info'></img>
+            {/*<img src={require('../images/looklook_logo.png')} alt='detailed_info' />*/}
           </div>
           <div className={styles.detailInfoWrap}>
               {prodInfo.itemDetail}

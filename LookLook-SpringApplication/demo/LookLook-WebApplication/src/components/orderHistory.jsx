@@ -7,7 +7,7 @@ function OrderHistory() {
       <div className={styles.orderDate}>1234-12-34</div>
       <div className={styles.orderNum}>12345678</div>
       <div className={styles.orderProd}>
-        <img src={require("../images/looklook_logo.png")} alt="prod_img"/>
+        {/*<img src={require("../images/looklook_logo.png")} alt="prod_img"/>*/}
         <p>주문 상품명~~~</p>
       </div>
       <div className={styles.orderPay}>
