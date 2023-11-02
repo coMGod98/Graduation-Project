@@ -22,13 +22,13 @@ public class LegControl : MonoBehaviour
     {
         if (MalePreview.activeSelf == true)
         {
-            origintSize = 93.0f;
+            origintSize = 81.3f;
             currentSize = MaleLeftBone.transform.localScale.y;
             inputSize.text = (currentSize * origintSize).ToString();
         }
         else if (FemalePreview.activeSelf == true)
         {
-            origintSize = 96.0f;
+            origintSize = 83.5f;
             currentSize = Mathf.Floor(FemaleLeftBone.transform.localScale.y * 10f) / 10f;
             inputSize.text = (currentSize * origintSize).ToString();
         }
@@ -37,6 +37,7 @@ public class LegControl : MonoBehaviour
 
     public void OnValueChangedEvent(string str)
     {
+
         if (MalePreview.activeSelf == true)
         {
             LeftBoneSize = MaleLeftBone.transform.localScale;

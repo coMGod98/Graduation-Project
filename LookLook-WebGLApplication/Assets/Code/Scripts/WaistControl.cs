@@ -19,13 +19,13 @@ public class WaistControl : MonoBehaviour
     {
         if (MalePreview.activeSelf == true)
         {
-            origintSize = 105f;
+            origintSize = 78.2f;
             currentSize = MaleBone.transform.localScale.x;
             inputSize.text = (currentSize * origintSize).ToString();
         }
         else if (FemalePreview.activeSelf == true)
         {
-            origintSize = 87f;
+            origintSize = 69.4f;
             currentSize = FemaleBone.transform.localScale.x;
             inputSize.text = (currentSize * origintSize).ToString();
         }

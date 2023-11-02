@@ -25,7 +25,7 @@ public class BackControl : MonoBehaviour
         }
         else if (FemalePreview.activeSelf == true)
         {
-            origintSize = 48f;
+            origintSize = 54.7f;
             currentSize = FemaleBone.transform.localScale.y;
             inputSize.text = (currentSize * origintSize).ToString();
         }
