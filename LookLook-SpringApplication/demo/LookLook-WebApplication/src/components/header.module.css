@@ -18,7 +18,7 @@
   margin: 0 auto;
 }
 
-.topMenu h {
+.topMenu h1 {
   color: black;
   font-size: 14px;
   margin-left: 15px;
@@ -51,7 +51,7 @@
 .inputSection input {
   width: 200px;
   height: 10px;
-  border: 3px solid #242c57;
+  border: 3px solid #25324f;
   border-radius: 14px;
   padding: 11px 22px;
   font-size: 16px;
@@ -66,7 +66,7 @@
 }
 
 .inputSection .searchBtn {
-  background-color: #243e57;
+  background-color: #25324f;
   width: 38px;
   height: 38px;
   border-radius: 12px;
@@ -81,13 +81,13 @@
 
 .menuWrap {
   display: flex;
-  background-color: #262d53;
+  background-color: #25324f;
   width: 100%;
   height: 45px;
 }
 
 .menu {
-  background-color: #262d53;
+  background-color: #25324f;
   width: 1200px;
   height: 100%;
   display: flex;
@@ -141,7 +141,7 @@
   font-size: 15px;
   font-weight: 700;
   margin-left: 1055px;
-  background-image: linear-gradient(90deg, #6cc7eb 0%, #7b63e9 74%);
+  background-image: linear-gradient(90deg, #89d6f5 0%, #8c7bef 74%);
   border-width: 0px;
   border-radius: 20px;
   padding: 6px 20px;

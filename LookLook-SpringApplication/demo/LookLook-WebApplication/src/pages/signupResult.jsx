@@ -22,7 +22,7 @@ function SignUpResult() {
                   로그인</button>
             </Link>
             <Link to="/">
-              <button>홈으로</button>
+              <button style={{backgroundColor:'white'}}>홈으로</button>
             </Link>
           </div>
           

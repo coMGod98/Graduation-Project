@@ -37,7 +37,7 @@
 }
 
 .signupBtnWrap button {
-  background-color: rgb(41, 55, 117);
+  background-color: #25345b;
   color: white;
   font-size: 15px;
   width: 120px;
@@ -52,7 +52,7 @@
   margin-bottom: 20px;
   border-bottom: 1px solid black;
 }
-.signupSection .userInfo .userInfoHeader h {
+.signupSection .userInfo .userInfoHeader h1 {
   vertical-align: middle;
 }
 
@@ -105,7 +105,7 @@
   margin: 3px;
 }
 
-.signupSection .userInfo .userInfoWrap div h {
+.signupSection .userInfo .userInfoWrap div h1 {
   font-size: 14px;
 }
 

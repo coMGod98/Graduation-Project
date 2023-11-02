@@ -1,8 +1,8 @@
 .section {
   color: white;
-  background-color: rgb(40, 60, 90);
+  background-color: #25324f;
   font-size: 15px;
-  padding: 7px;
+  padding: 8px;
   display: flex;
   text-align: middle;
 }

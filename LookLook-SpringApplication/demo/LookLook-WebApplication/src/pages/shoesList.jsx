@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import ItemList from "../components/itemList";
-import Products from "../products.json"
 import { Pagination } from "../components/pagination";
 
 function ShoesList() {
@@ -17,8 +16,15 @@ function ShoesList() {
   const [currentPage, setCurrentPage] = useState(1);
   const prodsPerPage = 12;
 
-  useEffect(() => {setProds(Products);
-  }, []);
+  useEffect(() => {
+    fetch(`/category/${cate}`, {})
+        .then(res => res.json())
+        .then(res => {
+          console.log("카테고리별 상품 목록: ", res);
+          setProds(res);
+        })
+        .catch(err => console.log("오류: ", err))
+  }, [cate]);
 
   const firstProdIndex = (currentPage - 1) * prodsPerPage;
   const lastProdIndex = firstProdIndex + prodsPerPage;
@@ -28,14 +34,14 @@ function ShoesList() {
     <>
       <Header />
       <div className={styles.productShowSection}>
-        <div className={styles.categoryHeader}><h>신발</h></div>
+        <div className={styles.categoryHeader}><h1>신발</h1></div>
         <div className={styles.categoryWrap}>
-          <Link to="/shoesList/formal_shoes"><div>구두</div></Link>
-          <Link to="/shoesList/heels"><div>힐</div></Link>
-          <Link to="/shoesList/plat_shoes"><div>플랫슈즈</div></Link>
-          <Link to="/shoesList/sandals"><div>샌들</div></Link>
-          <Link to="/shoesList/slipper"><div>슬리퍼</div></Link>
-          <Link to="/shoesList/boots"><div style={{borderRight:'0'}}>부츠</div></Link>
+          <Link to="/shoesList/401"><div>구두</div></Link>
+          <Link to="/shoesList/402"><div>힐</div></Link>
+          <Link to="/shoesList/403"><div>플랫슈즈</div></Link>
+          <Link to="/shoesList/404"><div>샌들</div></Link>
+          <Link to="/shoesList/405"><div>슬리퍼</div></Link>
+          <Link to="/shoesList/406"><div style={{borderRight:'0'}}>부츠</div></Link>
         </div>
 
         <ItemList list={currentPosts}/>

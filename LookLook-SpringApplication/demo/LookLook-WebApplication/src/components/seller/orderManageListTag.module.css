@@ -1,8 +1,8 @@
 .section {
     color: white;
-    background-color: rgb(40, 60, 90);
+    background-color: #25324f;
     font-size: 15px;
-    padding: 7px;
+    padding: 8px;
     display: flex;
     text-align: middle;
 }
@@ -13,30 +13,26 @@
 }
 
 .item1 {
-    width: 5%;
-}
-.item1 input{
-    width: 16px;
-    height: 16px;
+    width: 10%;
 }
 .item2 {
-    width: 10%;
+    width: 30%;
 }
 .item3 {
-    width: 34%;
+    width: 7%;
 }
 .item4 {
-    width: 5%;
-}
-.item5 {
     width: 10%;
 }
+.item5 {
+    width: 12%;
+}
 .item6 {
-    width: 13%;
+    width: 8%;
 }
 .item7 {
-    width: 15%;
+    width: 12%;
 }
 .item8 {
-    width: 8%;
+    width: 11%;
 }

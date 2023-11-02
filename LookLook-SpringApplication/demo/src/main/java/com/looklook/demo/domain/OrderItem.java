@@ -1,5 +1,6 @@
 package com.looklook.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,43 +11,33 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="order_item")
 @Getter @Setter
-public class OrderItem extends BaseEntity{
+public class OrderItem {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_item_id")
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="item_id")
+    @JoinColumn(name="pid")
     private Item item;
+    private int count;
 
-    private int orderPrice; //주문가격
-    private int count; //수량
-    private LocalDateTime regTime;
-    private LocalDateTime updateTime;
+    // 프론트로 사이즈와 색상 보낼 때, id를 보내지 않아서... 일단 문자열로 처리
+    private String size;
+    private String color;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 
-    public static OrderItem createOrderItem(Item item, int count) {
-
-        OrderItem orderItem = new OrderItem();
-        orderItem.setItem(item);
-        orderItem.setCount(count);
-        orderItem.setOrderPrice(item.getPrice());
-
-        item.removeStock(count);
-        return orderItem;
-    }
-
-    public int getTotalPrice() {
-        return orderPrice * count;
-    }
-
-    //주문 취소
-    public void cancel() {
-        this.getItem().addStock(count);
-    }
+//
+//    //주문 취소
+//    public void cancel() {
+//        this.getItem().addStock(count);
+//    }
 
 }
