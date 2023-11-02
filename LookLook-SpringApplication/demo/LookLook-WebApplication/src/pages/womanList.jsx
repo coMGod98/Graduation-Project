@@ -34,7 +34,7 @@ function WomanList() {
     <>
       <Header />
       <div className={styles.productShowSection}>
-        <div className={styles.categoryHeader}><h>여성</h></div>
+        <div className={styles.categoryHeader}><h1>여성</h1></div>
         <div className={styles.categoryWrap}>
           <Link to="/womanList/101">
             <div style={{width: '150px'}}>셔츠/블라우스</div>

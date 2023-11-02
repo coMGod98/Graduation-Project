@@ -11,7 +11,7 @@ function OrderHistory() {
         <p>주문 상품명~~~</p>
       </div>
       <div className={styles.orderPay}>
-        <p>#,###원</p>
+        <p>{Number(0).toLocaleString()}원</p>
         <p>~~카드</p>
         <p>일시불</p>
       </div>

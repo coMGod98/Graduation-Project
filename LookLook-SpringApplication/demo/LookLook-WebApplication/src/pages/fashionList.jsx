@@ -34,7 +34,7 @@ function FashionList() {
     <>
       <Header />
       <div className={styles.productShowSection}>
-        <div className={styles.categoryHeader}><h>패션소품</h></div>
+        <div className={styles.categoryHeader}><h1>패션소품</h1></div>
         <div className={styles.categoryWrap}>
           <Link to="/fashionList/501"><div>가방</div></Link>
           <Link to="/fashionList/502"><div>시계</div></Link>

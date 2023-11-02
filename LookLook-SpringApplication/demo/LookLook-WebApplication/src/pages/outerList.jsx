@@ -34,7 +34,7 @@ function OuterList() {
     <>
       <Header />
       <div className={styles.productShowSection}>
-        <div className={styles.categoryHeader}><h>아우터</h></div>
+        <div className={styles.categoryHeader}><h1>아우터</h1></div>
         <div className={styles.categoryWrap}>
           <Link to="/outerList/301"><div>패딩</div></Link>
           <Link to="/outerList/302"><div>가디건</div></Link>

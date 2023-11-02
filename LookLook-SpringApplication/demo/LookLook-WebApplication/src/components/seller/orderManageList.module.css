@@ -35,6 +35,6 @@
 .item8 {
     width: 11%;
 }
-.item8 input {
-    width: 120px;
+.item8 select {
+    width: 100%;
 }

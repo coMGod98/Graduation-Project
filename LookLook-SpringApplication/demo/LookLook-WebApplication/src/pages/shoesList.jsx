@@ -34,7 +34,7 @@ function ShoesList() {
     <>
       <Header />
       <div className={styles.productShowSection}>
-        <div className={styles.categoryHeader}><h>신발</h></div>
+        <div className={styles.categoryHeader}><h1>신발</h1></div>
         <div className={styles.categoryWrap}>
           <Link to="/shoesList/401"><div>구두</div></Link>
           <Link to="/shoesList/402"><div>힐</div></Link>

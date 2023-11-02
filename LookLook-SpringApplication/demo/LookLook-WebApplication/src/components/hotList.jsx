@@ -13,11 +13,13 @@ function HotList({list}) {
 
             <Link to={`/Product/${id}`}>
               <div className={styles.productImgDiv}>
-                <img src={image} alt="prod_img"/>
+                <div className={styles.productImgWrap}>
+                  <img src={image} alt="prod_img"/>
+                </div>
               </div>
               <h2 className={styles.productTitle}>{name}</h2>
             </Link>
-            <div className={styles.productPrice}>{price}원</div>
+            <div className={styles.productPrice}>{Number(price).toLocaleString()}원</div>
             
           </div>
         );

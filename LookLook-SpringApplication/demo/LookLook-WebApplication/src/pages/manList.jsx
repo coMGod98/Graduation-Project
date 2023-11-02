@@ -35,7 +35,7 @@ function ManList() {
     <>
       <Header />
       <div className={styles.productShowSection}>
-        <div className={styles.categoryHeader}><h>남성</h></div>
+        <div className={styles.categoryHeader}><h1>남성</h1></div>
         <div className={styles.categoryWrap}>
           <Link to="/manList/201">
           <div>셔츠</div>

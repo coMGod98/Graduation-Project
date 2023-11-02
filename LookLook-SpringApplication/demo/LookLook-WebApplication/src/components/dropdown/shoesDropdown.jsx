@@ -14,8 +14,8 @@ function ShoesDropdown() {
 
   return (
     <div className={styles.dropdownSection}>
-      {categorys && categorys.map(cate => (
-        <div>
+      {categorys && categorys.map((cate, id) => (
+        <div key={id}>
           <Link to={`/shoesList/${cate.cateID}`}>
             <img src={require(`../../images/shoes/${cate.cateID}.png`)} alt="outer_item"/>
             <p>{cate.cateName}</p>
