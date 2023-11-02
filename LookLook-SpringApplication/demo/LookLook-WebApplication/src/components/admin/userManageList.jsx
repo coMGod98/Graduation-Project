@@ -3,7 +3,7 @@ import styles from "./userManageList.module.css"
 import ModUserModal from "./modUserModal";
 
 function UserManageList({list}) {
-  const accessToken = localStorage.getItem("accessToken");
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
@@ -15,6 +15,7 @@ function UserManageList({list}) {
 
   const deleteUser = () => {
 
+    const accessToken = localStorage.getItem("accessToken");
     if(window.confirm("사용자 정보를 삭제하시겠습니까?")) {
       fetch('/admin/user-withdrawal', {
         method: 'post',

@@ -70,7 +70,7 @@ function MyPage() {
         if (res.status === 200) {
           console.log("회원탈퇴 완료", res);
           alert("회원 탈퇴가 완료되었습니다.");
-          localStorage.setItem("accessToken", "");
+          localStorage.removeItem("accessToken");
           navigate("/");
         } else {
           console.log("회원탈퇴 실패", res);
@@ -101,11 +101,11 @@ function MyPage() {
         "Content-Type": "application/json",
         'Authorization': `Bearer ${accessToken}`,
       },
-      body: {
+      body: JSON.stringify({
         userName: inputModName,
         address: inputModAddr,
         email: inputModEmail,
-      }
+      })
     })
     .then(res => {
       alert("수정 완료!");
