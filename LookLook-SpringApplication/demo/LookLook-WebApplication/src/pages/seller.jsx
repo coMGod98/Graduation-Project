@@ -143,8 +143,6 @@ function Seller() {
                     if (res.status === 200) {
                         alert("상품 등록 성공");
                         console.log("등록 성공!", res);
-                        navigate("/seller/myProducts");
-                        window.location.reload();
                     } else {
                         console.log("등록 실패", res);
                     }

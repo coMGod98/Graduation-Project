@@ -31,7 +31,6 @@ function MyProductsList({list, psize, pcolor}) {
                 if (res.status === 200) {
                     alert("상품 삭제 완료!");
                     console.log("상품 삭제 완료", res);
-                    window.location.reload();
                 } else {
                     console.log("상품 삭제 실패", res);
                 }

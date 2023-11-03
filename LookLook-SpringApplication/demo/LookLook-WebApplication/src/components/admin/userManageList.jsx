@@ -29,7 +29,6 @@ function UserManageList({list}) {
       })
           .then(res => {
             alert("사용자 정보 삭제가 완료되었습니다.");
-            window.location.reload();
           })
           .catch(err => {
             alert("사용자 정보 삭제에 실패했습니다.")

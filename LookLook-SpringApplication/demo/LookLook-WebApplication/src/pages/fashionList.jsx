@@ -17,7 +17,10 @@ function FashionList() {
   const prodsPerPage = 12;
 
   useEffect(() => {
-    fetch(`/category/${cate}`, {})
+    const accessToken = localStorage.getItem("accessToken");
+    fetch(`/category/${cate}`, {
+      'Authorization': `Bearer ${accessToken}`,
+    })
         .then(res => res.json())
         .then(res => {
           console.log("카테고리별 상품 목록: ", res);
