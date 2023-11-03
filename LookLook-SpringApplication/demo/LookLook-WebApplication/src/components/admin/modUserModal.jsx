@@ -3,7 +3,7 @@ import styles from "./modUserModal.module.css";
 
 function ModUserModal({muid, muserName, maddress, memail, isOpen, closeModal}) {
 
-    const accessToken = localStorage.getItem("accessToken");
+
 
 
     const [inputName, seInputName] = useState(muserName);
@@ -27,6 +27,7 @@ function ModUserModal({muid, muserName, maddress, memail, isOpen, closeModal}) {
     }, []);
 
     const modSubmit = (e) => {
+        const accessToken = localStorage.getItem("accessToken");
         e.preventDefault();
 
         fetch(`/admin/user-update/${muid}`, {
@@ -45,7 +46,6 @@ function ModUserModal({muid, muserName, maddress, memail, isOpen, closeModal}) {
                 console.log(res);
                 alert("사용자 정보 수정이 완료되었습니다.");
                 closeModal();
-                window.location.reload();
             })
             .catch(err => {
                 console.log("오류: ", err);

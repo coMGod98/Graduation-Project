@@ -6,10 +6,10 @@ import styles from "./avatarPage.module.css"
 import { Link } from "react-router-dom";
 
 const unityContext = new UnityContext({
-  loaderUrl: "Build/Build.loader.js",
-  dataUrl: "Build/Build.data.unityweb",
-  frameworkUrl: "Build/Build.framework.js.unityweb",
-  codeUrl: "Build/Build.wasm.unityweb",
+  loaderUrl: "Build/build.loader.js",
+  dataUrl: "Build/build.data.unityweb",
+  frameworkUrl: "Build/build.framework.js.unityweb",
+  codeUrl: "Build/build.wasm.unityweb",
 });
 
 function AvartarPage() {

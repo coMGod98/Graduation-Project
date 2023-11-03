@@ -134,7 +134,6 @@ function MyProductsModal({mpid, mprice, mstock, mpgender, mitemDetail, msize
               console.log(res);
               alert("수정이 완료되었습니다!");
               closeModal();
-              window.location.reload();
             } else {
               alert("수정 실패");
             }
