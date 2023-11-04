@@ -35,15 +35,14 @@ public class OrderController {
 
     // 결제하기 -> 302 응답
     @PostMapping("/order")
-    public ResponseEntity<Void> order(@RequestBody OrderRequestDto orderRequestDto, Authentication authentication) {
+    public ResponseEntity<String> order(@RequestBody OrderRequestDto orderRequestDto, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         Long orderId = orderService.order(orderRequestDto, Long.valueOf(userDetails.getUsername()));
         String redirectLocation = String.format("/order-success/%d", orderId);
 
-        return ResponseEntity.status(HttpStatus.FOUND)
-                .header("Location",redirectLocation)
-                .build();
+        return ResponseEntity.status(HttpStatus.FOUND).body(redirectLocation);
+
     }
 
     // 주문 완료 페이지

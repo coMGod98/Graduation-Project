@@ -20,13 +20,18 @@
 //@RequiredArgsConstructor
 //public class FileHandler {
 //    private final ItemImgService itemImgService;
-//    public List<ItemImg> parseImgInfo(List<MultipartFile> multipartFiles) throws Exception {
+//    public List<ItemImg> parseImgInfo(MultipartFile mainImg,List<MultipartFile> detailedImgs, Long pid) throws Exception {
 //
-//        // 반환할 이미지 리스트
-//        List<ItemImg> imgList = new ArrayList<>();
+//        // 반환할 대표 이미지
+//        ItemImg main = new ItemImg();
 //
-//        // 전달되어 온 파일이 존재할 경우
-//        if(!CollectionUtils.isEmpty(multipartFiles)) {
+//        // 반환할 상세 이미지 리스트
+//        List<ItemImg> detailed = new ArrayList<>();
+//
+//        // 전달되어 온 대표 이미지 파일이 존재할 경우
+//
+//        // 전달되어 온 상세 이미지 파일이 존재할 경우
+//        if(!CollectionUtils.isEmpty(detailedImgs)) {
 //
 //            // 파일명을 업로드 한 날짜로 변환하여 저장
 //            LocalDateTime now = LocalDateTime.now();
@@ -39,18 +44,21 @@
 //
 ////            String absolutePath = new File("").getAbsolutePath() + File.separator + File.separator;
 //
-//            File currentDirectory = new File(""); // 현재 디렉토리 (/java)
+////            File currentDirectory = new File(""); // 현재 디렉토리 (/java)
+//            File currentDirectory = new File(System.getProperty("user.dir"));
+//
 //            String currentAbsolutePath = currentDirectory.getAbsolutePath(); // 현재 디렉토리의 절대 경로
 //
 //            // 부모 디렉토리로 이동 (main)
-//            File parentDirectory = new File(currentDirectory, ".."); // 부모 디렉토리를 나타내는 File 객체
-//            String parentAbsolutePath = parentDirectory.getAbsolutePath(); // 부모 디렉토리의 절대 경로
+////            File parentDirectory = new File(currentDirectory, ".."); // 부모 디렉토리를 나타내는 File 객체
+//            File parentDirectory = new File(currentDirectory.getParent());
+////            String parentAbsolutePath = parentDirectory.getAbsolutePath(); // 부모 디렉토리의 절대 경로
 //
 //            // 타깃 디렉토리로 이동
 //            File targetDirectory = new File(parentDirectory, "resources/img");
 //
-//            ///java/main/resources/img/uid
-//            String targetAbsolutePath = targetDirectory.getAbsolutePath()+ File.separator + "유저 아이디";
+//            ///java/main/resources/img/pid/detailed
+//            String targetAbsolutePath = targetDirectory.getAbsolutePath()+ File.separator + pid + File.separator + "detailed";
 //
 //            // 파일을 저장할 세부 경로 지정
 //            File file = new File(targetAbsolutePath);
