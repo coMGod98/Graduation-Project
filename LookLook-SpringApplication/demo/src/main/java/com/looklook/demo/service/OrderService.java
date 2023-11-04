@@ -189,7 +189,7 @@ public class OrderService {
 // 5. 장바구니 db 삭제
 
     @Transactional
-    public void order(OrderRequestDto orderRequestDto, Long uid) {
+    public Long order(OrderRequestDto orderRequestDto, Long uid) {
         Order order = new Order();
 
         // 회원 정보 불러와서 order 설정
@@ -241,7 +241,7 @@ public class OrderService {
         order.setShipmentStatus(ShipmentStatus.PREPARING);
 
         // DB에 저장, 배송 일자는 자동으로 설정
-        orderRepository.save(order);
+        Long orderId = orderRepository.save(order).getId();
 
         // 해당 Order의 모든 OrderItem의 orderStatus가 true로 업데이트, order_ID도 다시 세팅
         for (OrderItem orderItem : order.getOrderItems()) {
@@ -266,6 +266,7 @@ public class OrderService {
                 }
             }
         }
+        return orderId;
     }
 
     // 주문 정보 조회

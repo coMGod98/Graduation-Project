@@ -38,9 +38,12 @@ public class OrderController {
     public ResponseEntity<Void> order(@RequestBody OrderRequestDto orderRequestDto, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        orderService.order(orderRequestDto, Long.valueOf(userDetails.getUsername()));
+        Long orderId = orderService.order(orderRequestDto, Long.valueOf(userDetails.getUsername()));
+        String redirectLocation = String.format("/order-success/%d", orderId);
 
-        return new ResponseEntity<>(HttpStatus.FOUND);
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .header("Location",redirectLocation)
+                .build();
     }
 
     // 주문 완료 페이지
