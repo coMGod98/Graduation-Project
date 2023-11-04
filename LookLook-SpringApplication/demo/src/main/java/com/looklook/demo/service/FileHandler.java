@@ -1,5 +1,6 @@
 //package com.looklook.demo.service;
 //
+//import com.looklook.demo.domain.Item;
 //import com.looklook.demo.domain.ItemImg;
 //import com.looklook.demo.dto.ItemImgDto;
 //import lombok.NoArgsConstructor;
@@ -9,6 +10,10 @@
 //import org.springframework.util.ObjectUtils;
 //import org.springframework.web.multipart.MultipartFile;
 //
+//import javax.persistence.Column;
+//import javax.persistence.FetchType;
+//import javax.persistence.JoinColumn;
+//import javax.persistence.ManyToOne;
 //import java.io.File;
 //import java.time.format.DateTimeFormatter;
 //import java.util.ArrayList;
@@ -96,12 +101,28 @@
 //
 //                // 파일 DTO 생성
 //                ItemImgDto dto = ItemImgDto.builder()
-//                        .origianlFileName(detailedImg.getOriginalFilename())
-//                        .filePath(path + File.separator + new_file_name)
+//                        .originalImgName(detailedImg.getOriginalFilename())
+//                        .filePath(targetAbsolutePath + File.separator + new_file_name)
 ////                        .fileSize(multipartFile.getSize())
 //                        .build();
 //
+////                @Column(name="img_name")
+////                private String imgName; // 이미지 파일명
+////                @Column(name="ori_img_name")
+////                private String originalImgName; // 이미지 원본명
+////                private String filePath; // 이미지 저장 경로
+////                @Column(name = "rep_img")
+////                private Boolean represent; // 대표 이미지 여부
+////                @ManyToOne(fetch = FetchType.LAZY)
+////                @JoinColumn(name = "item_id")
+////                private Item item;
+//
+//
 //                // 파일 DTO 이용하여 Photo 엔티티 생성
+//                ItemImg itemImg new ItemImg(
+//                        dto.getImgName(),
+//                        d
+//                );
 //                Photo photo = new Photo(
 //                        photoDto.getOrigFileName(),
 //                        photoDto.getFilePath(),
