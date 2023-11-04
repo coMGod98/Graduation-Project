@@ -72,11 +72,11 @@
 //            }
 //
 //            // 다중 파일 처리
-//            for(MultipartFile multipartFile : multipartFiles) {
+//            for(MultipartFile detailedImg : detailedImgs) {
 //
 //                // 파일의 확장자 추출
 //                String originalFileExtension;
-//                String contentType = multipartFile.getContentType();
+//                String contentType = detailedImg.getContentType();
 //
 //                // 확장자명이 존재하지 않을 경우 처리 x
 //                if(ObjectUtils.isEmpty(contentType)) {
@@ -96,7 +96,7 @@
 //
 //                // 파일 DTO 생성
 //                ItemImgDto dto = ItemImgDto.builder()
-//                        .origianlFileName(multipartFile.getOriginalFilename())
+//                        .origianlFileName(detailedImg.getOriginalFilename())
 //                        .filePath(path + File.separator + new_file_name)
 ////                        .fileSize(multipartFile.getSize())
 //                        .build();

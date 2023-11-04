@@ -33,15 +33,14 @@ public class OrderController {
         return ResponseEntity.ok(dto);
     }
 
-    // 결제하기 -> 302 응답
+    // 결제하기
     @PostMapping("/order")
     public ResponseEntity<String> order(@RequestBody OrderRequestDto orderRequestDto, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         Long orderId = orderService.order(orderRequestDto, Long.valueOf(userDetails.getUsername()));
-        String redirectLocation = String.format("/order-success/%d", orderId);
 
-        return ResponseEntity.status(HttpStatus.FOUND).body(redirectLocation);
+        return ResponseEntity.ok(String.valueOf(orderId));
 
     }
 
