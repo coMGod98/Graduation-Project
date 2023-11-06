@@ -31,31 +31,5 @@ public class AdminServiceAboutUser {
                 .map(user -> user.toUserResponseDto(user))
                 .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
     }
-
-    // 관리자에서 사용자 정보 수정
-//    @Transactional
-//    public  update(Long id, CommentDto dto) {
-//        // 댓글 조회 및 예외 발생
-//        Comment target = commentRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("댓글 수정 실패! 대상 댓글이 없습니다."));
-//        // 댓글 수정
-//        target.patch(dto);
-//        // DB로 갱신
-//        Comment updated = commentRepository.save(target);
-//        // 댓글 엔티티를 DTO로 변환 및 반환
-//        return CommentDto.createCommentDto(updated);
-//    }
-
-    // 관리자에서 사용자 정보 삭제
-//    @Transactional
-//    public CommentDto delete(Long id) {
-//        // 댓글 조회(및 예외 발생)
-//        Comment target = commentRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("댓글 삭제 실패! 대상이 없습니다."));
-//        // 댓글 삭제
-//        commentRepository.delete(target);
-//        // 삭제 댓글을 DTO로 반환
-//        return CommentDto.createCommentDto(target);
-//    }
-//}
+    // 관리자의 사용자 정보 수정과 삭제는 UserService에 있는 함수 이용, 컨트롤러에만 해당 내용 구현
 }

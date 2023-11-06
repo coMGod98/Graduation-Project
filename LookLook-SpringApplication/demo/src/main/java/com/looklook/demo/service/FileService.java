@@ -1,9 +1,10 @@
 package com.looklook.demo.service;
 
-import lombok.extern.java.Log;
+import  lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
@@ -17,14 +18,18 @@ public class FileService {
         UUID uuid = UUID.randomUUID();      // UUID 를 이용하여 파일명 새로 생성
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
         String savedFileName = uuid.toString() + extension;     // 파일명
+
         String fileUploadFullUrl = uploadPath + "/" + savedFileName;    // 경로 + 파일명
+
         FileOutputStream fos = new FileOutputStream(fileUploadFullUrl);
         fos.write(fileData);
         fos.close();
+
         return savedFileName;
     }
 
-    public void deleteFile(String filePath) throws Exception{
+    public void deleteFile(String filePath) {
+
         File deleteFile = new File(filePath);
 
         if (deleteFile.exists()) {

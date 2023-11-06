@@ -5,16 +5,21 @@ import com.looklook.demo.domain.RefreshToken;
 import com.looklook.demo.dto.*;
 import com.looklook.demo.jwt.TokenProvider;
 import com.looklook.demo.repository.RefreshTokenRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import com.looklook.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Tuple;
+import java.util.Collection;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -115,7 +120,6 @@ public class UserService {
     }
 
     // 사용자 정보 수정 (마이페이지-> 회원정보수정 시 비밀번호 인증 -> 이름, 주소, 이메일 변경 가능 )
-
     @Transactional
     public UserResponseDto updateUser(Long uid, UserRequestDto userRequestDto) {
         Optional<LookLookUser> user = userRepository.findById(uid);
@@ -124,12 +128,11 @@ public class UserService {
                 user1.setUserName(userRequestDto.getUserName());
             }
             if (userRequestDto.getAddress() != null){
-                user1.setUserName(userRequestDto.getAddress());
+                user1.setAddress(userRequestDto.getAddress());
             }
             if (userRequestDto.getEmail() != null){
-                user1.setUserName(userRequestDto.getEmail());
+                user1.setEmail(userRequestDto.getEmail());
             }
-            System.out.println("user: "+ user1.toString());
             userRepository.save(user1);
         });
         user.orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));

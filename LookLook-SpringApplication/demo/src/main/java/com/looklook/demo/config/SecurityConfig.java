@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -62,8 +64,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority(Authority.ROLE_ADMIN.name())
-                .antMatchers("/","/login", "/signup","/static/**", "/manifest.json", "/looklook_logo.png", "/category/**", "/product/**").permitAll()
-                .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
+                .antMatchers("/","/login", "/signup","/static/", "/manifest.json", "/looklook_logo.png", "/category/", "/product/", "/test/", "/AvatarPage/**", "/Build/build.loader.js", "/looklook_web_icon.ico", "/Build/build.framework.js.unityweb", "/Build/build.wasm.unityweb",  "/Build/build.data.unityweb"
+                ).permitAll()   // 나머지 API 는 전부 인증 필요
                 .and()
                 .httpBasic()
 
@@ -73,4 +75,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
+
 }

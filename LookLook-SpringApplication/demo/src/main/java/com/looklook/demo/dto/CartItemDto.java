@@ -2,16 +2,20 @@ package com.looklook.demo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
-@Getter @Setter
+@Getter @Setter @ToString
 public class CartItemDto {
 
-    @NotNull(message = "상품 아이디는 필수 입력 값입니다.")
-    private Long itemId;
-
-    @Min(value = 1, message = "최소 1개 이상 담아주세요")
+    private Long cartItemId;
+    private String itemName;
+    private String size;
+    private String color;
     private int count;
+    private int price;
+
+
+    private String imgUrl;
+
 }
+

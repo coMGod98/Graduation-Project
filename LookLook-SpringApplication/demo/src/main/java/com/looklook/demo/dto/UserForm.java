@@ -24,9 +24,6 @@ public class UserForm {
     private String userName;
     @NotEmpty(message = "비밀번호는 필수항목입니다.")
     private String password;
-    @JsonIgnore
-    @NotEmpty(message = "비밀번호 확인은 필수항목입니다.")
-    private String passwordChk;
     @NotEmpty(message = "성별은 필수항목입니다.")
     private String sex;
     @Pattern(regexp = "^\\d{11}$", message = "10자리 숫자여야 합니다.")
