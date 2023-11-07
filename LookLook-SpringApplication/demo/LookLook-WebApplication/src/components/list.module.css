@@ -12,7 +12,7 @@
   margin-bottom: 30px;
 }
 
-.productImgDiv{
+.productImgDiv {
   width: 100%;
   height: 242px;
   text-align: center;
@@ -22,6 +22,12 @@
   width: 240px;
   height: 240px;
   border: 1px solid rgb(180, 180, 180);
+  margin-left: 16px;
+}
+.productImgWrap:hover {
+  width: 240px;
+  height: 240px;
+  border: 1px solid #206fee;
   margin-left: 16px;
 }
 
@@ -36,6 +42,13 @@
   font-weight: 600;
   margin : 4% 6%;
 }
+.productTitle:hover {
+  color: #206fee;
+  font-size : 18px;
+  font-weight: 600;
+  margin : 4% 6%;
+}
+
 .productPrice{
   font-size : 17px;
   margin : 2% 3% 1% 6%;

@@ -21,23 +21,23 @@ function SearchResult() {
   const currentPosts = prods.slice(firstProdIndex, lastProdIndex);
 
   return (
-    <>
-      <Header />
-      <div className={styles.searchResultSection}>
-        <div className={styles.searchHeader}>
-          <img src={require("../images/search_header.png")} alt="searchHeader"/>
-          <h1> 검색 결과입니다()</h1></div>
+      <>
+        <Header />
+        <div className={styles.searchResultSection}>
+          <div className={styles.searchHeader}>
+            <img src={require("../images/search_header.png")} alt="searchHeader"/>
+            <h1> 검색 결과입니다()</h1></div>
 
-        <ItemList list={currentPosts}/>
-        
-        <Pagination
-          prodsNum={prods.length}
-          prodsPerPage={prodsPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
-      </div>
-    </>
+          <ItemList list={currentPosts}/>
+
+          <Pagination
+              prodsNum={prods.length}
+              prodsPerPage={prodsPerPage}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+          />
+        </div>
+      </>
   )
 }
 export default SearchResult;

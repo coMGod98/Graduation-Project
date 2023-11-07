@@ -16,7 +16,7 @@ import ProdRequestListTag from "../components/admin/prodRequestListTag";
 
 
 function Admin() {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = sessionStorage.getItem("accessToken");
 
     const {menu} = useParams();
     const navigate = useNavigate();
@@ -25,10 +25,12 @@ function Admin() {
 
     const logoutClick = () => {
         if (window.confirm("로그아웃 하시겠습니까?")) {
-            localStorage.removeItem("accessToken");
+            sessionStorage.removeItem("accessToken");
             navigate("/");
         }
     }
+
+    const [isTokenEnd, setIsTokenEnd] = useState(false);
 
     useEffect(() => {
 
@@ -41,8 +43,17 @@ function Admin() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log("사용자 리스트: ", res);
-                setUserInfo(res);
+                if (res.status === 500 || res.status === 401) {
+                    setIsTokenEnd(true);
+                    console.log("토큰 만료됨:", res);
+                    sessionStorage.removeItem("accessToken");
+                    navigate("/");
+                    alert("토큰이 만료되었습니다.");
+                } else {
+                    setIsTokenEnd(false);
+                    console.log("사용자 리스트:", res);
+                    setUserInfo(res);
+                }
             })
             .catch(err => {
                 console.log("오류: ", err);
@@ -93,16 +104,21 @@ function Admin() {
                     ?
                     <div className={styles.adminWorkSpace}>
                         <div className={styles.workHeader}>회원 관리</div>
-                        <div className={styles.searchWrap}>
-                            <input /><button>검색</button>
-
-                        </div>
                         <div className={styles.workWrap}>
                             <UserManageListTag />
-                            {userInfo.map((item, id) => {
-                                return <UserManageList key={id} list={item}/>
+                            {isTokenEnd === true
+                                ? <div style={{padding:'8px', borderBottom:'1px solid rgb(180,180,180)',
+                                    color:'grey'}}>토큰이 만료되었습니다.</div>
+                                : (userInfo.length < 1
+                                        ? <div style={{padding:'8px', borderBottom:'1px solid rgb(180,180,180)',
+                                            color:'grey'}}>등록된 사용자가 없습니다.</div>
+                                        :
+                                        userInfo.map((item, id) => {
+                                            return <UserManageList key={id} list={item}/>
+                                        })
+                                )
+                            }
 
-                            })}
 
 
                         </div>
@@ -121,9 +137,6 @@ function Admin() {
                             ?
                             <div className={styles.adminWorkSpace}>
                                 <div className={styles.workHeader}>상품 정보 조회</div>
-                                <div className={styles.searchWrap}>
-                                    <input /><button>검색</button>
-                                </div>
                                 <div className={styles.workWrap}>
                                     <ProdInfoListTag />
                                     <ProdInfoList />
@@ -139,9 +152,6 @@ function Admin() {
                             :
                             <div className={styles.adminWorkSpace}>
                                 <div className={styles.workHeader}>상품 요청 승인</div>
-                                <div className={styles.searchWrap}>
-                                    <input /><button>검색</button>
-                                </div>
                                 <div className={styles.workWrap}>
                                     <ProdRequestListTag />
                                     <ProdRequestList />

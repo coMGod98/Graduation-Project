@@ -14,11 +14,11 @@ const unityContext = new UnityContext({
 
 function AvartarPage() {
   return (
-    <div className={styles.section}>
-      <Unity className={styles.unity} unityContext={unityContext} />
-    </div>
+      <div className={styles.section}>
+        <Unity className={styles.unity} unityContext={unityContext} />
+      </div>
   )
-  
+
 }
 
 export default AvartarPage;

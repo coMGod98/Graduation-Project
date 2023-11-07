@@ -6,7 +6,7 @@ function CartItem({list, num}) {
 
     const deleteItemClick = () => {
 
-        const accessToken = localStorage.getItem("accessToken");
+        const accessToken = sessionStorage.getItem("accessToken");
         fetch(`/cart/${list.cartItemId}`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
@@ -23,40 +23,40 @@ function CartItem({list, num}) {
             })
     }
 
-  return (
-    <div className={styles.cartItemDiv}>
-      <div className={styles.cartItemTag1}>{num}</div>
-      <div className={styles.cartItemTag2}>
-        {/*<img src={require("../images/looklook_logo.png")} alt="sample" />*/}
-        <p>{list.itemName} ({list.size}, {list.color})</p>
-      </div>
-      <div className={styles.cartItemTag3}>
-          <p>{list.count}개</p>
-      </div>
-      <div className={styles.cartItemTag4}><p>{Number(list.price).toLocaleString()}원</p></div>
-        <div className={styles.cartItemTag5}>
-            <button onClick={deleteItemClick}>X</button>
+    return (
+        <div className={styles.cartItemDiv}>
+            <div className={styles.cartItemTag1}>{num}</div>
+            <div className={styles.cartItemTag2}>
+                {/*<img src={require("../images/looklook_logo.png")} alt="sample" />*/}
+                <p>{list.itemName} ({list.size}, {list.color})</p>
+            </div>
+            <div className={styles.cartItemTag3}>
+                <p>{list.count}개</p>
+            </div>
+            <div className={styles.cartItemTag4}><p>{Number(list.price).toLocaleString()}원</p></div>
+            <div className={styles.cartItemTag5}>
+                <button onClick={deleteItemClick}>X</button>
+            </div>
         </div>
-    </div>
 
 
 
-    // <div className={styles.cartItemDiv}>
-    //   <div className={styles.cartItemTag1}>
-    //     <input type="checkbox"></input>
-    //   </div>
-    //   <div className={styles.cartItemTag2}>{list.id}</div>
-    //   <div className={styles.cartItemTag3}>{list.name}</div>
-    //   <div className={styles.cartItemTag4}>{list.price}원</div>
-    //   <div className={styles.cartItemTag5}>
-    //     <button onClick={() => {
-    //       removeProduct(list.id);
-    //       }}>
-    //       ✕
-    //     </button>
-    //   </div>
-    // </div>
-  );
+        // <div className={styles.cartItemDiv}>
+        //   <div className={styles.cartItemTag1}>
+        //     <input type="checkbox"></input>
+        //   </div>
+        //   <div className={styles.cartItemTag2}>{list.id}</div>
+        //   <div className={styles.cartItemTag3}>{list.name}</div>
+        //   <div className={styles.cartItemTag4}>{list.price}원</div>
+        //   <div className={styles.cartItemTag5}>
+        //     <button onClick={() => {
+        //       removeProduct(list.id);
+        //       }}>
+        //       ✕
+        //     </button>
+        //   </div>
+        // </div>
+    );
 }
 
 export default CartItem;

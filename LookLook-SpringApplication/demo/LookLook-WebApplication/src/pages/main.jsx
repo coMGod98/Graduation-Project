@@ -7,20 +7,20 @@ import styles from "./main.module.css";
 import Products from "../products.json";
 
 function Main() {
-  const prods = Products.slice(0, 4);
+    const prods = Products.slice(0, 4);
 
-  return (
-    <>
-      <Header />
-      <Banner />
-      <div className={styles.mainSection}>
-        <div className={styles.mainHeader}>인기 상품</div>
-        <HotList list={prods}/>
-        <div className={styles.mainHeader}>신상품</div>
-        <NewList list={prods}/>
-        
-      </div>
-    </>
-  );
+    return (
+        <>
+            <Header />
+            <Banner />
+            <div className={styles.mainSection}>
+                <div className={styles.mainHeader}>인기 상품</div>
+                <HotList list={prods}/>
+                <div className={styles.mainHeader}>신상품</div>
+                <NewList list={prods}/>
+
+            </div>
+        </>
+    );
 }
 export default Main;
