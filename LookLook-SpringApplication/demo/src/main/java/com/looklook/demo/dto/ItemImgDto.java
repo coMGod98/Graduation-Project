@@ -14,7 +14,6 @@ public class ItemImgDto {
     private String originalImgName;
     private String filePath;
     private String represent;
-
-
+    private Long fileSize;
 
 }

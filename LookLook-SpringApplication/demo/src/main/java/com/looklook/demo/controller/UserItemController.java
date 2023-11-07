@@ -29,7 +29,6 @@ public class UserItemController {
             List<ItemDto> itemDtos = userItemService.getItemsByCategory(category);
             return ResponseEntity.ok(itemDtos);
         } catch (RuntimeException e){
-            System.out.println("에러는 캐치");
             return ResponseEntity.notFound().build();
         }
     }
