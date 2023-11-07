@@ -9,8 +9,6 @@ import axios from 'axios';
 
 function MyPage() {
 
-  const accessToken = sessionStorage.getItem("accessToken");
-
   const [userID, setUserID] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -26,10 +24,6 @@ function MyPage() {
   const [inputPw, setInputPw] = useState();
   const [pass, setPass] = useState(false);
 
-  const [orderList, setOrderList] = useState([]);
-
-  const [isTokenEnd, setIsTokenEnd] = useState(false);
-
   const changePw = (e) => {
     setInputPw(e.target.value);
   }
@@ -37,6 +31,7 @@ function MyPage() {
   const checkPw = (e) => {
     e.preventDefault();
 
+      const accessToken = localStorage.getItem("accessToken");
       fetch('/mypage/user/auth', {
         method: 'POST',
         headers: { "Content-Type": "application/json",
@@ -63,6 +58,7 @@ function MyPage() {
   const withdrawalClick = () => {
     if(window.confirm("정말 회원 탈퇴하시겠습니까?")) {
 
+      const accessToken = localStorage.getItem("accessToken");
       fetch('/mypage/user/withdrawal', {
         method : 'post',
         headers : {
@@ -74,7 +70,7 @@ function MyPage() {
         if (res.status === 200) {
           console.log("회원탈퇴 완료", res);
           alert("회원 탈퇴가 완료되었습니다.");
-          sessionStorage.removeItem("accessToken");
+          localStorage.removeItem("accessToken");
           navigate("/");
         } else {
           console.log("회원탈퇴 실패", res);
@@ -98,6 +94,7 @@ function MyPage() {
   }
 
   const modClick = () => {
+    const accessToken = localStorage.getItem("accessToken");
     fetch('/mypage/user/info', {
       method: 'post',
       headers: {
@@ -123,71 +120,48 @@ function MyPage() {
 
   }
 
-  const [itemLengths, setItemlengths] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
 
-    if (accessToken === null || accessToken === undefined) {
+    const accessToken = localStorage.getItem("accessToken");
+
+    fetch('/mypage', {
+      headers : {
+        'Authorization': `Bearer ${accessToken}`,
+      }
+    })
+    .then(res => res.json())
+    .then(res => {
+      console.log("사용자 정보", res);
+      setUserID(res.userId);
+      setUserName(res.userName);
+      setUserEmail(res.email);
+      setUserPhone(res.phoneNumber);
+      setUserAddr(res.address);
+
+      setInputModName(res.userName);
+      setInputModAddr(res.address);
+      setInputModEmail(res.email);
+    })
+    .catch(err => {
+      console.log('오류: ', err);
       navigate("/login");
-      alert("로그인 후 이용하실 수 있습니다.");
-    } else {
-      fetch('/mypage', {
-        headers : {
-          'Authorization': `Bearer ${accessToken}`,
-        }
-      })
-          .then(res => res.json())
-          .then(res => {
+    })
 
 
-            if (res.status === 500 || res.status === 401) {
-              setIsTokenEnd(true);
-              console.log("토큰 만료됨:", res);
-              navigate("/");
-              sessionStorage.removeItem("accessToken");
-              alert("토큰이 만료되었습니다.");
-            } else {
-              setIsTokenEnd(false);
-              console.log("사용자 정보", res);
-              setUserID(res.userId);
-              setUserName(res.userName);
-              setUserEmail(res.email);
-              setUserPhone(res.phoneNumber);
-              setUserAddr(res.address);
-
-              setInputModName(res.userName);
-              setInputModAddr(res.address);
-              setInputModEmail(res.email);
-            }
-          })
-          .catch(err => {
-            console.log('오류: ', err);
-            navigate("/login");
-          })
-
-      fetch('/mypage/order-info', {
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': `Bearer ${accessToken}`,
-        }
-      })
-          .then(res => res.json())
-          .then(res => {
-            console.log("주문내역", res);
-            setOrderList(res);
-            let i;
-            let tmp = [];
-            for (i = 0; i < res.length; i++) {
-              tmp[i] = res[i].orderiteminfo.length;
-            }
-            setItemlengths(tmp);
-
-          })
-          .catch(err => {
-            console.log("오류:", err);
-          })
-    }
+    fetch('/mypage/order-info', {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
+    })
+        .then(res => res.json)
+        .then(res => {
+          console.log("주문내역", res);
+        })
+        .catch(err => {
+          console.log("오류:", err);
+        })
 
   }, [])
 
@@ -224,10 +198,7 @@ function MyPage() {
         {menu === "myInfo" ?
           <div className={styles.mypgWrap}>
             <div className={styles.mypgHeader}>내 정보</div>
-            {isTokenEnd === true
-                ? <h2>토큰이 만료되었습니다.</h2>
-                : <h2>{userName}({userID})님 반갑습니다.</h2>
-            }
+            <h2>{userName}({userID})님 반갑습니다.</h2>
             <div className={styles.listWrap}>
               <div className={styles.listTag}>이메일</div>
               <div className={styles.listInfo}>{userEmail}</div>
@@ -298,22 +269,15 @@ function MyPage() {
               <div className={styles.orderPayTag}>결제정보</div>
               <div className={styles.orderStateTag}>주문상태</div>
             </div>
-            {isTokenEnd === true
-                ?
-                <div style={{borderBottom:'1px solid rgb(180, 180, 180)', color:'grey',
-                  padding:'8px'}}>토큰이 만료되었습니다.</div>
-                : (orderList.length < 1
-                    ? <div style={{borderBottom:'1px solid rgb(180, 180, 180)', color:'grey',
-                          padding:'8px'}}>주문한 상품이 없습니다.</div>
-                    :
-                        orderList.map((item, id) => {
-                          return <OrderHistory key={id} list={item} len={itemLengths[id]}/>
-                        })
-                )
-            }
+            <OrderHistory />
+            <OrderHistory />
+            <OrderHistory />
 
 
           </div>
+
+
+
 
           : (pass === false) ? 
           <div className={styles.mypgWrap}>

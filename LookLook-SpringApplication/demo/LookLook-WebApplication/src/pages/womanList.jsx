@@ -36,34 +36,15 @@ function WomanList() {
       <div className={styles.productShowSection}>
         <div className={styles.categoryHeader}><h1>여성</h1></div>
         <div className={styles.categoryWrap}>
-            {cate === "101"
-                ? <Link to="/womanList/101">
-                    <div style={{color:'#1d86da', width: '150px'}}>셔츠/블라우스</div>
-                </Link>
-                : <Link to="/womanList/101">
-                    <div style={{width: '150px'}}>셔츠/블라우스</div>
-                </Link>
-            }
-            {cate === "102"
-                ? <Link to="/womanList/102"><div style={{color:'#1d86da'}}>니트</div></Link>
-                : <Link to="/womanList/102"><div>니트</div></Link>
-            }
-            {cate === "103"
-                ? <Link to="/womanList/103"><div style={{color:'#1d86da'}}>티셔츠</div></Link>
-                : <Link to="/womanList/103"><div>티셔츠</div></Link>
-            }
-            {cate === "104"
-                ? <Link to="/womanList/104"><div style={{color:'#1d86da'}}>팬츠</div></Link>
-                : <Link to="/womanList/104"><div>팬츠</div></Link>
-            }
-            {cate === "105"
-                ? <Link to="/womanList/105"><div style={{color:'#1d86da'}}>스커트</div></Link>
-                : <Link to="/womanList/105"><div>스커트</div></Link>
-            }
-            {cate === "106"
-                ? <Link to="/womanList/106"><div style={{color:'#1d86da' ,borderRight:'0'}}>원피스</div></Link>
-                : <Link to="/womanList/106"><div style={{borderRight:'0'}}>원피스</div></Link>
-            }
+          <Link to="/womanList/101">
+            <div style={{width: '150px'}}>셔츠/블라우스</div>
+          </Link>
+          <Link to="/womanList/102"><div>니트</div></Link>
+          <Link to="/womanList/103"><div>티셔츠</div></Link>
+          <Link to="/womanList/104"><div>팬츠</div></Link>
+          <Link to="/womanList/105"><div>스커트</div></Link>
+          <Link to="/womanList/106"><div style={{borderRight:'0'}}>원피스</div></Link>
+
 
         </div>
 

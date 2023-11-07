@@ -116,7 +116,6 @@
   position: absolute;
   left: 42px;
   top: 13px;
-  cursor: default;
 }
 
 .menu .categoryWrap {
@@ -135,18 +134,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: default;
 }
 
-.menu .avatarBtnWrap {
-  margin-left: 1055px;
-}
-.menu .avatarBtnWrap button {
-  font-weight: bold;
-  background-image: linear-gradient(90deg, #89d6f5 0%, #8877e7 74%);
-  border-radius: 20px;
-  border: 0;
-  padding: 6px 20px;
+.menu .avatarBtn {
   width: 140px;
   font-size: 15px;
+  font-weight: 700;
+  margin-left: 1055px;
+  background-image: linear-gradient(90deg, #89d6f5 0%, #8c7bef 74%);
+  border-width: 0px;
+  border-radius: 20px;
+  padding: 6px 20px;
 }

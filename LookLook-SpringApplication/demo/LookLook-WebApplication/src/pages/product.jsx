@@ -9,14 +9,8 @@ import PutItem from "../components/putItem"
 import CategoryRename from "../components/categoryRename";
 import {Navigator} from "react-router-dom";
 import ProductBuyModal from "../components/productBuyModal";
-import {setOItemIds} from "../store/orderSlice";
-import {setOrderInfo} from "../store/orderInfoSlice";
-import { useDispatch, useSelector } from "react-redux";
 
 function Product() {
-
-    const dispatch = useDispatch();
-
   const {id} = useParams();
 
   const navigate = useNavigate();
@@ -58,82 +52,46 @@ function Product() {
     const loginAlert = () => {
         alert("로그인 후 이용하실 수 있습니다.");
     }
-
-    const [isTokenEnd, setIsTokenEnd] = useState(true);
     const clickBuy = () => {
-        const accessToken = sessionStorage.getItem("accessToken");
+        const accessToken = localStorage.getItem("accessToken");
         if (accessToken === null) {
             loginAlert();
         } else {
+            openModal();
 
-            fetch('/order-sheet', {
-                method: 'post',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer ${accessToken}`,
-                },
-                body: JSON.stringify({
-                    pid: Number(prodInfo.pid),
-                    size: sizeSelected,
-                    color: colorSelected,
-                    count: Number(quantity),
-                })
-            })
-                .then(res => res.json())
-                .then(res => {
-                    if (res.status === 500) {
-                        setIsTokenEnd(true);
-                        console.log("토큰 만료됨:", res);
-                        sessionStorage.removeItem("accessToken");
-                        navigate("/");
-                        alert("토큰이 만료되었습니다.");
-                    } else {
-                        setIsTokenEnd(false);
-                        console.log("반환값:", res);
-                        console.log(res.orderiteminfo);
-
-                        let i;
-                        let tmp = [];
-                        for (i = 0; i < res.orderiteminfo.length; i++) {
-                            tmp[i] = res.orderiteminfo[i].orderItemId;
-                        }
-                        console.log(tmp);
-                        localStorage.setItem("orderItemIds", JSON.stringify(tmp));
-
-                        // dispatch(setOItemIds(itemIds)); //***********************************
-
-                        // setOAddress(res.address);
-                        // setOItemPrice(res.orderItemPrice);
-                        // setOPhoneNumber(res.phoneNumber);
-                        // setOShipment_FEE(res.shipment_FEE);
-                        // setOTotalPrice(res.totalPrice);
-                        // setOUserName(res.userName);
-
-                        // setOItemInfo(res.orderiteminfo);
-                        dispatch(setOrderInfo(res.orderiteminfo));
-
-                        sessionStorage.setItem("oaddress", res.address);
-                        sessionStorage.setItem("oprice", res.orderItemPrice);
-                        sessionStorage.setItem("oiteminfo", res.orderiteminfo);
-                        sessionStorage.setItem("onumber", res.phoneNumber);
-                        sessionStorage.setItem("ofee", res.shipment_FEE);
-                        sessionStorage.setItem("ototalprice", res.totalPrice);
-                        sessionStorage.setItem("ousername", res.userName);
-
-                        // alert("주문서 작성 페이지로 이동합니다.");
-
-                        navigate("/orderSheet");
-                    }
-
-                })
-                .catch(err => {
-                    console.log("오류:", err);
-                })
+            // if (sizeSelected !== "사이즈 선택" && colorSelected !== "색상 선택") {
+            //     fetch('/order-sheet', {
+            //         method: 'post',
+            //         headers: {
+            //             "Content-Type": "application/json",
+            //             'Authorization': `Bearer ${accessToken}`,
+            //         },
+            //         body: JSON.stringify({
+            //             pid: prodInfo.pid,
+            //             size: sizeSelected,
+            //             color: colorSelected,
+            //             count: quantity,
+            //         })
+            //     })
+            //         .then(res => {
+            //             if (res.status === 200) {
+            //                 console.log("바로구매", res);
+            //                 console.log(prodInfo.pid, sizeSelected, colorSelected, quantity);
+            //             } else {
+            //                 console.log("바로구매 실패", res);
+            //             }
+            //         })
+            //         .catch(err => {
+            //             console.log("오류", err);
+            //         })
+            // } else {
+            //     alert("사이즈와 색상을 선택하세요");
+            // }
 
         }
     }
     const clickGoCart = () => {
-        const accessToken = sessionStorage.getItem("accessToken");
+        const accessToken = localStorage.getItem("accessToken");
         if (accessToken === null) {
             loginAlert();
         } else {
@@ -191,7 +149,7 @@ function Product() {
   const [highListName, setHighListName] = useState("");
 
   const putCartClick = () => {
-      const accessToken = sessionStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem("accessToken");
       if (accessToken === null) {
           loginAlert();
       } else {
@@ -212,20 +170,11 @@ function Product() {
                   })
               })
                   .then(res => {
-                      if (res.status === 500) {
-                          setIsTokenEnd(true);
-                          sessionStorage.removeItem("accessToken");
-                          navigate("/");
-                          alert("토큰이 만료되었습니다.");
+                      if (res.status === 200) {
+                          alert("상품을 장바구니에 담았습니다.");
+                          console.log("장바구니 담기 성공!", res);
                       } else {
-                          if (res.status === 200) {
-                              setIsTokenEnd(false);
-                              alert("상품을 장바구니에 담았습니다.");
-                              console.log("장바구니 담기 성공!", res);
-                          } else {
-                              alert("장바구니에 상품을 담지 못했습니다.");
-                              console.log("장바구니 담기 실패", res);
-                          }
+                          console.log("장바구니 담기 실패", res);
                       }
                   })
                   .catch(err => {
@@ -251,7 +200,7 @@ function Product() {
               </div>
             </Link>
               <div className={styles.imgWrap}>
-                  <img src={prodInfo.mainImgUrl} alt='product_img' />
+                  {/*<img src={require('../images/sample.png')} alt='sample' />*/}
               </div>
 
           </div>

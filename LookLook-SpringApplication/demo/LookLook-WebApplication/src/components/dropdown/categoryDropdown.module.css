@@ -14,14 +14,14 @@
 .dropdownSection div {
   width: 15%;
   height: 260px;
-  border-right: 1px solid rgb(215, 215, 215);
+  border-right: 1px solid rgb(180, 180, 180);
   display: block;
   text-align: center;
   margin-top: 20px;
 }
 
 .dropdownSection div .cateTag {
-  color: rgb(37, 103, 150);
+  color: rgb(16, 30, 75);
   width: 100%;
   font-size: 18px;
   font-weight: bold;
@@ -32,10 +32,5 @@
 .dropdownSection p {
   width: 100%;
   color: black;
-  margin-bottom: 18px;
-}
-.dropdownSection p:active {
-  width: 100%;
-  color: #206fee;
   margin-bottom: 18px;
 }

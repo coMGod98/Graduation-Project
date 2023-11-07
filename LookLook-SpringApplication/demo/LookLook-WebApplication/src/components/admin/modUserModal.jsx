@@ -27,7 +27,7 @@ function ModUserModal({muid, muserName, maddress, memail, isOpen, closeModal}) {
     }, []);
 
     const modSubmit = (e) => {
-        const accessToken = sessionStorage.getItem("accessToken");
+        const accessToken = localStorage.getItem("accessToken");
         e.preventDefault();
 
         fetch(`/admin/user-update/${muid}`, {

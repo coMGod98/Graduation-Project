@@ -15,7 +15,7 @@ function UserManageList({list}) {
 
   const deleteUser = () => {
 
-    const accessToken = sessionStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken");
     if(window.confirm("사용자 정보를 삭제하시겠습니까?")) {
       fetch('/admin/user-withdrawal', {
         method: 'post',
@@ -52,8 +52,8 @@ function UserManageList({list}) {
           {list.uid === 1
               ? <div className={styles.item7}></div>
               : <div className={styles.item7}>
-                {/*<img onClick={openModal}*/}
-                {/*     src={require("../../images/mod.png")} alt="mod" />*/}
+                <img onClick={openModal}
+                     src={require("../../images/mod.png")} alt="mod" />
                 <img onClick={deleteUser}
                      src={require("../../images/delete.png")} alt="mod" />
               </div>

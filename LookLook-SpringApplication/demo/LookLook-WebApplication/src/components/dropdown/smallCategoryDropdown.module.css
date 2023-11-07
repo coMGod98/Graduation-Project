@@ -30,22 +30,8 @@
   margin: 0 auto;
   margin-top: 5px;
 }
-.dropdownSection div img:active {
-  width: 100px;
-  height: 100px;
-  left: 50%;
-  border-radius: 100%;
-  border: 1px solid #206fee;
-  display: block;
-  margin: 0 auto;
-  margin-top: 5px;
-}
 
 .dropdownSection p {
   color: black;
-  margin-top: 10px;
-}
-.dropdownSection p:active {
-  color: #206fee;
   margin-top: 10px;
 }

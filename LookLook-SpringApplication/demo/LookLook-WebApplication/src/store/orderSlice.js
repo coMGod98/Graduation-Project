@@ -9,24 +9,15 @@ const orderSlice = createSlice({
         paymentType: ""
     },
     reducers: {
-        setNewAddress: (state, { payload }) => {
-            state.newAddress = payload;
+        addOrderItem: (state, { payload }) => {
+            state.newAddress = payload.pAddr;
+            state.orderItemIds = payload.pIds; //배열
+            state.paymentMethod = payload.pMethod;
+            state.paymentType = payload.pType;
         },
-        setOItemIds: (state, { payload }) => {
-            state.orderItemIds = payload; //배열
+        setIdsOrderItem: (state, { payload }) => {
+            state.orderItemIds = payload.itemIds; //배열
         },
-        setPaymentMethod: (state, { payload }) => {
-            state.paymentMethod = payload;
-        },
-        setPaymentType: (state, { payload }) => {
-            state.paymentType = payload;
-        },
-
-
-
-        // setIdsOrderItem: (state, { payload }) => {
-        //     state.orderItemIds = payload.itemIds; //배열
-        // },
         deleteOrderItem: (state) => {
             state.newAddress = "";
             state.orderItemIds = "";
@@ -37,4 +28,4 @@ const orderSlice = createSlice({
 })
 
 export default orderSlice.reducer;
-export const { setNewAddress, setOItemIds, setPaymentMethod, setPaymentType, deleteOrderItem } = orderSlice.actions;
+export const { addOrderItem, setIdsOrderItem, deleteOrderItem } = orderSlice.actions;

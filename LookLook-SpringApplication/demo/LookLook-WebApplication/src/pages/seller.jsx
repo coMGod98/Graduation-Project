@@ -19,17 +19,10 @@ function Seller() {
     const {menu} = useParams();
     const navigate = useNavigate();
 
-
-
-    //json 형식의 상품 정보들
     const [values, setValues] = useState({
         inputPrName: "", inputPrPrice: "", inputPrStock: 1, inputPrGender: "",
-        inputPrDetail: ""})
-    const [mainImgUrl, setMainImgUrl] = useState(null);   //상품 대표 이미지
-    const [detailedImgsUrl, setDetailedImgsUrl] = useState([]); //상품 상세 이미지
-
-
-
+        inputPrDetail: "", inputPrImage: "", inputPrDetailImage: ""
+    })
     const [sizeField, setSizeField] = useState(['']);   //선택 사이즈
     const [colorField, setColorField] = useState(['']); //선택 색상
     const [inSize, setInSize] = useState(['']);
@@ -38,7 +31,7 @@ function Seller() {
     const [highCategory, setHighCategory] = useState(''); //선택 상위 카테고리
     const [lowCategory, setLowCategory] = useState(''); //선택 하위 카테고리
 
-    const accessToken = sessionStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken");
     const [sellerInfo, setSellerInfo] = useState([]);
     const [sellerProds, setSellerProds] = useState([]);
     const [sellerSize, setSellerSize] = useState([[]]);
@@ -57,7 +50,7 @@ function Seller() {
 
     const logoutClick = () => {
         if (window.confirm("로그아웃 하시겠습니까?")) {
-            sessionStorage.removeItem("accessToken");
+            localStorage.removeItem("accessToken");
             navigate("/");
         }
     }
@@ -66,15 +59,6 @@ function Seller() {
             ...values,
             [e.target.name]: e.target.value,
         })
-    }
-    const HandleChangeImg = e => {
-        setMainImgUrl(e.target.files[0]);
-    }
-    const HandleChangeDetailImg = e => {
-        const tmp = [...detailedImgsUrl];
-        tmp[0] = e.target.files[0];
-        setDetailedImgsUrl(tmp);
-        // setDetailedImgsUrl[0] = e.target.files[0];
     }
 
 
@@ -125,41 +109,35 @@ function Seller() {
 
     const regiSubmit = e => {
 
-        const accessToken = sessionStorage.getItem("accessToken");
+        const accessToken = localStorage.getItem("accessToken");
         e.preventDefault();
 
-        const jsonDatas = {
-            uid: sellerInfo.uid,
-            itemName: values.inputPrName,
-            price: values.inputPrPrice,
-            stock: values.inputPrStock,
-            pgender: values.inputPrGender,
-            itemDetail: values.inputPrDetail,
-            size: sizeField,
-            color: colorField,
-            category: lowCategory,
-        }
-
-        const formData = new FormData();
-
-        formData.append("itemRegRequestDto", JSON.stringify(jsonDatas));
-        formData.append("main", mainImgUrl);
-        // detailedImgsUrl.forEach((item, idx) => {
-        //     formData.append(`detailed`, item.files[0]);
-        // });
-        formData.append(`detailed`, detailedImgsUrl);
+        // 이미지 (파일명.확장자)만 추출
+        // let pos = values.inputPrImage.lastIndexOf("\\");
+        // let len = values.inputPrImage.length;
+        // let imageName = values.inputPrImage.substring(pos + 1, len);
 
         if (lowCategory === '') {
             alert("카테고리를 선택해주세요");
+            return null;
         } else {
             fetch('/seller/items/new', {
                 method: 'post',
                 headers: {
-                    // "Content-Type": "application/json",
-                    // 'Content-Type': 'multipart/form-data',
+                    "Content-Type": "application/json",
                     'Authorization': `Bearer ${accessToken}`,
                 },
-                body: formData,
+                body: JSON.stringify({
+                    uid: Number(sellerInfo.uid),
+                    itemName: values.inputPrName,
+                    price: Number(values.inputPrPrice),
+                    stock: Number(values.inputPrStock),
+                    pgender: values.inputPrGender,
+                    itemDetail: values.inputPrDetail,
+                    size: sizeField,
+                    color: colorField,
+                    category: lowCategory
+                })
             })
                 .then(res => {
                     if (res.status === 200) {
@@ -176,72 +154,42 @@ function Seller() {
 
         console.log("입력: ", Number(sellerInfo.uid), values.inputPrName, Number(values.inputPrPrice)
             , Number(values.inputPrStock), values.inputPrGender, values.inputPrDetail
-            , sizeField, colorField, lowCategory
-            , mainImgUrl, detailedImgsUrl);
-        console.log("jsondatas", jsonDatas);
-        console.log("메인img", mainImgUrl);
-        console.log("상세img", detailedImgsUrl);
-        for (let key of formData.keys()) {
-            console.log("formData key: ", key);
-        }
-        for (let value of formData.values()) {
-            console.log("formData value: ", value);
-        }
+            , sizeField, colorField, lowCategory);
     }
 
-    const [isTokenEnd, setIsTokenEnd] = useState(true);
-
     useEffect(() => {
-
-        if (accessToken === null || accessToken === undefined) {
-            navigate("/");
-            alert("로그인 후 이용하실 수 있습니다.");
-        } else {
-            fetch('/seller', {
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                }
+        fetch('/seller', {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+            }
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log("판매자 정보: ", res);
+                setSellerInfo(res);
             })
-                .then(res => res.json())
-                .then(res => {
-                    if (res.status === 500 || res.status === 401) {
-                        setIsTokenEnd(true);
-                        console.log("토큰 만료됨:", res);
-                        setSellerInfo(res);
-                        sessionStorage.removeItem("accessToken");
-                        navigate("/");
-                        alert("토큰이 만료되었습니다.")
-                    } else {
-                        setIsTokenEnd(false);
-                        console.log("판매자 정보:", res);
-                        setSellerInfo(res);
-                    }
-                })
-                .catch(err => {
-                    console.log("오류: ", err);
-                })
-
-
-            fetch('/seller/items', {
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                }
+            .catch(err => {
+                console.log("오류: ", err);
             })
-                .then(res => res.json())
-                .then(res => {
-                    console.log("나의상품정보: ", res);
-                    setSellerProds(res);
-                    setSellerSize(res.size);
-                    setSellerColor(res.color);
-                    console.log("결과: ", res[3].size)
-
-                })
-                .catch(err => {
-                    console.log("상품정보 오류: ", err);
-                })
-        }
 
 
+        fetch('/seller/items', {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+            }
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log("나의상품정보: ", res);
+                setSellerProds(res);
+                setSellerSize(res.size);
+                setSellerColor(res.color);
+                console.log("결과: ", res[3].size)
+
+            })
+            .catch(err => {
+                console.log("오류: ", err);
+            })
 
     }, [])
 
@@ -290,20 +238,23 @@ function Seller() {
                     ?
                     <div className={styles.sellerWorkSpace}>
                         <div className={styles.workHeader}>나의 상품 정보 조회</div>
+                        <div className={styles.searchWrap}>
+                            <input /><button>검색</button>
+                        </div>
                         <div className={styles.workWrap}>
                             <MyProductsListTag />
-                            {isTokenEnd === true
-                                ? <div className={styles.listEmpty}>토큰이 만료되었습니다.</div>
-                                : (sellerProds.length < 1
-                                    ? <div className={styles.listEmpty}>등록된 상품이 없습니다.</div>
-                                    :
-                                    sellerProds.map((item, id) => {
-                                            return <MyProductsList key={id} list={item} psize={sellerSize}
-                                                                   pcolor={sellerColor}/>;
-                                    })
-                                )
+                            {sellerProds.map((item, id) => {
+                                return <MyProductsList key={id} list={item} psize={sellerSize}
+                                                pcolor={sellerColor}/>;
+                            })}
+                            {sellerProds.length < 1
+                                ? <div className={styles.listEmpty}>등록된 상품이 없습니다.</div>
+                                : null
                             }
                         </div>
+
+
+
                     </div>
 
 
@@ -351,13 +302,13 @@ function Seller() {
                                     <div className={styles.regiWrap}>
                                         <div className={styles.regiTag}>대표 이미지</div>
                                         <div className={styles.regiInput}>
-                                            <input onChange={HandleChangeImg} name="inputPrImage" type="file" accept="image/*" />
+                                            <input onChange={handleChange} name="inputPrImage" type="file" accept="image/*" />
                                         </div>
                                     </div>
                                     <div className={styles.regiWrap}>
                                         <div className={styles.regiTag}>상세 이미지</div>
                                         <div className={styles.regiInput}>
-                                            <input onChange={HandleChangeDetailImg} name="inputPrDetailImage" type="file" accept="image/*" />
+                                            <input onChange={handleChange} name="inputPrDetailImage" type="file" accept="image/*" />
                                         </div>
                                     </div>
                                     <div className={styles.regiWrap}>
@@ -409,6 +360,9 @@ function Seller() {
                             :
                             <div className={styles.sellerWorkSpace}>
                                 <div className={styles.workHeader}>주문 관리</div>
+                                <div className={styles.searchWrap}>
+                                    <input /><button>검색</button>
+                                </div>
                                 <div className={styles.workWrap}>
                                     <OrderManageListTag />
                                     <OrderManageList />

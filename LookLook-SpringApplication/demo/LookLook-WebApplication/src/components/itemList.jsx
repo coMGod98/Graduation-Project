@@ -19,7 +19,7 @@ function ItemList({ list }) {
             <Link to={`/Product/${item.pid}`}>
               <div className={styles.productImgDiv}>
                 <div className={styles.productImgWrap}>
-                  {/*<img src={item.mainImgUrl} alt="prod_img"/>*/}
+                  {/*<img src={image} alt="prod_img"/>*/}
                 </div>
               </div>
               <h2 className={styles.productTitle}>{item.itemName}</h2>
