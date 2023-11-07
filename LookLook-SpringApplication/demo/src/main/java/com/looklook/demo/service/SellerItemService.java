@@ -142,6 +142,7 @@ public class SellerItemService {
         return "상품이 수정되었습니다.";
     }
 
+    // 상품 정보 삭제
     @Transactional
     public String deleteItem(Long pid) {
         Optional<Item> item = itemRepository.findById(pid);
@@ -151,6 +152,5 @@ public class SellerItemService {
 
         return "상품이 삭제되었습니다.";
     }
-    // 상품 정보 삭제
 
 }

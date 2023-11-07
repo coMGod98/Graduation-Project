@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<LookLookUser, Long> {
 
     boolean existsByUserId(String userId);
 
-    @NotNull Optional<LookLookUser> findById(Long id);
+    Optional<LookLookUser> findById(Long id);
 
 
 

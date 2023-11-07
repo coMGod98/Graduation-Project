@@ -13,7 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,11 +23,15 @@ import java.util.Optional;
 @Service
 public class ChatService {
 
-    @Autowired
-    private ChatBotRepository chatBotRepository;
+    private final ChatBotRepository chatBotRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public ChatService(ChatBotRepository chatBotRepository, UserRepository userRepository) {
+        this.chatBotRepository = chatBotRepository;
+        this.userRepository = userRepository;
+    }
+
 
     @Value("${openai.apiKey}")
     private String apiKey;
@@ -74,8 +78,8 @@ public class ChatService {
         chatBot.setChatTime(LocalDateTime.now());
 
         //사용자 정보 가져오기
-        String userUid = getUserUid();
-        Optional<LookLookUser> userOptional = userRepository.findById(Long.valueOf(userUid));
+        Long userUid = getUid();
+        Optional<LookLookUser> userOptional = userRepository.findById(userUid);
 
         if(userOptional.isPresent()) {
             LookLookUser user = userOptional.get();
@@ -86,17 +90,16 @@ public class ChatService {
 
         return restTemplate.postForEntity(apiUrl, entity, String.class);
     }
-    private String getUserUid() {
+    private Long getUid() {
         // 현재 사용자 인증 정보 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-            // 사용자 UID를 UserDetails 객체에서 가져오기
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            return userDetails.getUsername();
-        }
+            if (authentication != null && authentication.getPrincipal() instanceof LookLookUser user) {
+                // 사용자 UID를 UserDetails 객체에서 가져오기
+                return user.getId();
+            }
 
-        // 사용자를 식별할 수 없는 경우 기본값 설정
-        return "0";
+            // 사용자를 식별할 수 없는 경우 기본값 설정
+            return 0L;
     }
 }
