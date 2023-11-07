@@ -1,9 +1,6 @@
 package com.looklook.demo.service;
 
-import com.looklook.demo.domain.Item;
-import com.looklook.demo.domain.ItemColor;
-import com.looklook.demo.domain.ItemSize;
-import com.looklook.demo.domain.LookLookUser;
+import com.looklook.demo.domain.*;
 import com.looklook.demo.dto.ItemDto;
 import com.looklook.demo.dto.ItemRegRequestDto;
 import com.looklook.demo.dto.SellerItemDto;
@@ -13,6 +10,7 @@ import com.looklook.demo.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -25,12 +23,13 @@ import java.util.stream.Collectors;
 public class SellerItemService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
+    private final FileHandler fileHandler;
     private final ItemImgRepository itemImgRepository;
 
     // 상품 등록 (일단 상품 등록 요청이 아니라 바로 상품 등록되도록)
     // 이미지 없는 버전
     @Transactional
-    public void addNewItem(ItemRegRequestDto dto){
+    public void addNewItem(ItemRegRequestDto dto, MultipartFile main, List<MultipartFile> detailed) throws Exception {
         // uid를 사용하여 연관 엔티티 (예: User)를 찾아옴
         Long uid = dto.getUid();
         Optional<LookLookUser> user = userRepository.findById(uid);
@@ -43,7 +42,17 @@ public class SellerItemService {
             item.setUser(user.get()); // 연관 엔티티 설정
 
             // 중복 저장되면 예외처리 아직 구현 X
-            itemRepository.save(item);
+            Long pid = itemRepository.save(item).getId();
+
+            // 사진 처리
+            List<ItemImg> imgList = fileHandler.parseImgInfo(main, detailed, pid);
+
+            if(!imgList.isEmpty()) {
+                for(ItemImg img : imgList) {
+                    // 파일을 DB에 저장
+                    item.addItemImg(itemImgRepository.save(img));
+                }
+            }
         }
     }
 

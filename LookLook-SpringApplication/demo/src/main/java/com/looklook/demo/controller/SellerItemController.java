@@ -22,7 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SellerItemController {
     private final SellerItemService sellerItemService;
-    private final String imgUploadPath = "src/main/resources/img";
 
     // 나의 상품 조회
     @GetMapping("/seller/items")
@@ -33,14 +32,15 @@ public class SellerItemController {
         return ResponseEntity.ok(dtos);
     }
 
-    // 이미지 등록은 없는 버전, 나중에 삭제 예정
+    // 상품 등록
     @PostMapping(value = "/seller/items/new")
     public ResponseEntity<String> requestItemRegistration(
-            @RequestBody ItemRegRequestDto itemRegRequestDto
+            @RequestPart ItemRegRequestDto itemRegRequestDto,
+            @RequestPart MultipartFile main,
+            @RequestPart List<MultipartFile> detailed
     ) throws Exception {
-
         try {
-            sellerItemService.addNewItem(itemRegRequestDto);
+            sellerItemService.addNewItem(itemRegRequestDto, main, detailed);
             return ResponseEntity.ok("상품 등록 요청이 완료되었습니다.");
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("해당 상품명으로 등록된 상품이 이미 존재합니다.");
@@ -48,19 +48,8 @@ public class SellerItemController {
 
     }
 
-    // 상품 등록 요청 (이미지까지 등록하는 버전)
-//    @PostMapping(value = "/seller/items/new", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-//    public ResponseEntity<String> requestItemRegistration(
-//            @Valid @RequestPart ItemRegRequestDto itemRegRequestDto,
-//            @Valid @RequestPart("mainImg") List<MultipartFile> mainImg,
-//            @Valid @RequestPart("detailedImgs") List<MultipartFile> detailedImgs
-//    ) throws Exception {
-//
-//
-//        return ResponseEntity.ok("상품 등록 요청이 완료되었습니다.");
-//    }
 
-//     상품 수정 (아직 요청은 아님)
+//     상품 수정 (삭제)
     @PostMapping(value = "/seller/item/{pid}")
     public ResponseEntity<String> updateItem(
             @PathVariable("pid") String pid,

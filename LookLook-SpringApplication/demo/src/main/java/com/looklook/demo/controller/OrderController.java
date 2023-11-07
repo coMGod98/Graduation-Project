@@ -33,14 +33,15 @@ public class OrderController {
         return ResponseEntity.ok(dto);
     }
 
-    // 결제하기 -> 302 응답
+    // 결제하기
     @PostMapping("/order")
-    public ResponseEntity<Void> order(@RequestBody OrderRequestDto orderRequestDto, Authentication authentication) {
+    public ResponseEntity<String> order(@RequestBody OrderRequestDto orderRequestDto, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        orderService.order(orderRequestDto, Long.valueOf(userDetails.getUsername()));
+        Long orderId = orderService.order(orderRequestDto, Long.valueOf(userDetails.getUsername()));
 
-        return new ResponseEntity<>(HttpStatus.FOUND);
+        return ResponseEntity.ok(String.valueOf(orderId));
+
     }
 
     // 주문 완료 페이지
