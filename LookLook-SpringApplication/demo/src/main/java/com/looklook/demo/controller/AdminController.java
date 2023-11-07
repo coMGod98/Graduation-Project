@@ -1,9 +1,12 @@
 package com.looklook.demo.controller;
 
+import com.looklook.demo.domain.Item;
 import com.looklook.demo.dto.UserRequestDto;
 import com.looklook.demo.dto.UserResponseDto;
+import com.looklook.demo.service.AdminServiceAboutItem;
 import com.looklook.demo.service.AdminServiceAboutUser;
 import com.looklook.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -18,10 +21,13 @@ public class AdminController {
 
     private final AdminServiceAboutUser adminServiceAboutUser;
     private final UserService userService;
+    private final AdminServiceAboutItem adminServiceAboutItem;
 
-    public AdminController(AdminServiceAboutUser adminServiceAboutUser, UserService userService) {
+    @Autowired
+    public AdminController(AdminServiceAboutUser adminServiceAboutUser, UserService userService, AdminServiceAboutItem adminServiceAboutItem) {
         this.adminServiceAboutUser = adminServiceAboutUser;
         this.userService = userService;
+        this.adminServiceAboutItem = adminServiceAboutItem;
     }
 
     // 사용자 전체 조회
@@ -60,5 +66,13 @@ public class AdminController {
         userService.withdrawal(dto.getUid());
 
         return ResponseEntity.ok("탈퇴 완료");
+    }
+
+    //등록된 상품 전체 조회
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/admin/items")
+    public ResponseEntity<List<Item>> getAllItems() {
+        List<Item> items = adminServiceAboutItem.getAllItems();
+        return new ResponseEntity<>(items, HttpStatus.OK);
     }
 }

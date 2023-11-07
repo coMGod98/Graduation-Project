@@ -47,10 +47,12 @@ public class UserItemController {
         return ResponseEntity.ok(itemDto);
     }
 
-    //상품 이름으로 상품 검색
+    //상품 검색
+    //한글자만 쳐도 해당 글자가 있는 상품명 나오게 변경
     @GetMapping("/product/search")
-    public ResponseEntity<List<Item>> searchProduct(@RequestParam String itemName) {
+    public ResponseEntity<List<Item>> searchProduct(@RequestParam("itemName") String itemName) {
         List<Item> items = itemRepository.findByItemName(itemName);
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
+
 }
