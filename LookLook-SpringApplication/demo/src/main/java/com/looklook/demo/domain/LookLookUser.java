@@ -66,5 +66,5 @@ public class LookLookUser {
         return dto;
 
     }
-
 }
+
