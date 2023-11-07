@@ -3,6 +3,8 @@ package com.looklook.demo.repository;
 import com.looklook.demo.domain.Item;
 import com.looklook.demo.domain.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 //import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 
@@ -21,4 +23,8 @@ public interface ItemRepository extends JpaRepository<Item,Long>
 
     // 주문 상품 아이디로 상품 조회
     Optional<Item> findByOrderItems(OrderItem orderItem);
+
+    //상품 검색
+    @Query("SELECT i FROM Item i WHERE i.itemName LIKE %:itemName%")
+    List<Item> findByItemName(@Param("itemName")String itemName);
 }
