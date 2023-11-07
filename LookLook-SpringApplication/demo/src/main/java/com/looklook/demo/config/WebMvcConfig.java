@@ -9,12 +9,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //파일 업로드 지정 config
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    @Value("${uploadPath}")
-    String uploadPath;
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/images/**")
-                .addResourceLocations(uploadPath);
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("classpath:/static/img/");
     }
 }

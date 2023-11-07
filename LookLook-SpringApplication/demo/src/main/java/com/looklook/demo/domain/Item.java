@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,7 @@ public class Item {
         dto.setPrice(item.getPrice());
         dto.setItemDetail(item.getItemDetail());
         dto.setStock(item.getStock());
+
         return dto;
     }
 
@@ -91,5 +93,13 @@ public class Item {
         dto.setCategory(item.getCategory());
         dto.setItemDetail(item.getItemDetail());
         return dto;
+    }
+    public void addItemImg(ItemImg itemImg) {
+        this.imgs.add(itemImg);
+
+        // 게시글에 파일이 저장되어있지 않은 경우
+        if(itemImg.getItem() != this)
+            // 파일 저장
+            itemImg.setItem(this);
     }
 }

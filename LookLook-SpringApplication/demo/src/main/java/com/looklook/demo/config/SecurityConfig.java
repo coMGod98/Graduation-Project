@@ -63,7 +63,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority(Authority.ROLE_ADMIN.name())
                 .antMatchers("/","/login", "/signup","/static/", "/manifest.json", "/looklook_logo.png", "/category/", "/product/", "/test/", "/AvatarPage/**", "/Build/build.loader.js", "/looklook_web_icon.ico", "/Build/build.framework.js.unityweb", "/Build/build.wasm.unityweb",  "/Build/build.data.unityweb"
-                ).permitAll()   // 나머지 API 는 전부 인증 필요
+                ,"/img/**").permitAll()   // 나머지 API 는 전부 인증 필요
                 .and()
                 .httpBasic()
 
