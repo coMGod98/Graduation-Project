@@ -150,6 +150,7 @@ function MyPage() {
             } else {
               setIsTokenEnd(false);
               console.log("사용자 정보", res);
+              sessionStorage.setItem("uid", res.uid);
               setUserID(res.userId);
               setUserName(res.userName);
               setUserEmail(res.email);
