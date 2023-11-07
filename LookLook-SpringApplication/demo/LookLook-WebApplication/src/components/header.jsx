@@ -7,11 +7,12 @@ import ManDropdown from "../components/dropdown/manDropdown";
 import OuterDropdown from "../components/dropdown/outerDropdown";
 import ShoesDropdown from "../components/dropdown/shoesDropdown";
 import FashionDropdown from "../components/dropdown/fashionDropdown";
-import { Navigate } from "react-router-dom";
+
+import ChatBotModule from "./chatBotModule";
 
 function Header() {
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = sessionStorage.getItem("accessToken");
   const [isStorageNull, setIsStorageNull] = useState(true);
 
 
@@ -30,9 +31,9 @@ function Header() {
 
   const logoutClick = () => {
     if(window.confirm("로그아웃 하시겠습니까?")) {
-      localStorage.removeItem("accessToken");
+      sessionStorage.removeItem("accessToken");
       navigate("/");
-      console.log("로그아웃 후 세션스토리지 값: ", localStorage.getItem("accessToken"))
+      console.log("로그아웃 후 세션스토리지 값: ", sessionStorage.getItem("accessToken"))
     }
   }
 
@@ -47,7 +48,12 @@ function Header() {
   }
 
   return (
+
     <div className={styles.header}>
+
+      <ChatBotModule />
+
+
 
       {accessToken === null
       ?
@@ -96,6 +102,7 @@ function Header() {
             <img src={require("../images/search_white.png")} alt="search_button" />
           </button>
         </Link>
+
       </div>
       <div className={styles.menuWrap}>
         <div className={styles.menu}>
@@ -129,15 +136,17 @@ function Header() {
             onMouseOut={() => setIsFashionHover(false)}>패션소품
             {isFashionHover && <FashionDropdown />}</span>
           </div>
-          <Link to="/AvatarPage">
-            <button
-                // onClick={clickAvatarBtn}
-                className={styles.avatarBtn}>
-              캐릭터 커스텀
-            </button>
-          </Link>
+          <div className={styles.avatarBtnWrap}>
+            <Link to="/AvatarPage">
+              <button>
+                캐릭터 커스텀
+              </button>
+            </Link>
+          </div>
 
-            
+
+
+
         </div>
       </div>
     </div>

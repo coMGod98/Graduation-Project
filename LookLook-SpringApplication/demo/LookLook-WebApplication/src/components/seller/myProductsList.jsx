@@ -20,7 +20,7 @@ function MyProductsList({list, psize, pcolor}) {
 
     const deleteProduct = () => {
 
-        const accessToken = localStorage.getItem("accessToken");
+        const accessToken = sessionStorage.getItem("accessToken");
         fetch(`/seller/item/${list.pid}`, {
             method: 'delete',
             headers: {
@@ -51,10 +51,10 @@ function MyProductsList({list, psize, pcolor}) {
                     <CategoryRenameHigh cate={list.category}/>&nbsp;&gt;&nbsp;
                     <CategoryRename cate={list.category}/>
                 </div>
-                <div className={styles.item6}>{list.regTime}</div>
+                <div className={styles.item6}>{String(list.regTime).substring(0, 10)}</div>
                 <div className={styles.item7}>
-                    <img onClick={openModal}
-                         src={require("../../images/mod.png")} alt="mod" />
+                    {/*<img onClick={openModal}*/}
+                    {/*     src={require("../../images/mod.png")} alt="mod" />*/}
                     <img onClick={deleteProduct}
                          src={require("../../images/delete.png")} alt="delete" />
                 </div>

@@ -1,21 +1,40 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./orderHistory.module.css";
 
-function OrderHistory() {
+function OrderHistory({list, len}) {
+    const [otherCount, setOtherCount] = useState(0);
+
+    useEffect(() => {
+        if (len > 1) {
+            let i; let tmp = 0;
+            for (i = 1; i < len; i++) {
+                tmp = tmp + list.orderiteminfo[i].count;
+            }
+            setOtherCount(tmp);
+        }
+    }, []);
+
   return (
     <div className={styles.orderHisDiv}>
-      <div className={styles.orderDate}>1234-12-34</div>
-      <div className={styles.orderNum}>12345678</div>
+      <div className={styles.orderDate}>{(list.order.orderDate).substr(0, 10)}</div>
+      <div className={styles.orderNum}>{list.order.id}</div>
       <div className={styles.orderProd}>
         {/*<img src={require("../images/looklook_logo.png")} alt="prod_img"/>*/}
-        <p>주문 상품명~~~</p>
+        <p>{list.orderiteminfo[0].itemName}({list.orderiteminfo[0].size}, {list.orderiteminfo[0].color}) x{list.orderiteminfo[0].count}</p>
+          {list.orderiteminfo.length > 1
+              ? <p>&nbsp;외 {otherCount}개</p>
+              : null
+          }
       </div>
       <div className={styles.orderPay}>
-        <p>{Number(0).toLocaleString()}원</p>
-        <p>~~카드</p>
-        <p>일시불</p>
+        <p>{Number(list.order.totalPrice).toLocaleString()}원</p>
+        <p>{list.order.paymentMethod}</p>
+        <p>{list.order.paymentType}</p>
       </div>
-      <div className={styles.orderState}>배송완료</div>
+        {list.order.shipmentStatus === "PREPARING"
+            ? <div className={styles.orderState}>배송 준비중</div>
+            : <div className={styles.orderState}>{list.order.shipmentStatus}</div>
+        }
     </div>
   );
 }

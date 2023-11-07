@@ -4,6 +4,9 @@ import styles from "./orderResult.module.css";
 import { Link } from "react-router-dom";
 
 function OrderResult() {
+
+
+
   return (
     <>
       <Header />
@@ -23,8 +26,8 @@ function OrderResult() {
             <img src={require("../images/check.png")} alt="check"/>
             <div>
               <h1>고객님의 주문이 완료되었습니다.</h1>
-              <p>주문번호: ~~~</p>
-              <p>주문일자: ~~~</p>
+              <p>주문번호: {sessionStorage.getItem("resultIds")}</p>
+              <p>주문일자: {sessionStorage.getItem("resultDate")}</p>
             </div>
           </div>
 
@@ -33,19 +36,19 @@ function OrderResult() {
           <div  style={{borderTop:'1px solid rgb(197, 197, 197)'}}
             className={styles.wrapDiv}>
             <div className={styles.tagDiv}>주문자명 / 연락처</div>
-            <div className={styles.infoDiv}>홍길동 / 01012345678</div>
+            <div className={styles.infoDiv}>{sessionStorage.getItem("resultUserName")} / {sessionStorage.getItem("resultNumber")}</div>
           </div>
           <div className={styles.wrapDiv}>
             <div className={styles.tagDiv}>최종 결제 금액</div>
-            <div className={styles.infoDiv}>{Number(0).toLocaleString()}원</div>
+            <div className={styles.infoDiv}>{Number(sessionStorage.getItem("resultTotalPrice")).toLocaleString()}원</div>
           </div>
           <div className={styles.wrapDiv}>
             <div className={styles.tagDiv}>결제수단</div>
-            <div className={styles.infoDiv}>신한카드 / 일시불</div>
+            <div className={styles.infoDiv}>{sessionStorage.getItem("resultMethod")} / {sessionStorage.getItem("resultType")}</div>
           </div>
           <div className={styles.wrapDiv}>
             <div className={styles.tagDiv}>배송 주소</div>
-            <div className={styles.infoDiv}>(12345) 서울시 ~~~ a동</div>
+            <div className={styles.infoDiv}>{sessionStorage.getItem("resultAddr")}</div>
           </div>
 
 

@@ -9,7 +9,7 @@
 
 .menuWrap {
   width: 220px;
-  height: 700px;
+  min-height: 700px;
   border-right: 1px solid rgb(180, 180, 180);
 }
 

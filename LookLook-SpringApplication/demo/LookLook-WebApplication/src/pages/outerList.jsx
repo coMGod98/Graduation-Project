@@ -36,12 +36,31 @@ function OuterList() {
       <div className={styles.productShowSection}>
         <div className={styles.categoryHeader}><h1>아우터</h1></div>
         <div className={styles.categoryWrap}>
-          <Link to="/outerList/301"><div>패딩</div></Link>
-          <Link to="/outerList/302"><div>가디건</div></Link>
-          <Link to="/outerList/303"><div>집업</div></Link>
-          <Link to="/outerList/304"><div>코트</div></Link>
-          <Link to="/outerList/305"><div>파카</div></Link>
-          <Link to="/outerList/306"><div style={{borderRight:'0'}}>자켓</div></Link>
+          {cate === "301"
+              ? <Link to="/outerList/301"><div style={{color:'#1d86da'}}>패딩</div></Link>
+              : <Link to="/outerList/301"><div>패딩</div></Link>
+          }
+          {cate === "302"
+              ? <Link to="/outerList/302"><div style={{color:'#1d86da'}}>가디건</div></Link>
+              : <Link to="/outerList/302"><div>가디건</div></Link>
+          }
+          {cate === "303"
+              ? <Link to="/outerList/303"><div style={{color:'#1d86da'}}>집업</div></Link>
+              : <Link to="/outerList/303"><div>집업</div></Link>
+          }
+          {cate === "304"
+              ? <Link to="/outerList/304"><div style={{color:'#1d86da'}}>코트</div></Link>
+              : <Link to="/outerList/304"><div>코트</div></Link>
+          }
+          {cate === "305"
+              ? <Link to="/outerList/305"><div style={{color:'#1d86da'}}>파카</div></Link>
+              : <Link to="/outerList/305"><div>파카</div></Link>
+          }
+          {cate === "306"
+              ? <Link to="/outerList/306"><div style={{color:'#1d86da', borderRight:'0'}}>자켓</div></Link>
+              : <Link to="/outerList/306"><div style={{borderRight:'0'}}>자켓</div></Link>
+          }
+
         </div>
 
         <ItemList list={currentProds}/>

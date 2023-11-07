@@ -6,7 +6,7 @@ function CartItem({list, num}) {
 
     const deleteItemClick = () => {
 
-        const accessToken = localStorage.getItem("accessToken");
+        const accessToken = sessionStorage.getItem("accessToken");
         fetch(`/cart/${list.cartItemId}`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
