@@ -36,8 +36,10 @@ public class FileHandler {
             // 현재 디렉토리
             File currentDirectory = new File(System.getProperty("user.dir"));
 
+            String test = "LookLook-SpringApplication" + File.separator + "demo" + File.separator + "src" +File.separator
+                    + "main" + File.separator+"resources" + File.separator+"static" +File.separator +"img";
             // 타깃 디렉토리로 이동
-            File targetDirectory = new File(currentDirectory, "LookLook-SpringApplication/demo/src/main/resources/static/img");
+            File targetDirectory = new File(currentDirectory, test);
 
             String targetAbsolutePath = targetDirectory.getAbsolutePath()+ File.separator + pid + File.separator + "main";
 
@@ -59,9 +61,9 @@ public class FileHandler {
 
             // 확장자명이 존재하지 않을 경우 처리 x
             if(!ObjectUtils.isEmpty(contentType)) {
-                if(contentType.contains("image/jpeg"))
+                if(contentType.contains("image"+File.separator+"jpeg"))
                     originalFileExtension = ".jpg";
-                else if(contentType.contains("image/png"))
+                else if(contentType.contains("image"+File.separator+"png"))
                     originalFileExtension = ".png";
             }
 
@@ -106,7 +108,10 @@ public class FileHandler {
             File currentDirectory = new File(System.getProperty("user.dir"));
 
             // 타깃 디렉토리로 이동
-            File targetDirectory = new File(currentDirectory, "LookLook-SpringApplication/demo/src/main/resources/static/img");
+            String test = "LookLook-SpringApplication" + File.separator + "demo" + File.separator + "src" +File.separator
+                    + "main" + File.separator+"resources" + File.separator+"static" +File.separator +"img";
+            // 타깃 디렉토리로 이동
+            File targetDirectory = new File(currentDirectory, test);
 
             String targetAbsolutePath = targetDirectory.getAbsolutePath()+ File.separator + pid + File.separator + "detailed";
 
@@ -128,9 +133,9 @@ public class FileHandler {
 
             // 확장자명이 존재하지 않을 경우 처리 x
             if(!ObjectUtils.isEmpty(contentType)) {
-                if(contentType.contains("image/jpeg"))
+                if(contentType.contains("image"+File.separator+"jpeg"))
                     originalFileExtension = ".jpg";
-                else if(contentType.contains("image/png"))
+                else if(contentType.contains("image"+File.separator+"png"))
                     originalFileExtension = ".png";
             }
 

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +38,7 @@ public class UserItemService {
             ItemImg main = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.main);
             if (main != null) {
                 String originalPath = main.getFilePath();
-                String extractedPath = originalPath.substring(originalPath.indexOf("/img"));
+                String extractedPath = originalPath.substring(originalPath.indexOf(File.separator+"img"));
                 mainImgUrl.add(extractedPath);
             } else {
                 // 해당 상품 이미지가 없을 때 메세지 설정
@@ -47,7 +48,7 @@ public class UserItemService {
             ItemImg detailed = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.detailed);
             if (detailed != null) {
                 String detailedOriginalPath = detailed.getFilePath();
-                String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf("/img"));
+                String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf(File.separator+"img"));
                 detailedImgUrl.add(detailedExtractedPath);
             } else {
                 // 해당 상품 이미지가 없을 때 메세지 설정
@@ -99,7 +100,7 @@ public class UserItemService {
             ItemImg main = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.main);
             if (main != null) {
                 String originalPath = main.getFilePath();
-                String extractedPath = originalPath.substring(originalPath.indexOf("/img"));
+                String extractedPath = originalPath.substring(originalPath.indexOf(File.separator+"img"));
                 result.setMainImgUrl(extractedPath);
             }else {
                 result.setMainImgUrl("상품 이미지가 없습니다");
@@ -108,7 +109,7 @@ public class UserItemService {
             ItemImg detailed = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.detailed);
             if (detailed != null) {
                 String detailedOriginalPath = detailed.getFilePath();
-                String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf("/img"));
+                String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf(File.separator+"img"));
                 result.setDetailedImgsUrl(detailedExtractedPath);
 
             } else {
@@ -136,7 +137,7 @@ public class UserItemService {
             ItemImg main = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.main);
             if (main != null) {
                 String originalPath = main.getFilePath();
-                String extractedPath = originalPath.substring(originalPath.indexOf("/img"));
+                String extractedPath = originalPath.substring(originalPath.indexOf(File.separator+"img"));
                 mainImgUrl.add(extractedPath);
             } else {
                 // 해당 상품 이미지가 없을 때 메세지 설정
@@ -145,7 +146,7 @@ public class UserItemService {
             ItemImg detailed = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.detailed);
             if (detailed != null) {
                 String detailedOriginalPath = detailed.getFilePath();
-                String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf("/img"));
+                String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf(File.separator+"img"));
                 detailedImgUrl.add(detailedExtractedPath);
             } else {
                 // 해당 상품 이미지가 없을 때 메세지 설정
