@@ -61,6 +61,7 @@ function Login() {
               sessionStorage.setItem('accessToken', accessToken);
 
               console.log("세션스토리지에 토큰 저장: ", accessToken);
+              sessionStorage.setItem("uid", res.uid);
 
               return fetch('/admin_chk', {
                 headers: {

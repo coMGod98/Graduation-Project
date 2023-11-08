@@ -17,7 +17,11 @@ function OuterList() {
   const prodsPerPage = 12;
 
   useEffect(() => {
-    fetch(`/category/${cate}`, {})
+    fetch(`/category/${cate}`, {
+        // headers: {
+        //     'Content-Type': 'multipart/form-data',
+        // }
+    })
         .then(res => res.json())
         .then(res => {
           console.log("카테고리별 상품 목록: ", res);
@@ -29,6 +33,7 @@ function OuterList() {
   const firstProdIndex = (currentPage - 1) * prodsPerPage;
   const lastProdIndex = firstProdIndex + prodsPerPage;
   const currentProds = prods.slice(firstProdIndex, lastProdIndex);
+  //   const currentProds = [];
 
   return (
       <>

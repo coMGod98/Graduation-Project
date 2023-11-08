@@ -12,6 +12,20 @@ import ChatBotModule from "./chatBotModule";
 
 function Header() {
 
+  const [inSearch, setInSearch] = useState("");
+
+  const searchInputChange = (e) => {
+    setInSearch(e.target.value);
+  }
+  const goSearchResult = (e) => {
+    if (inSearch === "" || inSearch === null) {
+      alert("검색어를 입력해주세요.");
+    } else {
+      navigate(`/searchResult/${inSearch}`);
+    }
+    e.preventDefault();
+  }
+
   const accessToken = sessionStorage.getItem("accessToken");
   const [isStorageNull, setIsStorageNull] = useState(true);
 
@@ -95,15 +109,17 @@ function Header() {
             <img src={require("../images/looklook_logo.png")} alt="logo"/>
           </Link>
         </div>
-        <div className={styles.inputSection}>
-          <input type="text" placeholder="상품을 검색해보세요!" />
-          <Link to="/searchResult">
-            <button className={styles.searchBtn}>
+
+          {/*검색*/}
+          <form onSubmit={(e) => goSearchResult(e)} className={styles.inputSection}>
+            <input onChange={(e) => searchInputChange(e)} type="text" placeholder="상품을 검색해보세요!" />
+            <button type="submit" className={styles.searchBtn}>
               <img src={require("../images/search_white.png")} alt="search_button" />
             </button>
-          </Link>
+          </form>
 
-        </div>
+
+
         <div className={styles.menuWrap}>
           <div className={styles.menu}>
             {/* 전체 카테고리 */}

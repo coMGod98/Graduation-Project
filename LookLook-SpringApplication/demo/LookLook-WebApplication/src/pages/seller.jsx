@@ -25,8 +25,8 @@ function Seller() {
     const [values, setValues] = useState({
         inputPrName: "", inputPrPrice: "", inputPrStock: 1, inputPrGender: "",
         inputPrDetail: ""})
-    const [mainImgUrl, setMainImgUrl] = useState(null);   //상품 대표 이미지
-    const [detailedImgsUrl, setDetailedImgsUrl] = useState([]); //상품 상세 이미지
+    const [mainImgUrl, setMainImgUrl] = useState();   //상품 대표 이미지
+    const [detailedImgsUrl, setDetailedImgsUrl] = useState(); //상품 상세 이미지
 
 
 
@@ -71,9 +71,9 @@ function Seller() {
         setMainImgUrl(e.target.files[0]);
     }
     const HandleChangeDetailImg = e => {
-        const tmp = [...detailedImgsUrl];
-        tmp[0] = e.target.files[0];
-        setDetailedImgsUrl(tmp);
+        // const tmp = [];
+        // tmp.push(e.target.files[0]);
+        setDetailedImgsUrl(e.target.files[0]);
         // setDetailedImgsUrl[0] = e.target.files[0];
     }
 
@@ -128,7 +128,7 @@ function Seller() {
         const accessToken = sessionStorage.getItem("accessToken");
         e.preventDefault();
 
-        const jsonDatas = {
+        const jsonDatas = JSON.stringify({
             uid: sellerInfo.uid,
             itemName: values.inputPrName,
             price: values.inputPrPrice,
@@ -138,11 +138,16 @@ function Seller() {
             size: sizeField,
             color: colorField,
             category: lowCategory,
-        }
+        });
+
+        const newBlob = new Blob([jsonDatas], {type: 'application/json'})
+
+        // const newBlob2 = new Blob([mainImgUrl], {type: 'multipart/form-data'})
+        // const newBlob3 = new Blob([detailedImgsUrl], {type: 'multipart/form-data'})
 
         const formData = new FormData();
 
-        formData.append("itemRegRequestDto", JSON.stringify(jsonDatas));
+        formData.append("itemRegRequestDto", newBlob);
         formData.append("main", mainImgUrl);
         // detailedImgsUrl.forEach((item, idx) => {
         //     formData.append(`detailed`, item.files[0]);

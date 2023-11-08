@@ -17,7 +17,12 @@ function WomanList() {
     const prodsPerPage = 12;
 
     useEffect(() => {
-        fetch(`/category/${cate}`, {})
+        fetch(`/category/${cate}`, {
+            // responseType: "blob",
+            // headers: {
+            //     "Content-Type": "application/json",
+            // }
+        })
             .then(res => res.json())
             .then(res => {
                 console.log("카테고리별 상품 목록: ", res);
@@ -29,6 +34,7 @@ function WomanList() {
     const firstProdIndex = (currentPage - 1) * prodsPerPage;
     const lastProdIndex = firstProdIndex + prodsPerPage;
     const currentPosts = prods.slice(firstProdIndex, lastProdIndex);
+    // const currentPosts = [];
 
     return (
         <>

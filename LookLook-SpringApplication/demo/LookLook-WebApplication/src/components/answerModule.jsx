@@ -12,7 +12,7 @@ function AnswerModule({quest}) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                uid: uid,
+                uid: uid,        //특정 사용자 질문을 db에 저장하는 데 쓰임
                 content: quest,
             })
         })
