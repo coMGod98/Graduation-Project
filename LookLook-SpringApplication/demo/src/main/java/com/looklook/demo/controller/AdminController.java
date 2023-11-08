@@ -6,6 +6,7 @@ import com.looklook.demo.dto.UserResponseDto;
 import com.looklook.demo.service.AdminServiceAboutItem;
 import com.looklook.demo.service.AdminServiceAboutUser;
 import com.looklook.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -21,6 +22,7 @@ public class AdminController {
     private final AdminServiceAboutItem adminServiceAboutItem;
     private final UserService userService;
 
+    @Autowired
     public AdminController(AdminServiceAboutUser adminServiceAboutUser, AdminServiceAboutItem adminServiceAboutItem, UserService userService) {
         this.adminServiceAboutUser = adminServiceAboutUser;
         this.adminServiceAboutItem = adminServiceAboutItem;
