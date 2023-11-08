@@ -60,12 +60,12 @@ public class UserItemService {
                 .map(item -> item.toItemDto(item, null, null))
                 .collect(Collectors.toList());
 
-        for (ItemDto dto : results) {
-            for (String mainUrl : mainImgUrl) {
-                dto.setMainImgUrl(mainUrl);
+        for (int i = 0; i < results.size(); i++) {
+            if (i < mainImgUrl.size()) {
+                results.get(i).setMainImgUrl(mainImgUrl.get(i));
             }
-            for (String detailedUrl : detailedImgUrl) {
-                dto.setDetailedImgsUrl(detailedUrl);
+            if (i < detailedImgUrl.size()) {
+                results.get(i).setDetailedImgsUrl(detailedImgUrl.get(i));
             }
         }
 
@@ -154,14 +154,15 @@ public class UserItemService {
             }
         }
 
-        for (ItemDto dto : results) {
-            for (String mainUrl : mainImgUrl) {
-                dto.setMainImgUrl(mainUrl);
+        for (int i = 0; i < results.size(); i++) {
+            if (i < mainImgUrl.size()) {
+                results.get(i).setMainImgUrl(mainImgUrl.get(i));
             }
-            for (String detailedUrl : detailedImgUrl) {
-                dto.setDetailedImgsUrl(detailedUrl);
+            if (i < detailedImgUrl.size()) {
+                results.get(i).setDetailedImgsUrl(detailedImgUrl.get(i));
             }
         }
+
         return results;
     }
 
