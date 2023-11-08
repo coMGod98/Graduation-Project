@@ -1,5 +1,6 @@
 package com.looklook.demo.controller;
 
+import com.looklook.demo.dto.ItemDto;
 import com.looklook.demo.dto.UserRequestDto;
 import com.looklook.demo.dto.UserResponseDto;
 import com.looklook.demo.service.AdminServiceAboutItem;
@@ -67,8 +68,8 @@ public class AdminController {
     //등록된 상품 전체 조회
     @Secured("ROLE_ADMIN")
     @GetMapping("/admin/items")
-    public ResponseEntity<List<Item>> getAllItems() {
-        List<Item> items = adminServiceAboutItem.getAllItems();
+    public ResponseEntity<List<ItemDto>> getAllItems() {
+        List<ItemDto> items = adminServiceAboutItem.getAllItems();
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 }
