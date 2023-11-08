@@ -49,9 +49,8 @@ public class UserItemController {
     //상품 검색
     //한글자만 쳐도 해당 글자가 있는 상품명 나오게 변경
     @GetMapping("/product/search/{itemName}")
-    public ResponseEntity<List<Item>> searchProduct(@PathVariable String itemName) {
-        List<Item> items = itemRepository.findByItemName(itemName);
-        return new ResponseEntity<>(items, HttpStatus.OK);
+    public ResponseEntity<List<ItemDto>> searchProduct(@PathVariable String itemName) {
+        List<ItemDto> dtos = userItemService.searchItem(itemName);
+        return ResponseEntity.ok(dtos);
     }
-
 }

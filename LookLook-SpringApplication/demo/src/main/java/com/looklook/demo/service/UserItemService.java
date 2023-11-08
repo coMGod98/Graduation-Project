@@ -35,15 +35,24 @@ public class UserItemService {
 
         for (Item item : items) {
             ItemImg main = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.main);
-            String originalPath = main.getFilePath();
-            String extractedPath = originalPath.substring(originalPath.indexOf("/img"));
-            mainImgUrl.add(extractedPath);
+            if (main != null) {
+                String originalPath = main.getFilePath();
+                String extractedPath = originalPath.substring(originalPath.indexOf("/img"));
+                mainImgUrl.add(extractedPath);
+            } else {
+                // 해당 상품 이미지가 없을 때 메세지 설정
+                mainImgUrl.add("해당 상품 이미지가 없습니다");
+            }
 
             ItemImg detailed = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.detailed);
-            System.out.println(detailed.getRepresent());
-            String detailedOriginalPath = detailed.getFilePath();
-            String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf("/img"));
-            detailedImgUrl.add(detailedExtractedPath);
+            if (detailed != null) {
+                String detailedOriginalPath = detailed.getFilePath();
+                String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf("/img"));
+                detailedImgUrl.add(detailedExtractedPath);
+            } else {
+                // 해당 상품 이미지가 없을 때 메세지 설정
+                detailedImgUrl.add("해당 상품 이미지가 없습니다");
+            }
         }
 
         List<ItemDto> results = items.stream()
@@ -88,14 +97,23 @@ public class UserItemService {
             ItemDto result = item.toItemDto(item, sizeResult, colorResult);
 
             ItemImg main = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.main);
-            String originalPath = main.getFilePath();
-            String extractedPath = originalPath.substring(originalPath.indexOf("/img"));
-            result.setMainImgUrl(extractedPath);
+            if (main != null) {
+                String originalPath = main.getFilePath();
+                String extractedPath = originalPath.substring(originalPath.indexOf("/img"));
+                result.setMainImgUrl(extractedPath);
+            }else {
+                result.setMainImgUrl("상품 이미지가 없습니다");
+            }
 
             ItemImg detailed = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.detailed);
-            String detailedOriginalPath = detailed.getFilePath();
-            String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf("/img"));
-            result.setDetailedImgsUrl(detailedExtractedPath);
+            if (detailed != null) {
+                String detailedOriginalPath = detailed.getFilePath();
+                String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf("/img"));
+                result.setDetailedImgsUrl(detailedExtractedPath);
+
+            } else {
+                result.setDetailedImgsUrl("상품 이미지가 없습니다");
+            }
 
             return result;
         }
@@ -103,6 +121,49 @@ public class UserItemService {
             throw new RuntimeException("상품 정보 없습니다.");
         }
     }
+
+    // 검색어로 조회
+    public List<ItemDto> searchItem(String itemName) {
+        List<Item> items = itemRepository.findByItemName(itemName);
+        List<ItemDto> results = items.stream()
+                .map(item -> item.toItemDto(item, null, null))
+                .collect(Collectors.toList());
+
+        List<String> mainImgUrl = new ArrayList<>();
+        List<String> detailedImgUrl = new ArrayList<>();
+
+        for (Item item : items) {
+            ItemImg main = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.main);
+            if (main != null) {
+                String originalPath = main.getFilePath();
+                String extractedPath = originalPath.substring(originalPath.indexOf("/img"));
+                mainImgUrl.add(extractedPath);
+            } else {
+                // 해당 상품 이미지가 없을 때 메세지 설정
+                mainImgUrl.add("해당 상품 이미지가 없습니다");
+            }
+            ItemImg detailed = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.detailed);
+            if (detailed != null) {
+                String detailedOriginalPath = detailed.getFilePath();
+                String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf("/img"));
+                detailedImgUrl.add(detailedExtractedPath);
+            } else {
+                // 해당 상품 이미지가 없을 때 메세지 설정
+                detailedImgUrl.add("해당 상품 이미지가 없습니다");
+            }
+        }
+
+        for (ItemDto dto : results) {
+            for (String mainUrl : mainImgUrl) {
+                dto.setMainImgUrl(mainUrl);
+            }
+            for (String detailedUrl : detailedImgUrl) {
+                dto.setDetailedImgsUrl(detailedUrl);
+            }
+        }
+        return results;
+    }
+
 
     // 상품별 보유 사이즈 조회
     public Optional<Item> getItemSizesByPid(Long pid) {
