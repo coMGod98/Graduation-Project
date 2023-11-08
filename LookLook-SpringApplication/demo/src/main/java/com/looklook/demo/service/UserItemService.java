@@ -35,19 +35,15 @@ public class UserItemService {
 
         for (Item item : items) {
             ItemImg main = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.main);
-
             String originalPath = main.getFilePath();
             String extractedPath = originalPath.substring(originalPath.indexOf("/img"));
             mainImgUrl.add(extractedPath);
 
-            List<ItemImg> detailed = itemImgRepository.findAllByItemIdAndRepresent(item.getId(), ImgStatus.detailed);
-            List<String> detailedUrlList = new ArrayList<>();
-            for (ItemImg img : detailed) {
-                String detailedOriginalPath = img.getFilePath();
-                String detailedExtractedPath = originalPath.substring(detailedOriginalPath.indexOf("/img"));
-                detailedUrlList.add(detailedExtractedPath);
-            }
-            detailedImgUrl.add(String.valueOf(detailedUrlList));
+            ItemImg detailed = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.detailed);
+            System.out.println(detailed.getRepresent());
+            String detailedOriginalPath = detailed.getFilePath();
+            String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf("/img"));
+            detailedImgUrl.add(detailedExtractedPath);
         }
 
         List<ItemDto> results = items.stream()
@@ -59,7 +55,7 @@ public class UserItemService {
                 dto.setMainImgUrl(mainUrl);
             }
             for (String detailedUrl : detailedImgUrl) {
-                dto.setDetailedImgsUrl(Collections.singletonList(detailedUrl));
+                dto.setDetailedImgsUrl(detailedUrl);
             }
         }
 
@@ -92,21 +88,14 @@ public class UserItemService {
             ItemDto result = item.toItemDto(item, sizeResult, colorResult);
 
             ItemImg main = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.main);
-
             String originalPath = main.getFilePath();
             String extractedPath = originalPath.substring(originalPath.indexOf("/img"));
             result.setMainImgUrl(extractedPath);
 
-            List<String> detailedImgUrl = new ArrayList<>();
-
-            List<ItemImg> detailed = itemImgRepository.findAllByItemIdAndRepresent(item.getId(), ImgStatus.detailed);
-
-            for (ItemImg img : detailed) {
-                String detailedOriginalPath = img.getFilePath();
-                String detailedExtractedPath = originalPath.substring(detailedOriginalPath.indexOf("/img"));
-                detailedImgUrl.add(detailedExtractedPath);
-            }
-            result.setDetailedImgsUrl(detailedImgUrl);
+            ItemImg detailed = itemImgRepository.findByItemIdAndRepresent(item.getId(), ImgStatus.detailed);
+            String detailedOriginalPath = detailed.getFilePath();
+            String detailedExtractedPath = detailedOriginalPath.substring(detailedOriginalPath.indexOf("/img"));
+            result.setDetailedImgsUrl(detailedExtractedPath);
 
             return result;
         }

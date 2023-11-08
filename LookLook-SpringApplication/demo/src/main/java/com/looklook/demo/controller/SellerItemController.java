@@ -35,9 +35,9 @@ public class SellerItemController {
     // 상품 등록
     @PostMapping(value = "/seller/items/new")
     public ResponseEntity<String> requestItemRegistration(
-            @RequestPart ItemRegRequestDto itemRegRequestDto,
-            @RequestPart MultipartFile main,
-            @RequestPart List<MultipartFile> detailed
+            @RequestPart(name = "itemRegRequestDto") ItemRegRequestDto itemRegRequestDto,
+            @RequestPart(name = "main") MultipartFile main,
+            @RequestPart(name = "detailed") MultipartFile detailed
     ) throws Exception {
         try {
             sellerItemService.addNewItem(itemRegRequestDto, main, detailed);

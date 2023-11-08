@@ -23,5 +23,5 @@ public class ItemDto {
     private String itemDetail;
     private String mainImgUrl;
 
-    private List<String> detailedImgsUrl;
+    private String detailedImgsUrl;
 }
