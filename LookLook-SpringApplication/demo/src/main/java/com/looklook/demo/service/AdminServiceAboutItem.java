@@ -25,7 +25,7 @@ public class AdminServiceAboutItem {
         List<ItemDto> results = items.stream()
                 .map(item -> {
                     ItemDto itemDto = item.toItemDto(item, null, null);
-                    itemDto.setUid(item.getUser().getId());
+                    itemDto.setUserId(item.getUser().getUserId());
                     return itemDto;
                 })
                 .collect(Collectors.toList());
