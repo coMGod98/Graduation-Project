@@ -48,10 +48,23 @@ public class UserItemController {
 
     //상품 검색
     //한글자만 쳐도 해당 글자가 있는 상품명 나오게 변경
-    @GetMapping("/product/search")
-    public ResponseEntity<List<Item>> searchProduct(@RequestParam("itemName") String itemName) {
-        List<Item> items = itemRepository.findByItemName(itemName);
-        return new ResponseEntity<>(items, HttpStatus.OK);
+    @GetMapping("/product/search/{itemName}")
+    public ResponseEntity<List<ItemDto>> searchProduct(@PathVariable String itemName) {
+        List<ItemDto> dtos = userItemService.searchItem(itemName);
+        return ResponseEntity.ok(dtos);
     }
 
+    // 메인 페이지 인기 상품 조회
+    @GetMapping("/recommended-products")
+    public ResponseEntity<List<ItemDto>> recommendProducts() {
+        List<ItemDto> dtos = userItemService.showRecommendedProducts();
+        return ResponseEntity.ok(dtos);
+    }
+
+    // 메인 페이지 신상품 조회
+    @GetMapping("/new-products")
+    public ResponseEntity<List<ItemDto>> newProducts() {
+        List<ItemDto> dtos = userItemService.showNewProducts();
+        return ResponseEntity.ok(dtos);
+    }
 }

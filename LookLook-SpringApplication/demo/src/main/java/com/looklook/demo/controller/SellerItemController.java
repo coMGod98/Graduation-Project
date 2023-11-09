@@ -35,9 +35,9 @@ public class SellerItemController {
     // 상품 등록
     @PostMapping(value = "/seller/items/new")
     public ResponseEntity<String> requestItemRegistration(
-            @RequestPart ItemRegRequestDto itemRegRequestDto,
-            @RequestPart MultipartFile main,
-            @RequestPart List<MultipartFile> detailed
+            @RequestPart(name = "itemRegRequestDto") ItemRegRequestDto itemRegRequestDto,
+            @RequestPart(name = "main") MultipartFile main,
+            @RequestPart(name = "detailed") MultipartFile detailed
     ) throws Exception {
         try {
             sellerItemService.addNewItem(itemRegRequestDto, main, detailed);
@@ -50,15 +50,15 @@ public class SellerItemController {
 
 
 //     상품 수정 (삭제)
-    @PostMapping(value = "/seller/item/{pid}")
-    public ResponseEntity<String> updateItem(
-            @PathVariable("pid") String pid,
-            @RequestBody ItemRegRequestDto itemRegRequestDto
-    ) throws Exception {
-
-        String result = sellerItemService.updateItem(itemRegRequestDto, Long.valueOf(pid));
-        return ResponseEntity.ok(result);
-    }
+//    @PostMapping(value = "/seller/item/{pid}")
+//    public ResponseEntity<String> updateItem(
+//            @PathVariable("pid") String pid,
+//            @RequestBody ItemRegRequestDto itemRegRequestDto
+//    ) throws Exception {
+//
+//        String result = sellerItemService.updateItem(itemRegRequestDto, Long.valueOf(pid));
+//        return ResponseEntity.ok(result);
+//    }
 
 
     // 상품 삭제 (배송이 아직 완료되지 않은 상품이 있는 경우, 상품 삭제 불가능)

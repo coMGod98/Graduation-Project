@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.File;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -274,6 +275,8 @@ public class OrderService {
         Optional<LookLookUser> optionalUser = userRepository.findById(uid);
         List<OrderInfoDto> orderInfoDtos = new ArrayList<>();
 
+
+
         // 주문정보와 주문 상품 정보를 하나의 dto로 구성하고, 그걸 리스트로 만들기
         if (optionalUser.isPresent()) {
             List<Order> orders = orderRepository.findAllByUserId(optionalUser.get().getId());
@@ -283,6 +286,7 @@ public class OrderService {
 
                 List<OrderItemInfoDto> orderItemInfoDtos = new ArrayList<>();
                 List<OrderItem> orderItems = orderItemRepository.findAllByOrderId(order.getId());
+                List<String> mainImgUrl = new ArrayList<>();
                 for (OrderItem orderItem : orderItems) {
                     OrderItemInfoDto orderItemInfoDto = new OrderItemInfoDto();
 
@@ -296,9 +300,27 @@ public class OrderService {
                         orderItemInfoDto.setItemName(optionalItem.get().getItemName());
                         orderItemInfoDto.setPrice(optionalItem.get().getPrice());
                         orderItemInfoDto.setPid(optionalItem.get().getId());
+
+                        ItemImg main = itemImgRepository.findByItemIdAndRepresent(optionalItem.get().getId(), ImgStatus.main);
+
+                        if (main != null) {
+                            String originalPath = main.getFilePath();
+                            String extractedPath = originalPath.substring(originalPath.indexOf(File.separator + "img"));
+                            mainImgUrl.add(extractedPath);
+                        } else {
+                            // 해당 상품 이미지가 없을 때 메세지 설정
+                            mainImgUrl.add("해당 상품 이미지가 없습니다");
+                        }
                     }
+
                     orderItemInfoDtos.add(orderItemInfoDto);
 
+                }
+
+                for (int i = 0; i < orderItemInfoDtos.size(); i++) {
+                    if (i < mainImgUrl.size()) {
+                        orderItemInfoDtos.get(i).setMainImgUrl(mainImgUrl.get(i));
+                    }
                 }
                 orderInfoDto.setOrderiteminfo(orderItemInfoDtos);
                 orderInfoDtos.add(orderInfoDto);

@@ -9,7 +9,7 @@
 
 .menuWrap {
   width: 220px;
-  height: 700px;
+  min-height: 700px;
   border-right: 1px solid rgb(180, 180, 180);
 }
 
@@ -110,8 +110,10 @@
   font-weight: bold;
   margin-bottom: 20px;
 }
-
-
+.orderHisItemsWrap {
+  height: 450px;
+  overflow: auto;
+}
 
 
 .orderTagDiv {
@@ -120,18 +122,18 @@
   padding: 10px;
   border-top: 1px solid rgb(180, 180, 180);
   border-bottom: 1px solid rgb(180, 180, 180);
-  background-color: aliceblue;
+  background-color: #e8f7ff;
   font-size: 14px;
   font-weight: bold;
 }
 .orderTagDiv .orderDateTag {
-  width: 13%;
+  width: 12%;
 }
 .orderTagDiv .orderNumTag {
-  width: 14%;
+  width: 12%;
 }
 .orderTagDiv .orderProdTag {
-  width: 45%;
+  width: 48%;
   display: flex;
   align-items: center;
 }

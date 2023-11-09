@@ -29,7 +29,7 @@ public class SellerItemService {
     // 상품 등록 (일단 상품 등록 요청이 아니라 바로 상품 등록되도록)
     // 이미지 없는 버전
     @Transactional
-    public void addNewItem(ItemRegRequestDto dto, MultipartFile main, List<MultipartFile> detailed) throws Exception {
+    public void addNewItem(ItemRegRequestDto dto, MultipartFile main, MultipartFile detailed) throws Exception {
         // uid를 사용하여 연관 엔티티 (예: User)를 찾아옴
         Long uid = dto.getUid();
         Optional<LookLookUser> user = userRepository.findById(uid);

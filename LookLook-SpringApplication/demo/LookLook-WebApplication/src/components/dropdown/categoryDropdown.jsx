@@ -44,50 +44,50 @@ function CategoryDropdown() {
   ]
 
   return (
-    <div className={styles.dropdownSection}>
+      <div className={styles.dropdownSection}>
 
-      <div>
-        <p className={styles.cateTag}>여성</p>
-        {categorysWoman && categorysWoman.map((cate, id) => (
-          <Link key={id} to={`/womanList/${cate.cateID}`}>
-              <p>{cate.cateName}</p>
-          </Link>
-        ))}
-      </div>
-      <div>
-        <p className={styles.cateTag}>남성</p>
-        {categorysMan && categorysMan.map((cate, id) => (
-          <Link key={id} to={`/manList/${cate.cateID}`}>
-              <p>{cate.cateName}</p>
-          </Link>
-        ))}
-      </div>
-      <div>
-        <p className={styles.cateTag}>아우터</p>
-        {categorysOuter && categorysOuter.map((cate, id) => (
-          <Link key={id} to={`/outerList/${cate.cateID}`}>
-              <p>{cate.cateName}</p>
-          </Link>
-        ))}
-      </div>
-      <div>
-        <p className={styles.cateTag}>신발</p>
-        {categorysShoes && categorysShoes.map((cate, id) => (
-          <Link key={id} to={`/shoesList/${cate.cateID}`}>
-              <p>{cate.cateName}</p>
-          </Link>
-        ))}
-      </div>
-      <div>
-        <p className={styles.cateTag}>패션소품</p>
-        {categorysFashion && categorysFashion.map((cate, id) => (
-          <Link key={id} to={`/fashionList/${cate.cateID}`}>
-              <p>{cate.cateName}</p>
-          </Link>
-        ))}
-      </div>
+        <div>
+          <p className={styles.cateTag}>여성</p>
+          {categorysWoman && categorysWoman.map((cate, id) => (
+              <Link key={id} to={`/womanList/${cate.cateID}`}>
+                <p>{cate.cateName}</p>
+              </Link>
+          ))}
+        </div>
+        <div>
+          <p className={styles.cateTag}>남성</p>
+          {categorysMan && categorysMan.map((cate, id) => (
+              <Link key={id} to={`/manList/${cate.cateID}`}>
+                <p>{cate.cateName}</p>
+              </Link>
+          ))}
+        </div>
+        <div>
+          <p className={styles.cateTag}>아우터</p>
+          {categorysOuter && categorysOuter.map((cate, id) => (
+              <Link key={id} to={`/outerList/${cate.cateID}`}>
+                <p>{cate.cateName}</p>
+              </Link>
+          ))}
+        </div>
+        <div>
+          <p className={styles.cateTag}>신발</p>
+          {categorysShoes && categorysShoes.map((cate, id) => (
+              <Link key={id} to={`/shoesList/${cate.cateID}`}>
+                <p>{cate.cateName}</p>
+              </Link>
+          ))}
+        </div>
+        <div>
+          <p className={styles.cateTag}>패션소품</p>
+          {categorysFashion && categorysFashion.map((cate, id) => (
+              <Link key={id} to={`/fashionList/${cate.cateID}`}>
+                <p>{cate.cateName}</p>
+              </Link>
+          ))}
+        </div>
 
-    </div>
+      </div>
   );
 }
 

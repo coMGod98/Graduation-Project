@@ -13,17 +13,17 @@ function OuterDropdown() {
   ]
 
   return (
-    <div className={styles.dropdownSection}>
-      {categorys && categorys.map((cate, id) => (
-        <div key={id}>
-          <Link to={`/outerList/${cate.cateID}`}>
-            <img src={require(`../../images/outer/${cate.cateID}.png`)} alt="outer_item"/>
-            <p>{cate.cateName}</p>
-          </Link>
-        </div>
-      ))}
+      <div className={styles.dropdownSection}>
+        {categorys && categorys.map((cate, id) => (
+            <div key={id}>
+              <Link to={`/outerList/${cate.cateID}`}>
+                <img src={require(`../../images/outer/${cate.cateID}.png`)} alt="outer_item"/>
+                <p>{cate.cateName}</p>
+              </Link>
+            </div>
+        ))}
 
-      {/* <div>
+        {/* <div>
         <img src={require("../../images/outer/302.png")} alt="outer2"/>
         <p>가디건</p>
       </div>
@@ -44,7 +44,7 @@ function OuterDropdown() {
         <p>자켓</p>
       </div> */}
 
-    </div>
+      </div>
   );
 }
 

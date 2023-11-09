@@ -13,11 +13,15 @@
   display: flex;
   align-items: center;
 }
-.cartItemTag2 img {
+.cartItemTag2 .imgWrap {
   border: 1px solid rgb(180, 180, 180);
   width: 60px;
   height: 60px;
   margin-right: 8px;
+}
+.cartItemTag2 .imgWrap img {
+  width: 100%;
+  height: 100%;
 }
 .cartItemTag3 {
   width: 15%;

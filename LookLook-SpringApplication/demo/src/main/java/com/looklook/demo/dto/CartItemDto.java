@@ -13,10 +13,7 @@ public class CartItemDto {
     private String color;
     private int count;
     private int price;
-
-
-    private String imgUrl;
-
+    private String mainImgUrl;
 }
 
 

@@ -45,12 +45,12 @@
     height: 230px;
     margin-top: 60px;
 }
- .section .wrap {
-     display: flex;
-     width: 280px;
-     padding: 20px;
-     align-items: center;
- }
+.section .wrap {
+    display: flex;
+    width: 280px;
+    padding: 20px;
+    align-items: center;
+}
 .section .wrap .tags{
     width: 70px;
     text-align: end;

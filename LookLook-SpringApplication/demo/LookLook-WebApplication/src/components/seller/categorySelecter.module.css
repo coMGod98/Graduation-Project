@@ -8,3 +8,11 @@
     margin-right: 7px;
     padding: 2px 10px;
 }
+.cateWrap button:hover {
+    border: 1px solid #1c65ea;
+    color: #1c65ea;
+}
+.cateWrap button:active {
+    border: 1px solid #1c65ea;
+    color: #1c65ea;
+}

@@ -68,7 +68,7 @@
 .sellerWorkSpace .workHeader {
     font-size: 19px;
     font-weight: bold;
-    margin-bottom: 10px
+    margin-bottom: 15px
 }
 
 .sellerWorkSpace .searchWrap {
@@ -93,6 +93,7 @@
     border: 1px solid #25324f;
     width: 1200px;
     height: 600px;
+    overflow: auto;
 }
 
 .sellerWorkSpace .deleteBtn {
@@ -110,11 +111,12 @@
 }
 
 
+
 .sellerWorkSpace .regiWrap {
     padding: 15px 15px;
     display: flex;
     width: 1200px;
-    background-color: #e7eff6;
+    background-color: #e5f1f8;
     margin-top: 15px;
     align-items: center;
     border-radius: 10px;

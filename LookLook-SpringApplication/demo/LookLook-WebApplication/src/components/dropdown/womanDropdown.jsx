@@ -13,16 +13,16 @@ function WomanDropdown() {
   ]
 
   return (
-    <div className={styles.dropdownSection}>
-      {categorys && categorys.map((cate, id) => (
-        <div key={id}>
-          <Link to={`/womanList/${cate.cateID}`}>
-            <img src={require(`../../images/woman/${cate.cateID}.png`)} alt="outer_item"/>
-            <p>{cate.cateName}</p>
-          </Link>
-        </div>
-      ))}
-    </div>
+      <div className={styles.dropdownSection}>
+        {categorys && categorys.map((cate, id) => (
+            <div key={id}>
+              <Link to={`/womanList/${cate.cateID}`}>
+                <img src={require(`../../images/woman/${cate.cateID}.png`)} alt="outer_item"/>
+                <p>{cate.cateName}</p>
+              </Link>
+            </div>
+        ))}
+      </div>
   );
 }
 

@@ -3,38 +3,20 @@ import { createSlice } from "@reduxjs/toolkit";
 const orderInfoSlice = createSlice({
     name: "orderInfoItem",
     initialState: {
-        address: "",
-        orderItemPrice: 0,
         orderiteminfo: [],
         // orderiteminfo: [{
         //     color: "", count: 0, itemName: "", orderItemId: 0, pid: 0, price: 0, size: "",
         // }],
-        phoneNumber: "",
-        shipment_FEE: 0,
-        totalPrice: 0,
-        userName: "",
     },
     reducers: {
         setOrderInfo: (state, { payload }) => {
-            state.address = payload.oAddress;
-            state.orderItemPrice = payload.oItemPrice;
-            state.orderiteminfo = payload.oItemInfo;
-            state.phoneNumber = payload.oPhoneNumber;
-            state.shipment_FEE = payload.oShipment_FEE;
-            state.totalPrice = payload.oTotalPrice;
-            state.userName = payload.oUserName;
+            state.orderiteminfo = payload;
         },
         deleteOrderInfo: (state) => {
-            state.address = "";
-            state.orderItemPrice = 0;
             state.orderiteminfo = [];
             // state.orderiteminfo = [{
             // color: "", count: 0, itemName: "", orderItemId: 0, pid: 0, price: 0, size: "",
             // }];
-            state.phoneNumber = "";
-            state.shipment_FEE = 0;
-            state.totalPrice = 0;
-            state.userName = "";
         }
     },
 })

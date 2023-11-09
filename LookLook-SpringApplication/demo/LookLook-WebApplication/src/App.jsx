@@ -44,7 +44,7 @@ function Routing() {
         <Route path="/outerList/:cate" element={<OuterList />} />
         <Route path="/shoesList/:cate" element={<ShoesList />} />
         <Route path="/fashionList/:cate" element={<FashionList />} />
-        <Route path="/searchResult" element={<SearchResult />} />
+        <Route path="/searchResult/:keyword" element={<SearchResult />} />
 
         <Route path="/myPage/:menu" element={<MyPage />} />
 

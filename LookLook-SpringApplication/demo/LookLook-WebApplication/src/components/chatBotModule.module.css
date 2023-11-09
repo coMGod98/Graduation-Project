@@ -1,0 +1,28 @@
+.openBtn {
+    position: fixed;
+    z-index: 99;
+}
+.openBtn button {
+    position: fixed;
+    bottom: 40px;
+    right: 55px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50px;
+    font-size: 16px;
+    background-image: linear-gradient(130deg, #dbeffc 0%, #c0daf3 74%);
+    box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.2);
+}
+.openBtn button img {
+    width: 60px;
+    height: 60px;
+    margin-top: 8px;
+}
+
+.bot {
+    position: fixed;
+    right: 170px;
+    z-index: 99;
+    transition-property: bottom;
+    transition-duration: 0.2s;
+}

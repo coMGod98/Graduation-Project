@@ -6,9 +6,6 @@ import {Link} from "react-router-dom";
 import MyProductsList from "../components/seller/myProductsList";
 import MyProductsListTag from "../components/seller/myProductsListTag";
 
-import OrderManageList from "../components/seller/orderManageList";
-import OrderManageListTag from "../components/seller/orderManageListTag";
-
 import CategorySelecter from "../components/seller/categorySelecter";
 
 import CategoryRename from "../components/categoryRename";
@@ -19,10 +16,17 @@ function Seller() {
     const {menu} = useParams();
     const navigate = useNavigate();
 
+
+
+    //json 형식의 상품 정보들
     const [values, setValues] = useState({
         inputPrName: "", inputPrPrice: "", inputPrStock: 1, inputPrGender: "",
-        inputPrDetail: "", inputPrImage: "", inputPrDetailImage: ""
-    })
+        inputPrDetail: ""})
+    const [mainImgUrl, setMainImgUrl] = useState();   //상품 대표 이미지
+    const [detailedImgsUrl, setDetailedImgsUrl] = useState(); //상품 상세 이미지
+
+
+
     const [sizeField, setSizeField] = useState(['']);   //선택 사이즈
     const [colorField, setColorField] = useState(['']); //선택 색상
     const [inSize, setInSize] = useState(['']);
@@ -31,7 +35,7 @@ function Seller() {
     const [highCategory, setHighCategory] = useState(''); //선택 상위 카테고리
     const [lowCategory, setLowCategory] = useState(''); //선택 하위 카테고리
 
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = sessionStorage.getItem("accessToken");
     const [sellerInfo, setSellerInfo] = useState([]);
     const [sellerProds, setSellerProds] = useState([]);
     const [sellerSize, setSellerSize] = useState([[]]);
@@ -50,7 +54,7 @@ function Seller() {
 
     const logoutClick = () => {
         if (window.confirm("로그아웃 하시겠습니까?")) {
-            localStorage.removeItem("accessToken");
+            sessionStorage.removeItem("accessToken");
             navigate("/");
         }
     }
@@ -59,6 +63,15 @@ function Seller() {
             ...values,
             [e.target.name]: e.target.value,
         })
+    }
+    const HandleChangeImg = e => {
+        setMainImgUrl(e.target.files[0]);
+    }
+    const HandleChangeDetailImg = e => {
+        // const tmp = [];
+        // tmp.push(e.target.files[0]);
+        setDetailedImgsUrl(e.target.files[0]);
+        // setDetailedImgsUrl[0] = e.target.files[0];
     }
 
 
@@ -109,87 +122,131 @@ function Seller() {
 
     const regiSubmit = e => {
 
-        const accessToken = localStorage.getItem("accessToken");
+        const accessToken = sessionStorage.getItem("accessToken");
         e.preventDefault();
 
-        // 이미지 (파일명.확장자)만 추출
-        // let pos = values.inputPrImage.lastIndexOf("\\");
-        // let len = values.inputPrImage.length;
-        // let imageName = values.inputPrImage.substring(pos + 1, len);
-
-        if (lowCategory === '') {
-            alert("카테고리를 선택해주세요");
-            return null;
+        if ((values.inputPrGender === "FEMALE" && highCategory === "남성") ||
+            (values.inputPrGender === "MALE" && highCategory === "여성")) {
+            alert("선택하신 성별과 카테고리 성별이 일치하지 않습니다.");
         } else {
-            fetch('/seller/items/new', {
-                method: 'post',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Bearer ${accessToken}`,
-                },
-                body: JSON.stringify({
-                    uid: Number(sellerInfo.uid),
-                    itemName: values.inputPrName,
-                    price: Number(values.inputPrPrice),
-                    stock: Number(values.inputPrStock),
-                    pgender: values.inputPrGender,
-                    itemDetail: values.inputPrDetail,
-                    size: sizeField,
-                    color: colorField,
-                    category: lowCategory
+
+            const jsonDatas = JSON.stringify({
+                uid: sellerInfo.uid,
+                itemName: values.inputPrName,
+                price: values.inputPrPrice,
+                stock: values.inputPrStock,
+                pgender: values.inputPrGender,
+                itemDetail: values.inputPrDetail,
+                size: sizeField,
+                color: colorField,
+                category: lowCategory,
+            });
+
+            const newBlob = new Blob([jsonDatas], {type: 'application/json'})
+            const formData = new FormData();
+
+            formData.append("itemRegRequestDto", newBlob);
+            formData.append("main", mainImgUrl);
+            formData.append(`detailed`, detailedImgsUrl);
+
+            if (lowCategory === '') {
+                alert("카테고리를 선택해주세요");
+            } else {
+                fetch('/seller/items/new', {
+                    method: 'post',
+                    headers: {
+                        // "Content-Type": "application/json",
+                        // 'Content-Type': 'multipart/form-data',
+                        'Authorization': `Bearer ${accessToken}`,
+                    },
+                    body: formData,
                 })
+                    .then(res => {
+                        if (res.status === 200) {
+                            alert("상품 등록 성공");
+                            console.log("상품 등록을 완료했습니다.", res);
+
+                            for (let key of formData.keys()) {
+                                console.log("formData key: ", key);
+                            }
+                            for (let value of formData.values()) {
+                                console.log("formData value: ", value);
+                            }
+                        } else {
+                            alert("이미 등록된 상품입니다.");
+                            console.log("등록 실패", res);
+
+                            for (let key of formData.keys()) {
+                                console.log("formData key: ", key);
+                            }
+                            for (let value of formData.values()) {
+                                console.log("formData value: ", value);
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        console.log("오류: ", err);
+                    })
+            }
+        }
+
+
+
+    }
+
+    const [isTokenEnd, setIsTokenEnd] = useState(true);
+
+    useEffect(() => {
+
+        if (accessToken === null || accessToken === undefined) {
+            navigate("/");
+            alert("로그인 후 이용하실 수 있습니다.");
+        } else {
+            fetch('/seller', {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                }
             })
+                .then(res => res.json())
                 .then(res => {
-                    if (res.status === 200) {
-                        alert("상품 등록 성공");
-                        console.log("등록 성공!", res);
+                    if (res.status === 500 || res.status === 401) {
+                        setIsTokenEnd(true);
+                        console.log("토큰 만료됨:", res);
+                        setSellerInfo(res);
+                        sessionStorage.removeItem("accessToken");
+                        navigate("/");
+                        alert("토큰이 만료되었습니다.")
                     } else {
-                        console.log("등록 실패", res);
+                        setIsTokenEnd(false);
+                        console.log("판매자 정보:", res);
+                        setSellerInfo(res);
                     }
                 })
                 .catch(err => {
                     console.log("오류: ", err);
                 })
+
+
+            fetch('/seller/items', {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                }
+            })
+                .then(res => res.json())
+                .then(res => {
+                    console.log("나의상품정보: ", res);
+                    setSellerProds(res);
+                    setSellerSize(res.size);
+                    setSellerColor(res.color);
+                    console.log("결과: ", res[3].size)
+
+                })
+                .catch(err => {
+                    console.log("상품정보 오류: ", err);
+                })
         }
 
-        console.log("입력: ", Number(sellerInfo.uid), values.inputPrName, Number(values.inputPrPrice)
-            , Number(values.inputPrStock), values.inputPrGender, values.inputPrDetail
-            , sizeField, colorField, lowCategory);
-    }
 
-    useEffect(() => {
-        fetch('/seller', {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-            }
-        })
-            .then(res => res.json())
-            .then(res => {
-                console.log("판매자 정보: ", res);
-                setSellerInfo(res);
-            })
-            .catch(err => {
-                console.log("오류: ", err);
-            })
-
-
-        fetch('/seller/items', {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-            }
-        })
-            .then(res => res.json())
-            .then(res => {
-                console.log("나의상품정보: ", res);
-                setSellerProds(res);
-                setSellerSize(res.size);
-                setSellerColor(res.color);
-                console.log("결과: ", res[3].size)
-
-            })
-            .catch(err => {
-                console.log("오류: ", err);
-            })
 
     }, [])
 
@@ -224,37 +281,27 @@ function Seller() {
                             <div className={styles.menuDiv}>상품 등록 요청</div>
                         </Link>
                     }
-                    {menu === "orderManage"
-                        ? <div style={{backgroundColor:'rgb(213, 239, 255)'}}
-                               className={styles.menuDiv}>주문 관리</div>
-                        :
-                        <Link to="/seller/orderManage">
-                            <div className={styles.menuDiv}>주문 관리</div>
-                        </Link>
-                    }
                 </div>
 
                 {menu === "myProducts"
                     ?
                     <div className={styles.sellerWorkSpace}>
                         <div className={styles.workHeader}>나의 상품 정보 조회</div>
-                        <div className={styles.searchWrap}>
-                            <input /><button>검색</button>
-                        </div>
+                        <MyProductsListTag />
                         <div className={styles.workWrap}>
-                            <MyProductsListTag />
-                            {sellerProds.map((item, id) => {
-                                return <MyProductsList key={id} list={item} psize={sellerSize}
-                                                pcolor={sellerColor}/>;
-                            })}
-                            {sellerProds.length < 1
-                                ? <div className={styles.listEmpty}>등록된 상품이 없습니다.</div>
-                                : null
+
+                            {isTokenEnd === true
+                                ? <div className={styles.listEmpty}>토큰이 만료되었습니다.</div>
+                                : (sellerProds.length < 1
+                                        ? <div className={styles.listEmpty}>등록된 상품이 없습니다.</div>
+                                        :
+                                        sellerProds.map((item, id) => {
+                                            return <MyProductsList key={id} list={item} psize={sellerSize}
+                                                                   pcolor={sellerColor}/>;
+                                        })
+                                )
                             }
                         </div>
-
-
-
                     </div>
 
 
@@ -302,13 +349,13 @@ function Seller() {
                                     <div className={styles.regiWrap}>
                                         <div className={styles.regiTag}>대표 이미지</div>
                                         <div className={styles.regiInput}>
-                                            <input onChange={handleChange} name="inputPrImage" type="file" accept="image/*" />
+                                            <input onChange={HandleChangeImg} name="inputPrImage" type="file" accept=".png, .jpeg" />
                                         </div>
                                     </div>
                                     <div className={styles.regiWrap}>
                                         <div className={styles.regiTag}>상세 이미지</div>
                                         <div className={styles.regiInput}>
-                                            <input onChange={handleChange} name="inputPrDetailImage" type="file" accept="image/*" />
+                                            <input onChange={HandleChangeDetailImg} name="inputPrDetailImage" type="file" accept=".png, .jpeg" />
                                         </div>
                                     </div>
                                     <div className={styles.regiWrap}>
@@ -331,8 +378,7 @@ function Seller() {
                                                 <input key={idx} style={{marginBottom:'3px'}} required value={inColor[idx]}
                                                        name="inputPrColor" onChange={(e) => handleColorChange(idx, e)}/>
                                             ))}
-                                            <button type="button"
-                                                    onClick={addColorField}>옵션 추가</button>
+                                            <button type="button" onClick={addColorField}>옵션 추가</button>
                                             <button type="button"
                                                     onClick={resetColorField}>초기화</button>
                                         </div>
@@ -341,38 +387,21 @@ function Seller() {
                                         <div className={styles.regiTag}>카테고리</div>
                                         <div className={styles.regiInput}>
                                             <CategorySelecter highFunction={highFunction} lowFunction={lowFunction}/>
-                                            <div style={{marginTop:'20px'}}>선택 카테고리: {highCategory} > <CategoryRename cate={lowCategory}/></div>
+                                            <div style={{marginTop:'20px'}}>선택 카테고리: {highCategory} &gt; <CategoryRename cate={lowCategory}/></div>
                                         </div>
 
                                     </div>
-                                    <button type="submit" className={styles.regiBtn}>등록 요청</button>
+                                    <button style={{border:'0'}} type="submit" className={styles.regiBtn}>등록 요청</button>
                                 </form>
 
-
-
-
                             </div>
-
-
-
 
 
                             :
                             <div className={styles.sellerWorkSpace}>
-                                <div className={styles.workHeader}>주문 관리</div>
-                                <div className={styles.searchWrap}>
-                                    <input /><button>검색</button>
-                                </div>
-                                <div className={styles.workWrap}>
-                                    <OrderManageListTag />
-                                    <OrderManageList />
-                                    <OrderManageList />
-                                    <OrderManageList />
-                                </div>
+                                <div className={styles.workHeader}>잘못된 페이지입니다.</div>
                             </div>
                     )}
-
-
 
             </div>
         </>

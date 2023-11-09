@@ -15,7 +15,7 @@ function UserManageList({list}) {
 
   const deleteUser = () => {
 
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = sessionStorage.getItem("accessToken");
     if(window.confirm("사용자 정보를 삭제하시겠습니까?")) {
       fetch('/admin/user-withdrawal', {
         method: 'post',
@@ -44,16 +44,16 @@ function UserManageList({list}) {
       <>
         <div className={styles.section}>
           <div className={styles.item1}>{list.uid}</div>
-          <div className={styles.item2}>{list.userId}</div>
-          <div className={styles.item3}>{list.userName}</div>
-          <div className={styles.item4}>{list.address}</div>
-          <div className={styles.item5}>{list.email}</div>
-          <div className={styles.item6}>{list.phoneNumber}</div>
-          {list.uid === 1
+          <div className={styles.item2}>{list.userName}</div>
+          <div className={styles.item3}>{list.userId}</div>
+          <div className={styles.item4}>{list.email}</div>
+          <div className={styles.item5}>{list.phoneNumber}</div>
+          <div className={styles.item6}>{list.address}</div>
+          {list.userId === "admin0000"
               ? <div className={styles.item7}></div>
               : <div className={styles.item7}>
-                <img onClick={openModal}
-                     src={require("../../images/mod.png")} alt="mod" />
+                {/*<img onClick={openModal}*/}
+                {/*     src={require("../../images/mod.png")} alt="mod" />*/}
                 <img onClick={deleteUser}
                      src={require("../../images/delete.png")} alt="mod" />
               </div>

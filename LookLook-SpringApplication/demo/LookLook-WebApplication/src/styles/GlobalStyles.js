@@ -4,6 +4,15 @@ import reset from "styled-reset";
 const GlobalStyles = createGlobalStyle`
     ${reset}
 
+    
+    div, p, h1, h2, h3, button, span {
+      font-family: "Noto Sans KR";
+    }
+    
+    strong {
+      font-weight: bold;
+    }
+    
     a {
         text-decoration: none;
     }

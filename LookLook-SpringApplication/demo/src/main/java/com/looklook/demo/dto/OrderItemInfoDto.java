@@ -22,5 +22,7 @@ public class OrderItemInfoDto {
     private String ItemName;
     private Long pid;
     private int price;
+    private String mainImgUrl;
+    private String detailedImgsUrl;
 }
 
