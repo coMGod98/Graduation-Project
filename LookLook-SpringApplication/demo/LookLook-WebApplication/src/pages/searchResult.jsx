@@ -23,6 +23,7 @@ function SearchResult() {
           .then(res => res.json())
           .then(res => {
               console.log("검색:", res);
+              setProds(res);
           })
           .catch(err => {
               console.log("오류:", err);
@@ -40,7 +41,7 @@ function SearchResult() {
         <div className={styles.searchResultSection}>
           <div className={styles.searchHeader}>
             <img src={require("../images/search_header.png")} alt="searchHeader"/>
-            <h1>'{keyword}' 검색 결과입니다({prods.length})</h1></div>
+            <h1>'{keyword}' 검색 결과입니다({prods.length}개)</h1></div>
 
           <ItemList list={currentPosts}/>
 

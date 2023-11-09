@@ -27,6 +27,8 @@ function Header() {
   }
 
   const accessToken = sessionStorage.getItem("accessToken");
+  const sessionUid = sessionStorage.getItem("uid");
+
   const [isStorageNull, setIsStorageNull] = useState(true);
 
 
@@ -92,9 +94,17 @@ function Header() {
               <Link to="/myPage/myInfo">
                 <h1>마이페이지</h1>
               </Link>
-              <Link to="/seller/myProducts">
-                <h1 style={{color:'navy'}}>판매자</h1>
-              </Link>
+              {sessionUid === "1"
+                  ?
+                  <Link to="/admin/userManage">
+                    <h1 style={{color:'navy'}}>관리자</h1>
+                  </Link>
+                  :
+                  <Link to="/seller/myProducts">
+                    <h1 style={{color:'navy'}}>판매자</h1>
+                  </Link>
+              }
+
             </div>
 
         }

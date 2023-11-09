@@ -27,7 +27,9 @@ function CartItem({list, num}) {
         <div className={styles.cartItemDiv}>
             <div className={styles.cartItemTag1}>{num}</div>
             <div className={styles.cartItemTag2}>
-                {/*<img src={require("../images/looklook_logo.png")} alt="sample" />*/}
+                <div className={styles.imgWrap}>
+                    <img src={list.mainImgUrl} alt="sample" />
+                </div>
                 <p>{list.itemName} ({list.size}, {list.color})</p>
             </div>
             <div className={styles.cartItemTag3}>

@@ -24,17 +24,23 @@
 .CartWrap .CartListWrap {
   margin-bottom: 5px;
 }
-.CartWrap .CartListWrap .emptyWrap {
+.CartWrap .CartListWrap .cartItemsWrap {
   border-bottom: 1px solid rgb(180, 180, 180);
-  padding: 10px 30px;
-  color: grey;
+  border-left: 1px solid rgb(180, 180, 180);
+  border-right: 1px solid rgb(180, 180, 180);
+  height: 330px;
+  overflow: auto;
+}
+
+.CartWrap .CartListWrap .emptyWrap {
+  padding: 10px 0px;
+  text-align: center;
 }
 
 
 .cartListTag {
-  border-top: 1px solid rgb(180, 180, 180);
-  border-bottom: 1px solid rgb(180, 180, 180);
-  background-color: aliceblue;
+  border: 1px solid rgb(180, 180, 180);
+  background-color: #e8f7ff;
   display: flex;
   align-items: center;
   padding: 10px 30px;

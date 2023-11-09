@@ -16,16 +16,19 @@
 
 .putItemDiv .quantDiv {
   width: 20%;
-  text-align: center;
+  display: flex;
+  justify-items: center;
 }
 
 .putItemDiv .quantDiv input {
-  width: 28px;
+  width: 30px;
 }
 
 .putItemDiv .quantDiv button {
-  width: 21px;
-  height: 21px;
+  background-color: aliceblue;
+  width: 24px;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .putItemDiv .priceDiv {

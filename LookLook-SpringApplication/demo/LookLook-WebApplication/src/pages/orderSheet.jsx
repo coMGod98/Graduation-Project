@@ -267,13 +267,13 @@ function OrderSheet() {
                   {isAddrNew === false
                       ?
                       <div>
-                        <button style={{backgroundColor:'#e7f3ff'}} onClick={() => setIsAddrNew(false)}>기본 주소</button>
-                        <button onClick={() => setIsAddrNew(true)}>신규 주소</button>
+                        <button className={styles.addrBtn} style={{border:'1px solid #2287e3', color:'#2287e3'}} onClick={() => setIsAddrNew(false)}>기본 주소</button>
+                        <button className={styles.addrBtn} onClick={() => setIsAddrNew(true)}>신규 주소</button>
                       </div>
                       :
                       <div>
-                        <button onClick={() => setIsAddrNew(false)}>기본 주소</button>
-                        <button style={{backgroundColor:'#e7f3ff'}} onClick={() => setIsAddrNew(true)}>신규 주소</button>
+                        <button className={styles.addrBtn} onClick={() => setIsAddrNew(false)}>기본 주소</button>
+                        <button className={styles.addrBtn} style={{border:'1px solid #2287e3', color:'#2287e3'}} onClick={() => setIsAddrNew(true)}>신규 주소</button>
                       </div>
                   }
 
@@ -305,7 +305,7 @@ function OrderSheet() {
               <div className={styles.prodInfoTag3}>수량</div>
               <div className={styles.prodInfoTag4}>판매가</div>
             </div>
-            <div>
+            <div className={styles.orderItemsWrap}>
               {orderListInfo.map((item, id) => {
                 return <OrderProdInfoList key={id} list={item} num={numCount[id]} />;
               })}
@@ -357,7 +357,7 @@ function OrderSheet() {
             </div>
 
             <div className={styles.payBtnWrap}>
-              <button onClick={payClickHandler}>결제하기</button>
+              <button style={{border:'0'}} onClick={payClickHandler}>결제하기</button>
             </div>
 
           </div>

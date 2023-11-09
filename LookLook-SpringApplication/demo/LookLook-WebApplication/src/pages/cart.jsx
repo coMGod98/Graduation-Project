@@ -215,7 +215,7 @@ function Cart() {
                             <div className={styles.cartTag3}>수량</div>
                             <div className={styles.cartTag4}>판매가</div>
                         </div>
-                        <div>
+                        <div className={styles.cartItemsWrap}>
                             {isTokenEnd === true
                                 ? <div className={styles.emptyWrap}>토큰이 만료되었습니다.</div>
                                 : (cartListInfo.length < 1
@@ -233,8 +233,7 @@ function Cart() {
                         <div>배송비 : 2,500원 / 총 상품금액: {Number(totalPrice).toLocaleString()}원</div>
                     </div>
                     <div className={styles.orderBtnWrap}>
-                        <button onClick={orderClick}>주문하기</button>
-                        <button style={{backgroundColor: 'rgb(40, 128, 179)'}}>아바타 입어보기</button>
+                        <button style={{border:'0'}} onClick={orderClick}>주문하기</button>
                     </div>
 
 

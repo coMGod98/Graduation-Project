@@ -45,7 +45,7 @@ function ChatBotModule() {
     const steps = [
         {
             id: 1,
-            message: '안녕하세요 LOOKLOOK 챗봇입니다!😀',
+            message: '안녕하세요 LOOKLOOK 챗봇입니다!😄',
             trigger: 2,
         },
         {
@@ -68,6 +68,7 @@ function ChatBotModule() {
             id: 4,
             message: "또 무엇을 도와드릴까요?",
             trigger: 'uInput',
+            delay: 5000,
         }
     ]
 
@@ -124,6 +125,7 @@ function ChatBotModule() {
                              headerTitle="&nbsp;LOOKLOOK 챗봇"
                              placeholder={"문의사항을 입력해주세요."}
                              botAvatar={botIcon}
+                             bubbleStyle={{lineHeight:'18px'}}
                              hideUserAvatar={true}
                     />
                 </ThemeProvider>

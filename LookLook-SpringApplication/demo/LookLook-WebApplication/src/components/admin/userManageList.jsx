@@ -44,12 +44,12 @@ function UserManageList({list}) {
       <>
         <div className={styles.section}>
           <div className={styles.item1}>{list.uid}</div>
-          <div className={styles.item2}>{list.userId}</div>
-          <div className={styles.item3}>{list.userName}</div>
-          <div className={styles.item4}>{list.address}</div>
-          <div className={styles.item5}>{list.email}</div>
-          <div className={styles.item6}>{list.phoneNumber}</div>
-          {list.uid === 1
+          <div className={styles.item2}>{list.userName}</div>
+          <div className={styles.item3}>{list.userId}</div>
+          <div className={styles.item4}>{list.email}</div>
+          <div className={styles.item5}>{list.phoneNumber}</div>
+          <div className={styles.item6}>{list.address}</div>
+          {list.userId === "admin0000"
               ? <div className={styles.item7}></div>
               : <div className={styles.item7}>
                 {/*<img onClick={openModal}*/}

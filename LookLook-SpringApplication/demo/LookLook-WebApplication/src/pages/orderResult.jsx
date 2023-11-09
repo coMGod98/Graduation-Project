@@ -56,7 +56,7 @@ function OrderResult() {
 
             <div className={styles.shopBtnWrap}>
               <Link to="/">
-                <button>홈으로</button>
+                <button style={{border:'0'}}>홈으로</button>
               </Link>
             </div>
 

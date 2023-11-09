@@ -13,6 +13,10 @@
   margin: 0 auto;
 }
 
+.addrBtn {
+  border-radius: 20px;
+}
+
 .OrderWrap .OrderHeader{
   font-size: 24px;
   font-weight: bold;
@@ -60,9 +64,8 @@
 }
 
 .prodInfoTag {
-  border-top: 1px solid rgb(180, 180, 180);
-  border-bottom: 1px solid rgb(180, 180, 180);
-  background-color: aliceblue;
+  border: 1px solid rgb(180, 180, 180);
+  background-color: #e8f7ff;
   padding: 8px;
   display: flex;
   align-items: center;
@@ -80,7 +83,13 @@
   width: 10%;
 }
 
-
+.orderItemsWrap {
+  height: 120px;
+  border-left: 1px solid rgb(180, 180, 180);
+  border-right: 1px solid rgb(180, 180, 180);
+  border-bottom: 1px solid rgb(180, 180, 180);
+  overflow: auto;
+}
 
 
 

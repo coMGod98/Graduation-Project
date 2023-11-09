@@ -77,6 +77,7 @@ function MyPage() {
               sessionStorage.removeItem("accessToken");
               navigate("/");
             } else {
+                alert("현재 주문한 상품이 있거나 판매자로 등록한 상품이 존재합니다.");
               console.log("회원탈퇴 실패", res);
             }
           })
@@ -261,7 +262,7 @@ function MyPage() {
                               <input maxLength="20" type="password" onChange={changePw}/>
                             </div>
                           </div>
-                          <button className={styles.mypgBtn} type="submit">확인</button>
+                          <button style={{border:'0'}} className={styles.mypgBtn} type="submit">확인</button>
                         </form>
                       </div>
                       :
@@ -280,7 +281,7 @@ function MyPage() {
                           <div className={styles.modTag}>이메일</div>
                           <div className={styles.modInput}><input onChange={modEmailChange} defaultValue={userEmail} name="email" type="email"/></div>
                         </div>
-                        <button onClick={modClick} className={styles.mypgBtn}>수정</button>
+                        <button style={{border:'0'}} onClick={modClick} className={styles.mypgBtn}>수정</button>
                       </div>
 
 
@@ -299,19 +300,21 @@ function MyPage() {
                               <div className={styles.orderPayTag}>결제정보</div>
                               <div className={styles.orderStateTag}>주문상태</div>
                             </div>
-                            {isTokenEnd === true
-                                ?
-                                <div style={{borderBottom:'1px solid rgb(180, 180, 180)', color:'grey',
-                                  padding:'8px'}}>토큰이 만료되었습니다.</div>
-                                : (orderList.length < 1
-                                        ? <div style={{borderBottom:'1px solid rgb(180, 180, 180)', color:'grey',
-                                          padding:'8px'}}>주문한 상품이 없습니다.</div>
-                                        :
-                                        orderList.map((item, id) => {
-                                          return <OrderHistory key={id} list={item} len={itemLengths[id]}/>
-                                        })
-                                )
-                            }
+                              <div className={styles.orderHisItemsWrap}>
+                                  {isTokenEnd === true
+                                      ?
+                                      <div style={{borderBottom:'1px solid rgb(180, 180, 180)', color:'grey',
+                                          padding:'8px'}}>토큰이 만료되었습니다.</div>
+                                      : (orderList.length < 1
+                                              ? <div style={{borderBottom:'1px solid rgb(180, 180, 180', textAlign:'center', padding:'8px'}}>주문한 상품이 없습니다.</div>
+                                              :
+                                              orderList.map((item, id) => {
+                                                  return <OrderHistory key={id} list={item} len={itemLengths[id]}/>
+                                              })
+                                      )
+                                  }
+                              </div>
+
 
 
                           </div>
@@ -336,7 +339,7 @@ function MyPage() {
                                         <div className={styles.mypgHeader}>회원 탈퇴</div>
                                         <p>회원탈퇴 하시겠습니까?</p>
                                         <p>배송 받지 않은 상품이 있는 경우 회원 탈퇴가 불가능합니다.</p>
-                                        <button onClick={withdrawalClick}
+                                        <button onClick={withdrawalClick} style={{border:'0'}}
                                                 className={styles.mypgBtn}>회원 탈퇴</button>
                                       </div>
                                       :

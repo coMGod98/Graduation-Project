@@ -122,14 +122,14 @@ function Login() {
                     : <h1 onClick={handlePasswordType}>비밀번호 숨기기</h1>
                 }
               </div>
-              <button type="submit" className={styles.loginBtn}>
+              <button style={{border:'0'}} type="submit" className={styles.loginBtn}>
                 로그인
               </button>
             </form>
 
 
             <Link to="/signup">
-              <button className={styles.signupBtn}>
+              <button style={{border:'0'}} className={styles.signupBtn}>
                 회원가입
               </button>
             </Link>

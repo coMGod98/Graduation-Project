@@ -19,7 +19,9 @@ function OrderHistory({list, len}) {
             <div className={styles.orderDate}>{(list.order.orderDate).substr(0, 10)}</div>
             <div className={styles.orderNum}>{list.order.id}</div>
             <div className={styles.orderProd}>
-                {/*<img src={require("../images/looklook_logo.png")} alt="prod_img"/>*/}
+                <div className={styles.imgWrap}>
+                    <img src={list.orderiteminfo[0].mainImgUrl} alt="prod_img"/>
+                </div>
                 <p>{list.orderiteminfo[0].itemName}({list.orderiteminfo[0].size}, {list.orderiteminfo[0].color}) x{list.orderiteminfo[0].count}</p>
                 {list.orderiteminfo.length > 1
                     ? <p>&nbsp;외 {otherCount}개</p>

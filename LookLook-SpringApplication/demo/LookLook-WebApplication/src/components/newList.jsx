@@ -1,31 +1,52 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./list.module.css";
 import { Link } from "react-router-dom";
 
-function NewList({list}) {
+function NewList() {
+
+    const [newItemList, setNewItemList] = useState([]);
+
+    useEffect(() => {
+        fetch('/new-products')
+            .then(res => res.json())
+            .then(res => {
+                if (res.status === 500) {
+                    console.log("신상품 실패:", res);
+                    setNewItemList([]);
+                } else {
+                    console.log("신상품:", res);
+                    setNewItemList(res);
+                }
+            })
+            .catch(err => {
+                console.log("오류:", err);
+                setNewItemList([]);
+            })
+    }, [])
+
   return (
       <div className={styles.productContainer}>
 
 
-        {list.length != 0 ?
-            list && list.map(({ id, name, price, image }) => {
+        {newItemList.length > 0 ?
+            newItemList && newItemList.map((item, id) => {
               return (
                   <div key={id} className={styles.productWrap}>
 
-                    <Link to={`/Product/${id}`}>
+                    <Link to={`/Product/${item.pid}`}>
                       <div className={styles.productImgDiv}>
                         <div className={styles.productImgWrap}>
-                          {/*<img src={image} alt="prod_img"/>*/}
+                          <img src={item.mainImgUrl} alt="prod_img"/>
                         </div>
                       </div>
-                      <h2 className={styles.productTitle}>{name}</h2>
+                      <h2 className={styles.productTitle}>{item.itemName}</h2>
                     </Link>
-                    <div className={styles.productPrice}>{Number(price).toLocaleString()}원</div>
+                    <div className={styles.productPrice}>{Number(item.price).toLocaleString()}원</div>
 
                   </div>
               );
             })
-            : <div className={styles.noResult}>조건에 맞는 결과가 없습니다.</div>
+            : <div className={styles.noResult}>신상품이 존재하지 않습니다.</div>
         }
 
         {/* <div className={styles.productWrap}>

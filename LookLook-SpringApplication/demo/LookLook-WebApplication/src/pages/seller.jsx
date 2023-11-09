@@ -6,9 +6,6 @@ import {Link} from "react-router-dom";
 import MyProductsList from "../components/seller/myProductsList";
 import MyProductsListTag from "../components/seller/myProductsListTag";
 
-import OrderManageList from "../components/seller/orderManageList";
-import OrderManageListTag from "../components/seller/orderManageListTag";
-
 import CategorySelecter from "../components/seller/categorySelecter";
 
 import CategoryRename from "../components/categoryRename";
@@ -128,70 +125,73 @@ function Seller() {
         const accessToken = sessionStorage.getItem("accessToken");
         e.preventDefault();
 
-        const jsonDatas = JSON.stringify({
-            uid: sellerInfo.uid,
-            itemName: values.inputPrName,
-            price: values.inputPrPrice,
-            stock: values.inputPrStock,
-            pgender: values.inputPrGender,
-            itemDetail: values.inputPrDetail,
-            size: sizeField,
-            color: colorField,
-            category: lowCategory,
-        });
-
-        const newBlob = new Blob([jsonDatas], {type: 'application/json'})
-
-        // const newBlob2 = new Blob([mainImgUrl], {type: 'multipart/form-data'})
-        // const newBlob3 = new Blob([detailedImgsUrl], {type: 'multipart/form-data'})
-
-        const formData = new FormData();
-
-        formData.append("itemRegRequestDto", newBlob);
-        formData.append("main", mainImgUrl);
-        // detailedImgsUrl.forEach((item, idx) => {
-        //     formData.append(`detailed`, item.files[0]);
-        // });
-        formData.append(`detailed`, detailedImgsUrl);
-
-        if (lowCategory === '') {
-            alert("카테고리를 선택해주세요");
+        if ((values.inputPrGender === "FEMALE" && highCategory === "남성") ||
+            (values.inputPrGender === "MALE" && highCategory === "여성")) {
+            alert("선택하신 성별과 카테고리 성별이 일치하지 않습니다.");
         } else {
-            fetch('/seller/items/new', {
-                method: 'post',
-                headers: {
-                    // "Content-Type": "application/json",
-                    // 'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${accessToken}`,
-                },
-                body: formData,
-            })
-                .then(res => {
-                    if (res.status === 200) {
-                        alert("상품 등록 성공");
-                        console.log("등록 성공!", res);
-                    } else {
-                        console.log("등록 실패", res);
-                    }
+
+            const jsonDatas = JSON.stringify({
+                uid: sellerInfo.uid,
+                itemName: values.inputPrName,
+                price: values.inputPrPrice,
+                stock: values.inputPrStock,
+                pgender: values.inputPrGender,
+                itemDetail: values.inputPrDetail,
+                size: sizeField,
+                color: colorField,
+                category: lowCategory,
+            });
+
+            const newBlob = new Blob([jsonDatas], {type: 'application/json'})
+            const formData = new FormData();
+
+            formData.append("itemRegRequestDto", newBlob);
+            formData.append("main", mainImgUrl);
+            formData.append(`detailed`, detailedImgsUrl);
+
+            if (lowCategory === '') {
+                alert("카테고리를 선택해주세요");
+            } else {
+                fetch('/seller/items/new', {
+                    method: 'post',
+                    headers: {
+                        // "Content-Type": "application/json",
+                        // 'Content-Type': 'multipart/form-data',
+                        'Authorization': `Bearer ${accessToken}`,
+                    },
+                    body: formData,
                 })
-                .catch(err => {
-                    console.log("오류: ", err);
-                })
+                    .then(res => {
+                        if (res.status === 200) {
+                            alert("상품 등록 성공");
+                            console.log("상품 등록을 완료했습니다.", res);
+
+                            for (let key of formData.keys()) {
+                                console.log("formData key: ", key);
+                            }
+                            for (let value of formData.values()) {
+                                console.log("formData value: ", value);
+                            }
+                        } else {
+                            alert("이미 등록된 상품입니다.");
+                            console.log("등록 실패", res);
+
+                            for (let key of formData.keys()) {
+                                console.log("formData key: ", key);
+                            }
+                            for (let value of formData.values()) {
+                                console.log("formData value: ", value);
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        console.log("오류: ", err);
+                    })
+            }
         }
 
-        console.log("입력: ", Number(sellerInfo.uid), values.inputPrName, Number(values.inputPrPrice)
-            , Number(values.inputPrStock), values.inputPrGender, values.inputPrDetail
-            , sizeField, colorField, lowCategory
-            , mainImgUrl, detailedImgsUrl);
-        console.log("jsondatas", jsonDatas);
-        console.log("메인img", mainImgUrl);
-        console.log("상세img", detailedImgsUrl);
-        for (let key of formData.keys()) {
-            console.log("formData key: ", key);
-        }
-        for (let value of formData.values()) {
-            console.log("formData value: ", value);
-        }
+
+
     }
 
     const [isTokenEnd, setIsTokenEnd] = useState(true);
@@ -281,22 +281,15 @@ function Seller() {
                             <div className={styles.menuDiv}>상품 등록 요청</div>
                         </Link>
                     }
-                    {menu === "orderManage"
-                        ? <div style={{backgroundColor:'rgb(213, 239, 255)'}}
-                               className={styles.menuDiv}>주문 관리</div>
-                        :
-                        <Link to="/seller/orderManage">
-                            <div className={styles.menuDiv}>주문 관리</div>
-                        </Link>
-                    }
                 </div>
 
                 {menu === "myProducts"
                     ?
                     <div className={styles.sellerWorkSpace}>
                         <div className={styles.workHeader}>나의 상품 정보 조회</div>
+                        <MyProductsListTag />
                         <div className={styles.workWrap}>
-                            <MyProductsListTag />
+
                             {isTokenEnd === true
                                 ? <div className={styles.listEmpty}>토큰이 만료되었습니다.</div>
                                 : (sellerProds.length < 1
@@ -356,13 +349,13 @@ function Seller() {
                                     <div className={styles.regiWrap}>
                                         <div className={styles.regiTag}>대표 이미지</div>
                                         <div className={styles.regiInput}>
-                                            <input onChange={HandleChangeImg} name="inputPrImage" type="file" accept="image/*" />
+                                            <input onChange={HandleChangeImg} name="inputPrImage" type="file" accept=".png, .jpeg" />
                                         </div>
                                     </div>
                                     <div className={styles.regiWrap}>
                                         <div className={styles.regiTag}>상세 이미지</div>
                                         <div className={styles.regiInput}>
-                                            <input onChange={HandleChangeDetailImg} name="inputPrDetailImage" type="file" accept="image/*" />
+                                            <input onChange={HandleChangeDetailImg} name="inputPrDetailImage" type="file" accept=".png, .jpeg" />
                                         </div>
                                     </div>
                                     <div className={styles.regiWrap}>
@@ -385,8 +378,7 @@ function Seller() {
                                                 <input key={idx} style={{marginBottom:'3px'}} required value={inColor[idx]}
                                                        name="inputPrColor" onChange={(e) => handleColorChange(idx, e)}/>
                                             ))}
-                                            <button type="button"
-                                                    onClick={addColorField}>옵션 추가</button>
+                                            <button type="button" onClick={addColorField}>옵션 추가</button>
                                             <button type="button"
                                                     onClick={resetColorField}>초기화</button>
                                         </div>
@@ -395,35 +387,21 @@ function Seller() {
                                         <div className={styles.regiTag}>카테고리</div>
                                         <div className={styles.regiInput}>
                                             <CategorySelecter highFunction={highFunction} lowFunction={lowFunction}/>
-                                            <div style={{marginTop:'20px'}}>선택 카테고리: {highCategory} > <CategoryRename cate={lowCategory}/></div>
+                                            <div style={{marginTop:'20px'}}>선택 카테고리: {highCategory} &gt; <CategoryRename cate={lowCategory}/></div>
                                         </div>
 
                                     </div>
-                                    <button type="submit" className={styles.regiBtn}>등록 요청</button>
+                                    <button style={{border:'0'}} type="submit" className={styles.regiBtn}>등록 요청</button>
                                 </form>
 
-
-
-
                             </div>
-
-
-
 
 
                             :
                             <div className={styles.sellerWorkSpace}>
-                                <div className={styles.workHeader}>주문 관리</div>
-                                <div className={styles.workWrap}>
-                                    <OrderManageListTag />
-                                    <OrderManageList />
-                                    <OrderManageList />
-                                    <OrderManageList />
-                                </div>
+                                <div className={styles.workHeader}>잘못된 페이지입니다.</div>
                             </div>
                     )}
-
-
 
             </div>
         </>

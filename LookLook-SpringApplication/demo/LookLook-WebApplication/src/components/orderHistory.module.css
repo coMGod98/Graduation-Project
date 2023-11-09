@@ -18,17 +18,26 @@
 }
 
 .orderHisDiv .orderDate {
-  width: 13%;
+  width: 12%;
 }
 
 .orderHisDiv .orderNum {
-  width: 14%;
+  width: 12%;
 }
 
 .orderHisDiv .orderProd {
-  width: 45%;
+  width: 48%;
   display: flex;
   align-items: center;
+}
+.orderHisDiv .orderProd .imgWrap {
+   width: 60px;
+  height: 60px;
+  margin-right: 10px;
+ }
+.orderHisDiv .orderProd .imgWrap img {
+  width: 100%;
+  height: 100%;
 }
 
 .orderHisDiv .orderPay {

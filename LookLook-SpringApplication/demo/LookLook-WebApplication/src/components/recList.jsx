@@ -1,30 +1,51 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./list.module.css";
 import { Link } from "react-router-dom";
 
-function HotList({list}) {
+function RecList() {
+
+    const [recItemList, setRecItemList] = useState([]);
+
+    useEffect(() => {
+        fetch('/recommended-products')
+            .then(res => res.json())
+            .then(res => {
+                if (res.status === 500) {
+                    console.log("추천상품 실패:", res);
+                    setRecItemList([]);
+                } else {
+                    console.log("추천상품:", res);
+                    setRecItemList(res);
+                }
+            })
+            .catch(err => {
+                console.log("오류:", err);
+                setRecItemList([]);
+            })
+    }, [])
+
     return (
         <div className={styles.productContainer}>
 
-            {list.length != 0 ?
-                list && list.map(({ id, name, price, image }) => {
+            {recItemList.length > 0 ?
+                recItemList && recItemList.map((item, id) => {
                     return (
                         <div key={id} className={styles.productWrap}>
 
-                            <Link to={`/Product/${id}`}>
+                            <Link to={`/Product/${item.pid}`}>
                                 <div className={styles.productImgDiv}>
                                     <div className={styles.productImgWrap}>
-                                        {/*<img src={image} alt="prod_img"/>*/}
+                                        <img src={item.mainImgUrl} alt="prod_img"/>
                                     </div>
                                 </div>
-                                <h2 className={styles.productTitle}>{name}</h2>
+                                <h2 className={styles.productTitle}>{item.itemName}</h2>
                             </Link>
-                            <div className={styles.productPrice}>{Number(price).toLocaleString()}원</div>
+                            <div className={styles.productPrice}>{Number(item.price).toLocaleString()}원</div>
 
                         </div>
                     );
                 })
-                : <div className={styles.noResult}>조건에 맞는 결과가 없습니다.</div>
+                : <div className={styles.noResult}>추천상품이 존재하지 않습니다.</div>
             }
 
 
@@ -65,4 +86,4 @@ function HotList({list}) {
         </div>
     )
 }
-export default HotList;
+export default RecList;

@@ -11,14 +11,14 @@ function PutItem({id, name, price, size, color, stock, quantity, onClick}) {
             <div className={styles.quantDiv}>
 
 
-                <button type="button" aria-label="수량 내리기"
+                <button type="button" aria-label="수량 내리기" style={{marginLeft:'3px'}}
                         onClick={() => onClick(-1)} disabled={quantity === 1}>-</button>
 
                 <input value={quantity}
                        type="number" min={1} max={stock} readOnly></input>
 
                 <button type="button" aria-label="수량 올리기"
-                        onClick={() => onClick(1)} disabled={stock < 1 || stock === quantity}>+</button>
+                        onClick={() => onClick(1)} disabled={quantity > 98}>+</button>
 
 
 

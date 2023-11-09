@@ -12,7 +12,7 @@ function SignUpResult() {
             <div>
               <img src={require("../images/check.png")} alt="check"/>
             </div>
-            <h1>님의 회원가입이 완료되었습니다.</h1><br></br>
+            <h1>회원가입이 완료되었습니다.</h1><br></br>
             <h3>회원님은 모든 룩룩 서비스를 이용하실 수 있습니다.</h3>
             <div>
               <Link to="/login">

@@ -257,7 +257,7 @@ function Product() {
                     </div>
                     <div className={styles.productInfoWrap}>
 
-                        <h1 style={{fontSize:'23px', fontWeight:'bold'}}>{prodInfo.itemName}</h1>
+                        <h1 style={{fontSize:'21px', fontWeight:'bold', lineHeight:'30px'}}>{prodInfo.itemName}</h1>
                         <hr/>
 
                         <div style={{display:'flex'}}>
@@ -302,7 +302,7 @@ function Product() {
                             </div>
                         </div>
                         <div className={styles.putWrap}>
-                            <div style={{backgroundColor:'aliceblue'}} className={styles.putTag}>
+                            <div style={{backgroundColor:'#e8f7ff'}} className={styles.putTag}>
                                 <div className={styles.nameDiv}>상품명</div>
                                 <div className={styles.quantDiv}>수량</div>
                                 <div className={styles.priceDiv}>가격</div>
@@ -311,7 +311,7 @@ function Product() {
 
                                 <PutItem id={prodInfo.pid} name={prodInfo.itemName}
                                          price={prodInfo.price} size={sizeSelected}
-                                         color={colorSelected} stock={prodInfo.stock} quantity={quantity} onClick={handleClickCounter}/>
+                                         color={colorSelected} quantity={quantity} onClick={handleClickCounter}/>
                                 :
                                 (isSoldOut === true
                                         ? <div style={{borderTop:'1px solid gray', color:'gray'}} className={styles.putTag}>품절된 상품입니다.</div>
@@ -334,7 +334,7 @@ function Product() {
                             :
                             <div className={styles.btnWrap}>
                                 <button onClick={clickBuy}
-                                        style={{color:'white', backgroundColor:'#25324f'}}>바로 구매</button>
+                                        style={{border:'0', color:'white', backgroundColor:'#25324f'}}>바로 구매</button>
                                 <button onClick={putCartClick}>장바구니 담기</button>
                                 <button onClick={clickGoCart} style={{width:'40px'}}>
                                     <img src={require('../images/cart.png')} alt='navi_cart' />
@@ -350,7 +350,7 @@ function Product() {
                         상품 정보
                     </div>
                     <div className={styles.detailImageWrap}>
-                        {/*<img src={require('../images/looklook_logo.png')} alt='detailed_info' />*/}
+                        <img src={prodInfo.detailedImgsUrl} alt='product_img' />
                     </div>
                     <div className={styles.detailInfoWrap}>
                         {prodInfo.itemDetail}
