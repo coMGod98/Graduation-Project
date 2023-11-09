@@ -275,7 +275,7 @@ public class OrderService {
         Optional<LookLookUser> optionalUser = userRepository.findById(uid);
         List<OrderInfoDto> orderInfoDtos = new ArrayList<>();
 
-        List<String> mainImgUrl = new ArrayList<>();
+
 
         // 주문정보와 주문 상품 정보를 하나의 dto로 구성하고, 그걸 리스트로 만들기
         if (optionalUser.isPresent()) {
@@ -286,6 +286,7 @@ public class OrderService {
 
                 List<OrderItemInfoDto> orderItemInfoDtos = new ArrayList<>();
                 List<OrderItem> orderItems = orderItemRepository.findAllByOrderId(order.getId());
+                List<String> mainImgUrl = new ArrayList<>();
                 for (OrderItem orderItem : orderItems) {
                     OrderItemInfoDto orderItemInfoDto = new OrderItemInfoDto();
 
@@ -301,6 +302,7 @@ public class OrderService {
                         orderItemInfoDto.setPid(optionalItem.get().getId());
 
                         ItemImg main = itemImgRepository.findByItemIdAndRepresent(optionalItem.get().getId(), ImgStatus.main);
+
                         if (main != null) {
                             String originalPath = main.getFilePath();
                             String extractedPath = originalPath.substring(originalPath.indexOf(File.separator + "img"));
@@ -314,6 +316,9 @@ public class OrderService {
                     orderItemInfoDtos.add(orderItemInfoDto);
 
                 }
+                System.out.println(orderItemInfoDtos.size());
+                System.out.println(mainImgUrl.size());
+
                 for (int i = 0; i < orderItemInfoDtos.size(); i++) {
                     if (i < mainImgUrl.size()) {
                         orderItemInfoDtos.get(i).setMainImgUrl(mainImgUrl.get(i));
