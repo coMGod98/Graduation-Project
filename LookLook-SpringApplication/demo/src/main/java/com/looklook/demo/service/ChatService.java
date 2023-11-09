@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,7 +40,7 @@ public class ChatService {
     public ResponseEntity<String> askOpenAI(String userRequest) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + apiKey);
-        headers.set("Content-Type", "application/json");
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -60,6 +61,8 @@ public class ChatService {
 
         requestBody.put("messages", messages);
         requestBody.put("model", "ft:gpt-3.5-turbo-0613:personal::8E1So7jh");
+        requestBody.put("temperature", 0.5);
+        requestBody.put("top_p", 0.5);
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
 
@@ -78,8 +81,8 @@ public class ChatService {
         chatBot.setChatTime(LocalDateTime.now());
 
         //사용자 정보 가져오기
-        Long userUid = getUid();
-        Optional<LookLookUser> userOptional = userRepository.findById(userUid);
+        Long uid = getUid();
+        Optional<LookLookUser> userOptional = userRepository.findById(uid);
 
         if(userOptional.isPresent()) {
             LookLookUser user = userOptional.get();
