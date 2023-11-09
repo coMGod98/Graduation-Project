@@ -23,9 +23,12 @@ public class AdminServiceAboutItem {
 
         // Item 엔티티를 ItemDto로 변환
         List<ItemDto> results = items.stream()
-                .map(item -> item.toItemDto(item, null, null))
+                .map(item -> {
+                    ItemDto itemDto = item.toItemDto(item, null, null);
+                    itemDto.setUid(item.getUser().getId());
+                    return itemDto;
+                })
                 .collect(Collectors.toList());
-
         return results;
     }
 

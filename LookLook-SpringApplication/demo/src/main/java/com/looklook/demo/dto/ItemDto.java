@@ -23,4 +23,6 @@ public class ItemDto {
     private String itemDetail;
     private String mainImgUrl;
     private String detailedImgsUrl;
+    private LocalDateTime regTime;
+    private Long uid;
 }
