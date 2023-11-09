@@ -154,74 +154,74 @@ VALUES ('플레멍스 주얼리 라이픈 프루츠 실버링','505',5, 68000, '
 
 
 --상품 이미지 테이블 (맥, 리눅스)
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/1/main/3650754_16980564996665_60.jpg',1 ,'main');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/1/detailed/3432758_16916444961369_50.jpg',1 ,'detailed');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/2/main/1288192_16921776280835_60.jpg',2, 'main');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/2/detailed/detail_1288192_16921776392986_60.jpg',2, 'detailed');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/3/main/detail_3457284_16916462085353_60.jpg',3, 'main');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/3/detailed/KakaoTalk_20231109_215349121.jpg',3, 'detailed');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/4/main/3571792_16953717480655_60.png',4, 'main');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/4/detailed/KakaoTalk_20231109_215603270.jpg',4, 'detailed');
---
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/57/main/1648533_2_60.jpg',57, 'main');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/57/detailed/KakaoTalk_20231109_231734696.jpg',57, 'detailed');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/58/main/1961481_1_60.jpg',58, 'main');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/58/detailed/KakaoTalk_20231109_231734696_01.jpg',58, 'detailed');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/59/main/detail_1169561_2_60.jpg',59, 'main');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/59/detailed/KakaoTalk_20231109_231734696_02.jpg',59, 'detailed');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/60/main/KakaoTalk_20231109_231734696_03.jpg',60, 'main');
--- INSERT INTO item_img (file_path, item_id, represent)
--- values ('/resources/static/img/60/detailed/detail_1827591_3_60.jpg',60, 'detailed');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/1/main/3650754_16980564996665_60.jpg',1 ,'main');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/1/detailed/3432758_16916444961369_50.jpg',1 ,'detailed');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/2/main/1288192_16921776280835_60.jpg',2, 'main');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/2/detailed/detail_1288192_16921776392986_60.jpg',2, 'detailed');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/3/main/detail_3457284_16916462085353_60.jpg',3, 'main');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/3/detailed/KakaoTalk_20231109_215349121.jpg',3, 'detailed');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/4/main/3571792_16953717480655_60.png',4, 'main');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/4/detailed/KakaoTalk_20231109_215603270.jpg',4, 'detailed');
+
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/57/main/1648533_2_60.jpg',57, 'main');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/57/detailed/KakaoTalk_20231109_231734696.jpg',57, 'detailed');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/58/main/1961481_1_60.jpg',58, 'main');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/58/detailed/KakaoTalk_20231109_231734696_01.jpg',58, 'detailed');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/59/main/detail_1169561_2_60.jpg',59, 'main');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/59/detailed/KakaoTalk_20231109_231734696_02.jpg',59, 'detailed');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/60/main/detail_1827591_3_60.jpg',60, 'main');
+INSERT INTO item_img (file_path, item_id, represent)
+values ('/resources/static/img/60/detailed/KakaoTalk_20231109_231734696_03.jpg',60, 'detailed');
 
 -- 상품 이미지 테이블 (윈도우)
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\1\\main\\3650754_16980564996665_60.jpg',1 ,'main');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\1\\detailed\\3432758_16916444961369_50.jpg',1 ,'detailed');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\2\\main\\1288192_16921776280835_60.jpg',2, 'main');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\2\\detailed\\detail_1288192_16921776392986_60.jpg',2, 'detailed');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\3\\main\\detail_3457284_16916462085353_60.jpg',3, 'main');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\3\\detailed\\KakaoTalk_20231109_215349121.jpg',3, 'detailed');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\4\\main\\3571792_16953717480655_60.png',4, 'main');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\4\\detailed\\KakaoTalk_20231109_215603270.jpg',4, 'detailed');
-
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\57\\main\\1648533_2_60.jpg',57, 'main');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\57\\detailed\\KakaoTalk_20231109_231734696.jpg',57, 'detailed');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\58\\main\\1961481_1_60.jpg',58, 'main');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\58\\detailed\\KakaoTalk_20231109_231734696_01.jpg',58, 'detailed');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\59\\main\\detail_1169561_2_60.jpg',59, 'main');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static/img\\59\\detailed\\KakaoTalk_20231109_231734696_02.jpg',59, 'detailed');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\60\\main\\KakaoTalk_20231109_231734696_03.jpg',60, 'main');
-INSERT INTO item_img (file_path, item_id, represent)
-values ('\\resources\\static\\img\\60\\detailed\\detail_1827591_3_60.jpg',60, 'detailed');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\1\\main\\3650754_16980564996665_60.jpg',1 ,'main');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\1\\detailed\\3432758_16916444961369_50.jpg',1 ,'detailed');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\2\\main\\1288192_16921776280835_60.jpg',2, 'main');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\2\\detailed\\detail_1288192_16921776392986_60.jpg',2, 'detailed');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\3\\main\\detail_3457284_16916462085353_60.jpg',3, 'main');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\3\\detailed\\KakaoTalk_20231109_215349121.jpg',3, 'detailed');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\4\\main\\3571792_16953717480655_60.png',4, 'main');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\4\\detailed\\KakaoTalk_20231109_215603270.jpg',4, 'detailed');
+--
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\57\\main\\1648533_2_60.jpg',57, 'main');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\57\\detailed\\KakaoTalk_20231109_231734696.jpg',57, 'detailed');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\58\\main\\1961481_1_60.jpg',58, 'main');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\58\\detailed\\KakaoTalk_20231109_231734696_01.jpg',58, 'detailed');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\59\\main\\detail_1169561_2_60.jpg',59, 'main');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static/img\\59\\detailed\\KakaoTalk_20231109_231734696_02.jpg',59, 'detailed');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\60\\main\\detail_1827591_3_60.jpg',60, 'main');
+-- INSERT INTO item_img (file_path, item_id, represent)
+-- values ('\\resources\\static\\img\\60\\detailed\\KakaoTalk_20231109_231734696_03.jpg',60, 'detailed');
 -- -- 상품 사이즈
 INSERT INTO item_size (size_Name, product_id)
 VALUES
