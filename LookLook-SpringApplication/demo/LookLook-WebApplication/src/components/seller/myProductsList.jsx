@@ -46,7 +46,7 @@ function MyProductsList({list, psize, pcolor}) {
                 <div className={styles.item1}>{list.pid}</div>
                 <div className={styles.item2}>{list.itemName}</div>
                 <div className={styles.item3}>{list.price}원</div>
-                <div className={styles.item4}>{list.stock}개</div>
+                {/*<div className={styles.item4}>{list.stock}개</div>*/}
                 <div className={styles.item5}>
                     <CategoryRenameHigh cate={list.category}/>&nbsp;&gt;&nbsp;
                     <CategoryRename cate={list.category}/>
