@@ -50,15 +50,15 @@ public class SellerItemController {
 
 
 //     상품 수정 (삭제)
-    @PostMapping(value = "/seller/item/{pid}")
-    public ResponseEntity<String> updateItem(
-            @PathVariable("pid") String pid,
-            @RequestBody ItemRegRequestDto itemRegRequestDto
-    ) throws Exception {
-
-        String result = sellerItemService.updateItem(itemRegRequestDto, Long.valueOf(pid));
-        return ResponseEntity.ok(result);
-    }
+//    @PostMapping(value = "/seller/item/{pid}")
+//    public ResponseEntity<String> updateItem(
+//            @PathVariable("pid") String pid,
+//            @RequestBody ItemRegRequestDto itemRegRequestDto
+//    ) throws Exception {
+//
+//        String result = sellerItemService.updateItem(itemRegRequestDto, Long.valueOf(pid));
+//        return ResponseEntity.ok(result);
+//    }
 
 
     // 상품 삭제 (배송이 아직 완료되지 않은 상품이 있는 경우, 상품 삭제 불가능)

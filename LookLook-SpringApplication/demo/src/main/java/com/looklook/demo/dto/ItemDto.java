@@ -22,6 +22,5 @@ public class ItemDto {
     private String category;
     private String itemDetail;
     private String mainImgUrl;
-
     private String detailedImgsUrl;
 }

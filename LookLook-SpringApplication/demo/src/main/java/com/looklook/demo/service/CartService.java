@@ -1,21 +1,17 @@
 package com.looklook.demo.service;
 
 
-import com.looklook.demo.domain.Cart;
-import com.looklook.demo.domain.CartItem;
-import com.looklook.demo.domain.Item;
-import com.looklook.demo.domain.LookLookUser;
+import com.looklook.demo.domain.*;
 import com.looklook.demo.dto.CartItemDto;
 import com.looklook.demo.dto.CartItemRegRequestDto;
 
-import com.looklook.demo.repository.CartItemRepository;
-import com.looklook.demo.repository.ItemRepository;
-import com.looklook.demo.repository.UserRepository;
-import com.looklook.demo.repository.CartRepository;
+import com.looklook.demo.dto.ItemDto;
+import com.looklook.demo.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,8 +23,7 @@ public class CartService {
     private final CartItemRepository cartItemRepository;
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
-    private final OrderService orderService;
-
+    private final ItemImgRepository itemImgRepository;
 
     // 장바구니 담기
     @Transactional
@@ -92,18 +87,43 @@ public class CartService {
             cart = optionalCart.get();
         }
 
-        // 4. CartItem -> cartListDto
-        List<CartItem> items = cartItemRepository.findAllByCartId(cart.getId());
+        // 4. CartItem -> CartItemDto
+        List<CartItem> cartItems = cartItemRepository.findAllByCartId(cart.getId());
 
-        List<CartItemDto> cartItemDtos = items.stream()
+        List<CartItemDto> cartItemDtos = cartItems.stream()
                 .map(item -> item.toCartItemDto(item))
                 .collect(Collectors.toList());
+
+//        // 메인 이미지 리스트를 만들고 dto에 직접 설정
+        List<String> mainImgUrl = new ArrayList<>();
+
+        for (CartItem cartItem : cartItems) {
+            Optional<Item> item = itemRepository.findByCartItems(cartItem);
+            if (item.isPresent()) {
+                ItemImg main = itemImgRepository.findByItemIdAndRepresent(item.get().getId(), ImgStatus.main);
+                if (main != null) {
+                    String originalPath = main.getFilePath();
+                    String extractedPath = originalPath.substring(originalPath.indexOf(File.separator + "img"));
+                    mainImgUrl.add(extractedPath);
+                } else {
+                    // 해당 상품 이미지가 없을 때 메세지 설정
+                    mainImgUrl.add("해당 상품 이미지가 없습니다");
+                }
+            }
+        }
+
+        for (int i = 0; i < cartItemDtos.size(); i++) {
+            if (i < mainImgUrl.size()) {
+                cartItemDtos.get(i).setMainImgUrl(mainImgUrl.get(i));
+            }
+        }
+
 
         Map<String, Object> result = new HashMap<>();
         result.put("CartItemList", cartItemDtos);
 
         // 장바구니에 담긴 상품 총 가격
-        int totalPrice = items.stream().mapToInt(item -> (item.getItem().getPrice())*(item.getCount())).sum();
+        int totalPrice = cartItems.stream().mapToInt(item -> (item.getItem().getPrice())*(item.getCount())).sum();
         result.put("totalPrice", totalPrice);
 
         return result;

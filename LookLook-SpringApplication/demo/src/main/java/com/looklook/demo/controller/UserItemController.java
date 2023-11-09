@@ -53,4 +53,18 @@ public class UserItemController {
         List<ItemDto> dtos = userItemService.searchItem(itemName);
         return ResponseEntity.ok(dtos);
     }
+
+    // 메인 페이지 인기 상품 조회
+    @GetMapping("/recommended-products")
+    public ResponseEntity<List<ItemDto>> recommendProducts() {
+        List<ItemDto> dtos = userItemService.showRecommendedProducts();
+        return ResponseEntity.ok(dtos);
+    }
+
+    // 메인 페이지 신상품 조회
+    @GetMapping("/new-products")
+    public ResponseEntity<List<ItemDto>> newProducts() {
+        List<ItemDto> dtos = userItemService.showNewProducts();
+        return ResponseEntity.ok(dtos);
+    }
 }

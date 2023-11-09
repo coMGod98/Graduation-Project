@@ -48,6 +48,9 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private List<OrderItem> orderItems;
 
+    @OneToMany(mappedBy = "item")
+    private List<CartItem> cartItems;
+
     // 해당 상품을 등록한 판매자의 uid
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UID")
