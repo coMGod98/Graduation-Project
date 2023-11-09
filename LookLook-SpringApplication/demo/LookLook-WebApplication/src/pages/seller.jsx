@@ -275,10 +275,10 @@ function Seller() {
                     }
                     {menu === "regiRequest"
                         ? <div style={{backgroundColor:'rgb(213, 239, 255)'}}
-                               className={styles.menuDiv}>상품 등록 요청</div>
+                               className={styles.menuDiv}>상품 등록</div>
                         :
                         <Link to="/seller/regiRequest">
-                            <div className={styles.menuDiv}>상품 등록 요청</div>
+                            <div className={styles.menuDiv}>상품 등록</div>
                         </Link>
                     }
                 </div>
@@ -310,7 +310,7 @@ function Seller() {
                             ?
                             <div className={styles.sellerWorkSpace}>
                                 <form onSubmit={regiSubmit}>
-                                    <div className={styles.workHeader}>상품 등록 요청</div>
+                                    <div className={styles.workHeader}>상품 등록</div>
                                     <div className={styles.regiWrap}>
                                         <div className={styles.regiTag}>상품명</div>
                                         <div className={styles.regiInput}>
@@ -324,12 +324,12 @@ function Seller() {
                                             <input placeholder="숫자만 입력해주세요" onChange={handleChange} pattern="\d*" name="inputPrPrice" required />
                                         </div>
                                     </div>
-                                    <div className={styles.regiWrap}>
-                                        <div className={styles.regiTag}>재고량</div>
-                                        <div className={styles.regiInput}>
-                                            <input onChange={handleChange} name="inputPrStock" min={1} max={999} pattern="\d*" defaultValue={1} type="number" required />
-                                        </div>
-                                    </div>
+                                    {/*<div className={styles.regiWrap}>*/}
+                                    {/*    <div className={styles.regiTag}>재고량</div>*/}
+                                    {/*    <div className={styles.regiInput}>*/}
+                                    {/*        <input onChange={handleChange} name="inputPrStock" min={1} max={999} pattern="\d*" defaultValue={1} type="number" required />*/}
+                                    {/*    </div>*/}
+                                    {/*</div>*/}
                                     <div className={styles.regiWrap}>
                                         <div className={styles.regiTag}>성별</div>
                                         <div className={styles.regiInput}>
@@ -391,7 +391,7 @@ function Seller() {
                                         </div>
 
                                     </div>
-                                    <button style={{border:'0'}} type="submit" className={styles.regiBtn}>등록 요청</button>
+                                    <button style={{border:'0'}} type="submit" className={styles.regiBtn}>상품 등록</button>
                                 </form>
 
                             </div>
