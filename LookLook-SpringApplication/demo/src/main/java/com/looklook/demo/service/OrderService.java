@@ -316,8 +316,6 @@ public class OrderService {
                     orderItemInfoDtos.add(orderItemInfoDto);
 
                 }
-                System.out.println(orderItemInfoDtos.size());
-                System.out.println(mainImgUrl.size());
 
                 for (int i = 0; i < orderItemInfoDtos.size(); i++) {
                     if (i < mainImgUrl.size()) {
