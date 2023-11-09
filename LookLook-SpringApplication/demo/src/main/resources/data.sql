@@ -1,27 +1,27 @@
 -- 회원 테이블에 관리자 계정 1번으로
-INSERT INTO users (uid, username, userid, userpw, authority)
-VALUES (1, 'admin', 'admin0000', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_ADMIN');
+INSERT INTO users (username, userid, userpw, authority)
+VALUES ('admin', 'admin0000', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_ADMIN');
 
-INSERT INTO users (uid, username, userid, userpw, authority, email, pnumber, sex, address)
-VALUES (2, 'testuser', 'testuser0001', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'MALE', '경기도 성남시');
-INSERT INTO users (uid, username, userid, userpw, authority, email, pnumber, sex, address)
-VALUES (3, 'testuser', 'testuser0002', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'FEMALE', '경기도 성남시');
-INSERT INTO users (uid, username, userid, userpw, authority, email, pnumber, sex, address)
-VALUES (4, 'testuser', 'testuser0003', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'MALE', '경기도 성남시');
-INSERT INTO users (uid, username, userid, userpw, authority, email, pnumber, sex, address)
-VALUES (5, 'testuser', 'testuser0004', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'FEMALE', '경기도 성남시');
-INSERT INTO users (uid, username, userid, userpw, authority, email, pnumber, sex, address)
-VALUES (6, 'testuser', 'testuser0005', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'MALE', '경기도 성남시');
-INSERT INTO users (uid, username, userid, userpw, authority, email, pnumber, sex, address)
-VALUES (7, 'testuser', 'testuser0006', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'FEMALE', '경기도 성남시');
-INSERT INTO users (uid, username, userid, userpw, authority, email, pnumber, sex, address)
-VALUES (8, 'testuser', 'testuser0007', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'MALE', '경기도 성남시');
-INSERT INTO users (uid, username, userid, userpw, authority, email, pnumber, sex, address)
-VALUES (9, 'testuser', 'testuser0008', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'FEMALE', '경기도 성남시');
-INSERT INTO users (uid, username, userid, userpw, authority, email, pnumber, sex, address)
-VALUES (10, 'testuser', 'testuser0009', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'MALE', '경기도 성남시');
-INSERT INTO users (uid, username, userid, userpw, authority, email, pnumber, sex, address)
-VALUES (11, 'testuser', 'testuser0010', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'FEMALE', '경기도 성남시');
+INSERT INTO users (username, userid, userpw, authority, email, pnumber, sex, address)
+VALUES ('testuser1', 'testuser0001', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'MALE', '경기도 성남시');
+INSERT INTO users (username, userid, userpw, authority, email, pnumber, sex, address)
+VALUES ('testuser2', 'testuser0002', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'FEMALE', '경기도 성남시');
+INSERT INTO users (username, userid, userpw, authority, email, pnumber, sex, address)
+VALUES ('testuser3', 'testuser0003', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'MALE', '경기도 성남시');
+INSERT INTO users (username, userid, userpw, authority, email, pnumber, sex, address)
+VALUES ('testuser4', 'testuser0004', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'FEMALE', '경기도 성남시');
+INSERT INTO users (username, userid, userpw, authority, email, pnumber, sex, address)
+VALUES ('testuser5', 'testuser0005', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'MALE', '경기도 성남시');
+INSERT INTO users (username, userid, userpw, authority, email, pnumber, sex, address)
+VALUES ('testuser6', 'testuser0006', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'FEMALE', '경기도 성남시');
+INSERT INTO users (username, userid, userpw, authority, email, pnumber, sex, address)
+VALUES ('testuser7', 'testuser0007', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'MALE', '경기도 성남시');
+INSERT INTO users (username, userid, userpw, authority, email, pnumber, sex, address)
+VALUES ('testuser8', 'testuser0008', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'FEMALE', '경기도 성남시');
+INSERT INTO users (username, userid, userpw, authority, email, pnumber, sex, address)
+VALUES ('testuser9', 'testuser0009', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'MALE', '경기도 성남시');
+INSERT INTO users (username, userid, userpw, authority, email, pnumber, sex, address)
+VALUES ('testuser10', 'testuser0010', '$2a$10$Naqxf0wgmdyA9Q4YHZaeM.Fwwp14ZlN3YOfwY92Gi9v9NQyEQ/yj.', 'ROLE_USER', 'test123@looklook.com', '01012345678', 'FEMALE', '경기도 성남시');
 
 
 
