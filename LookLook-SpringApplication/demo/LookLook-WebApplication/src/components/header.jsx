@@ -59,8 +59,11 @@ function Header() {
     }
   }
   const clickAvatarBtn = () => {
-    navigate("/AvatarPage");
-
+    if (accessToken === null || accessToken === undefined) {
+      alert("로그인 후 이용하실 수 있습니다.");
+    } else {
+      window.open("http://ceprj.gachon.ac.kr:60007/#/avatarPage", "_blank", "noopener, noreferrer");
+    }
   }
 
   return (
@@ -168,8 +171,7 @@ function Header() {
               {/*    캐릭터 커스텀*/}
               {/*  </button>*/}
               {/*</Link>*/}
-              <button onClick={() => window.open('http://ceprj.gachon.ac.kr:60007/avatarPage',
-                  '_blank', 'noopener, noreferrer')}>
+              <button onClick={() => clickAvatarBtn()}>
                 캐릭터 커스텀
               </button>
             </div>

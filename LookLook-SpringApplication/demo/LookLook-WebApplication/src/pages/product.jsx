@@ -28,8 +28,6 @@ function Product() {
     const [sizeSelected, setSizeSelected] = useState("사이즈 선택");
     const [colorSelected, setColorSelected] = useState("색상 선택");
 
-    const [isSoldOut, setIsSoldOut] = useState(false);
-
     const handleSizeSelect = (e) => {
         setSizeSelected(e.target.value);
     };
@@ -161,12 +159,6 @@ function Product() {
                 setColorList(tmp2);
                 setTotal(res.price);
 
-                if (res.stock < 1) {
-                    setIsSoldOut(true);
-                } else {
-                    setIsSoldOut(false);
-                }
-
 
                 if (res.category > 100 && res.category < 200) {
                     setHighCateName("여성"); setHighListName("womanList");
@@ -277,27 +269,22 @@ function Product() {
                                     <li>{Number(prodInfo.price).toLocaleString()}원</li>
                                     <li>{Number(2500).toLocaleString()}원</li>
 
-                                    {isSoldOut === true
-                                        ? <h style={{color:'gray'}}>품절된 상품입니다.</h>
-                                        : <select onChange={handleSizeSelect} value={sizeSelected}>
-                                            {sizeList.map((item) => (
-                                                <option value={item} key={item}>
-                                                    {item}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    }
+                                    <select onChange={handleSizeSelect} value={sizeSelected}>
+                                        {sizeList.map((item) => (
+                                            <option value={item} key={item}>
+                                                {item}
+                                            </option>
+                                        ))}
+                                    </select>
                                     <br></br>
-                                    {isSoldOut === true
-                                        ? <h style={{color:'gray'}}>품절된 상품입니다.</h>
-                                        : <select onChange={handleColorSelect} value={colorSelected}>
-                                            {colorList.map((item) => (
-                                                <option value={item} key={item}>
-                                                    {item}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    }
+                                    <select onChange={handleColorSelect} value={colorSelected}>
+                                        {colorList.map((item) => (
+                                            <option value={item} key={item}>
+                                                {item}
+                                            </option>
+                                        ))}
+                                    </select>
+
                                 </ul>
                             </div>
                         </div>
@@ -312,35 +299,23 @@ function Product() {
                                 <PutItem id={prodInfo.pid} name={prodInfo.itemName}
                                          price={prodInfo.price} size={sizeSelected}
                                          color={colorSelected} quantity={quantity} onClick={handleClickCounter}/>
-                                :
-                                (isSoldOut === true
-                                        ? <div style={{borderTop:'1px solid gray', color:'gray'}} className={styles.putTag}>품절된 상품입니다.</div>
-                                        :<div style={{borderTop:'1px solid gray'}} className={styles.putTag}>담은 상품이 없습니다.</div>
-                                )}
+                                : <div style={{borderTop:'1px solid gray'}} className={styles.putTag}>담은 상품이 없습니다.</div>
+                                }
                         </div>
                         {(sizeSelected !== "사이즈 선택") && (colorSelected !== "색상 선택")
                             ? <div className={styles.totalPriceDiv}>
                                 총 상품금액: {Number(2500 + total).toLocaleString()}원</div>
                             : <div className={styles.totalPriceDiv}>총 상품금액: 0원</div>
                         }
-                        {isSoldOut === true
-                            ?
-                            <div className={styles.btnWrap}>
-                                <button style={{backgroundColor:'rgb(240, 240, 240)'}}>일시품절</button>
-                                <button style={{width:'40px', backgroundColor:'rgb(240, 240, 240)'}}>
-                                    <img src={require('../images/cart.png')} alt='navi_cart' />
-                                </button>
-                            </div>
-                            :
-                            <div className={styles.btnWrap}>
-                                <button onClick={clickBuy}
-                                        style={{border:'0', color:'white', backgroundColor:'#25324f'}}>바로 구매</button>
-                                <button onClick={putCartClick}>장바구니 담기</button>
-                                <button onClick={clickGoCart} style={{width:'40px'}}>
-                                    <img src={require('../images/cart.png')} alt='navi_cart' />
-                                </button>
-                            </div>
-                        }
+
+                        <div className={styles.btnWrap}>
+                            <button onClick={clickBuy}
+                                    style={{border:'0', color:'white', backgroundColor:'#25324f'}}>바로 구매</button>
+                            <button onClick={putCartClick}>장바구니 담기</button>
+                            <button onClick={clickGoCart} style={{width:'40px'}}>
+                                <img src={require('../images/cart.png')} alt='navi_cart' />
+                            </button>
+                        </div>
 
                     </div>
                 </div>
