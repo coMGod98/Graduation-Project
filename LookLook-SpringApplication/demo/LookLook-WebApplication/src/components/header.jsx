@@ -163,11 +163,15 @@ function Header() {
                 {isFashionHover && <FashionDropdown />}</span>
             </div>
             <div className={styles.avatarBtnWrap}>
-              <Link to="/AvatarPage">
-                <button>
-                  캐릭터 커스텀
-                </button>
-              </Link>
+              {/*<Link to="/AvatarPage">*/}
+              {/*  <button>*/}
+              {/*    캐릭터 커스텀*/}
+              {/*  </button>*/}
+              {/*</Link>*/}
+              <button onClick={() => window.open('http://ceprj.gachon.ac.kr:60007/avatarPage',
+                  '_blank', 'noopener, noreferrer')}>
+                캐릭터 커스텀
+              </button>
             </div>
 
 

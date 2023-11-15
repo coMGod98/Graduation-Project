@@ -21,23 +21,31 @@ function MyProductsList({list, psize, pcolor}) {
     const deleteProduct = () => {
 
         const accessToken = sessionStorage.getItem("accessToken");
-        fetch(`/seller/item/${list.pid}`, {
-            method: 'delete',
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-            }
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    alert("상품 삭제 완료!");
-                    console.log("상품 삭제 완료", res);
-                } else {
-                    console.log("상품 삭제 실패", res);
+
+        if (window.confirm("상품을 삭제하시겠습니까?")) {
+            fetch(`/seller/item/${list.pid}`, {
+                method: 'delete',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
                 }
             })
-            .catch(err => {
-                console.log("오류: ", err);
-            })
+                .then(res => {
+                    if (res.status === 200) {
+                        alert("상품 삭제를 완료했습니다!");
+                        window.location.reload();
+                        console.log("상품 삭제 완료", res);
+                    } else {
+                        alert("주문내역이 존재하므로 삭제하실 수 없습니다.");
+                        console.log("상품 삭제 실패", res);
+                    }
+                })
+                .catch(err => {
+                    console.log("오류: ", err);
+                })
+        } else {
+            return null;
+        }
+
     }
 
     return (

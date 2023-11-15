@@ -18,9 +18,15 @@ function AnswerModule({quest}) {
         })
             .then(res => res.json())
             .then(res => {
-                console.log("챗봇 응답:", res);
-                console.log("챗봇 응답:", res.choices[0].message.content);
-                setAnswer(res.choices[0].message.content);
+                if (res.status === 500) {
+                    console.log("챗봇 응답:", res);
+                    setAnswer("죄송합니다. 챗봇 답변을 불러오는데 실패했습니다.");
+                } else {
+                    console.log("챗봇 응답:", res);
+                    console.log("챗봇 응답:", res.choices[0].message.content);
+                    setAnswer(res.choices[0].message.content);
+                }
+
             })
             .catch(err => {
                 console.log("챗봇 오류:", err);

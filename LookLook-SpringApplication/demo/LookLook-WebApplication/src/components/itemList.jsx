@@ -11,7 +11,7 @@ function ItemList({ list }) {
 
   return (
       <div className={styles.productContainer}>
-        {list.length != 0 ?
+        {list.length > 0 ?
             list && list.map((item, id) => {
               return (
                   <div key={id} className={styles.productWrap}>

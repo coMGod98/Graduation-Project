@@ -22,8 +22,8 @@ function Seller() {
     const [values, setValues] = useState({
         inputPrName: "", inputPrPrice: "", inputPrStock: 1, inputPrGender: "",
         inputPrDetail: ""})
-    const [mainImgUrl, setMainImgUrl] = useState();   //상품 대표 이미지
-    const [detailedImgsUrl, setDetailedImgsUrl] = useState(); //상품 상세 이미지
+    const [mainImgUrl, setMainImgUrl] = useState(null);   //상품 대표 이미지
+    const [detailedImgsUrl, setDetailedImgsUrl] = useState(null); //상품 상세 이미지
 
 
 
@@ -130,68 +130,74 @@ function Seller() {
             alert("선택하신 성별과 카테고리 성별이 일치하지 않습니다.");
         } else {
 
-            const jsonDatas = JSON.stringify({
-                uid: sellerInfo.uid,
-                itemName: values.inputPrName,
-                price: values.inputPrPrice,
-                stock: values.inputPrStock,
-                pgender: values.inputPrGender,
-                itemDetail: values.inputPrDetail,
-                size: sizeField,
-                color: colorField,
-                category: lowCategory,
-            });
-
-            const newBlob = new Blob([jsonDatas], {type: 'application/json'})
-            const formData = new FormData();
-
-            formData.append("itemRegRequestDto", newBlob);
-            formData.append("main", mainImgUrl);
-            formData.append(`detailed`, detailedImgsUrl);
-
-            if (lowCategory === '') {
-                alert("카테고리를 선택해주세요");
+            if ((mainImgUrl === null || mainImgUrl === "") ||
+                (detailedImgsUrl === null || detailedImgsUrl === "")) {
+                alert("이미지를 등록해주세요.");
             } else {
-                fetch('/seller/items/new', {
-                    method: 'post',
-                    headers: {
-                        // "Content-Type": "application/json",
-                        // 'Content-Type': 'multipart/form-data',
-                        'Authorization': `Bearer ${accessToken}`,
-                    },
-                    body: formData,
-                })
-                    .then(res => {
-                        if (res.status === 200) {
-                            alert("상품 등록 성공");
-                            console.log("상품 등록을 완료했습니다.", res);
 
-                            for (let key of formData.keys()) {
-                                console.log("formData key: ", key);
-                            }
-                            for (let value of formData.values()) {
-                                console.log("formData value: ", value);
-                            }
-                        } else {
-                            alert("이미 등록된 상품입니다.");
-                            console.log("등록 실패", res);
+                if (lowCategory === '') {
+                    alert("카테고리를 선택해주세요.");
+                } else {
 
-                            for (let key of formData.keys()) {
-                                console.log("formData key: ", key);
-                            }
-                            for (let value of formData.values()) {
-                                console.log("formData value: ", value);
-                            }
-                        }
+                    const jsonDatas = JSON.stringify({
+                        uid: sellerInfo.uid,
+                        itemName: values.inputPrName,
+                        price: values.inputPrPrice,
+                        stock: values.inputPrStock,
+                        pgender: values.inputPrGender,
+                        itemDetail: values.inputPrDetail,
+                        size: sizeField,
+                        color: colorField,
+                        category: lowCategory,
+                    });
+
+                    const newBlob = new Blob([jsonDatas], {type: 'application/json'})
+                    const formData = new FormData();
+
+                    formData.append("itemRegRequestDto", newBlob);
+                    formData.append("main", mainImgUrl);
+                    formData.append(`detailed`, detailedImgsUrl);
+
+                    fetch('/seller/items/new', {
+                        method: 'post',
+                        headers: {
+                            // "Content-Type": "application/json",
+                            // 'Content-Type': 'multipart/form-data',
+                            'Authorization': `Bearer ${accessToken}`,
+                        },
+                        body: formData,
                     })
-                    .catch(err => {
-                        console.log("오류: ", err);
-                    })
+                        .then(res => {
+                            if (res.status === 200) {
+                                alert("상품 등록이 완료되었습니다!");
+                                console.log("상품 등록 성공", res);
+                                navigate("/seller/myProducts");
+                                window.location.reload();
+
+                                for (let key of formData.keys()) {
+                                    console.log("formData key: ", key);
+                                }
+                                for (let value of formData.values()) {
+                                    console.log("formData value: ", value);
+                                }
+                            } else {
+                                alert("이미 등록된 상품입니다.");
+                                console.log("상품 등록 실패", res);
+
+                                for (let key of formData.keys()) {
+                                    console.log("formData key: ", key);
+                                }
+                                for (let value of formData.values()) {
+                                    console.log("formData value: ", value);
+                                }
+                            }
+                        })
+                        .catch(err => {
+                            console.log("오류: ", err);
+                        })
+                }
             }
         }
-
-
-
     }
 
     const [isTokenEnd, setIsTokenEnd] = useState(true);
@@ -349,13 +355,13 @@ function Seller() {
                                     <div className={styles.regiWrap}>
                                         <div className={styles.regiTag}>대표 이미지</div>
                                         <div className={styles.regiInput}>
-                                            <input onChange={HandleChangeImg} name="inputPrImage" type="file" accept=".png, .jpeg" />
+                                            <input onChange={(e) => HandleChangeImg(e)} name="inputPrImage" type="file" accept=".png, .jpeg" />
                                         </div>
                                     </div>
                                     <div className={styles.regiWrap}>
                                         <div className={styles.regiTag}>상세 이미지</div>
                                         <div className={styles.regiInput}>
-                                            <input onChange={HandleChangeDetailImg} name="inputPrDetailImage" type="file" accept=".png, .jpeg" />
+                                            <input onChange={(e) => HandleChangeDetailImg(e)} name="inputPrDetailImage" type="file" accept=".png, .jpeg" />
                                         </div>
                                     </div>
                                     <div className={styles.regiWrap}>
