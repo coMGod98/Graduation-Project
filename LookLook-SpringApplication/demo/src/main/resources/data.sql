@@ -130,22 +130,22 @@ values
     ('/resources/static/img/10/main/3482985_16926173934045_500.png',10, 'main'),
     ('/resources/static/img/10/detailed/detail_3482985_16926174176461_big.png',10, 'detailed'),
 
-    ('/resources/static/img/11/main/detail_3471407_16933801249965_60.jpg',11, 'main'),
-    ('/resources/static/img/11/detailed/3471407_16933801180003_60.jpg',11, 'detailed'),
+    ('/resources/static/img/11/main/3471407_16933801180003_60.jpg',11, 'main'),
+    ('/resources/static/img/11/detailed/detail_3471407_16933801249965_60.jpg',11, 'detailed'),
 
-    ('/resources/static/img/12/main/detail_2706665_2_big.jpg',12, 'main'),
-    ('/resources/static/img/12/detailed/2712339_16916400901807_60.jpg',12, 'detailed'),
+    ('/resources/static/img/12/main/2712339_16916400901807_60.jpg',12, 'main'),
+    ('/resources/static/img/12/detailed/detail_2706665_2_big.jpg',12, 'detailed'),
 
-    ('/resources/static/img/13/main/tie_sh_wh_02_1.jpg',13, 'main'),
-    ('/resources/static/img/13/detailed/3464265_16921746160868_60.jpg',13, 'detailed'),
+    ('/resources/static/img/13/main/3464265_16921746160868_60.jpg',13, 'main'),
+    ('/resources/static/img/13/detailed/tie_sh_wh_02_1.jpg',13, 'detailed'),
 
     ('/resources/static/img/14/main/3222963_16817991152687_500.jpg',14, 'main'),
     ('/resources/static/img/14/detailed/detail_3222963_16811842528569_big.jpg',14, 'detailed'),
 
     ('/resources/static/img/15/main/3457284_16916461931402_500.jpg',15, 'main'),
-    ('/resources/static/img/15/detailed/detail_3457284_16916462085353_60.jpg',15, 'detailed'),
+    ('/resources/static/img/15/detailed/KakaoTalk_20231109_215349121.jpg',15, 'detailed'),
 
-    ('/resources/static/img/16/main/detail_3457284_16916462085353_60.jpg',16, 'main'),
+    ('/resources/static/img/16/main/3571792_16953717480655_500.png',16, 'main'),
     ('/resources/static/img/16/detailed/detail_3571792_16953717554485_500.png',16, 'detailed'),
 
     ('/resources/static/img/17/main/detail_3339075_16856010277288_60.jpg',17, 'main'),
@@ -181,8 +181,8 @@ values
     ('/resources/static/img/27/main/3072390_16945658227692_60.jpg',27, 'main'),
     ('/resources/static/img/27/detailed/2023102411415200000057624.jpg',27, 'detailed'),
 
-    ('/resources/static/img/28/main/2023062110354200000062849.jpg',28, 'main'),
-    ('/resources/static/img/28/detailed/1778404_1_60.jpg',28, 'detailed'),
+    ('/resources/static/img/28/main/1778404_1_60.jpg',28, 'main'),
+    ('/resources/static/img/28/detailed/2023062110354200000062849.jpg',28, 'detailed'),
 
     ('/resources/static/img/29/main/2361183_1_60.jpg',29, 'main'),
     ('/resources/static/img/29/detailed/2772377_1_big.jpg',29, 'detailed'),
@@ -208,8 +208,8 @@ values
     ('/resources/static/img/36/main/2952716_1_60.jpg',36, 'main'),
     ('/resources/static/img/36/detailed/detail_2952716_2_big.jpg',36, 'detailed'),
 
-    ('/resources/static/img/39/main/detail_1970571_1_big.jpg',37, 'main'),
-    ('/resources/static/img/39/detailed/1970571_1_60.jpg',37, 'detailed'),
+    ('/resources/static/img/39/main/1970571_1_60.jpg',37, 'main'),
+    ('/resources/static/img/39/detailed/detail_1970571_1_big.jpg',37, 'detailed'),
 
     ('/resources/static/img/40/main/3191978_16801112725946_60.jpg',38, 'main'),
     ('/resources/static/img/40/detailed/detail_3191978_16801112832425_500.jpg',38, 'detailed'),
