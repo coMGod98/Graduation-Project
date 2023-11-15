@@ -25,7 +25,7 @@ public class Item {
     @Column(unique=true)
     private String itemName;
     private int price;
-    private int stock;
+
     @PrePersist
     public void prePersist() {
         if (this.regTime == null) {
@@ -34,6 +34,7 @@ public class Item {
     }
 
     // 판매자가 해당 상품을 등록한 날짜
+    @Column(name="reg_time")
     private LocalDateTime regTime;
     private String category;
     private String pgender;
@@ -77,7 +78,8 @@ public class Item {
         dto.setCategory(item.getCategory());
         dto.setPrice(item.getPrice());
         dto.setItemDetail(item.getItemDetail());
-        dto.setStock(item.getStock());
+        dto.setRegTime(this.regTime);
+
 
         return dto;
     }
@@ -90,7 +92,6 @@ public class Item {
         dto.setItemDetail(item.getItemDetail());
         dto.setSize(sizes);
         dto.setRegTime(item.regTime);
-        dto.setStock(item.getStock());
         dto.setColor(colors);
         dto.setPgender(item.getPgender());
         dto.setCategory(item.getCategory());

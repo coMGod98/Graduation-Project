@@ -102,9 +102,6 @@ public class SellerItemService {
             if (dto.getPrice() != null){ // 상품 가격 수정
                 item.setPrice(dto.getPrice());
             }
-            if (dto.getStock() != null){ // 상품 재고량 수정
-                item.setStock(dto.getStock());
-            }
             if (dto.getPgender() != null){  // 상품 성별 수정
                 item.setPgender(dto.getPgender());
             }
