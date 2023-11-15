@@ -19,7 +19,6 @@ import java.util.List;
 public class ItemRegRequestDto {
     private String itemName;
     private Integer price;
-    private Integer stock;
     private String pgender;
     private String itemDetail;
     private List<String> size;
@@ -34,7 +33,6 @@ public class ItemRegRequestDto {
         Item item = new Item();
         item.setItemName(dto.getItemName());
         item.setPrice(dto.getPrice());
-        item.setStock(dto.getStock());
 
         // size 배열
         List<String> sizeStrings = dto.getSize();
