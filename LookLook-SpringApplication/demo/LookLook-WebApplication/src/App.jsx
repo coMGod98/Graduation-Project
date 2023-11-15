@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
 import axios from 'axios';
 

@@ -19,13 +19,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ChatService {
 
     private final ChatBotRepository chatBotRepository;
     private final UserRepository userRepository;
+
+    private final Set<String> unlearnedQuestions = new HashSet<>();
 
     @Autowired
     public ChatService(ChatBotRepository chatBotRepository, UserRepository userRepository) {
@@ -75,21 +79,23 @@ public class ChatService {
         // 로깅: 사용자 질문 확인
         System.out.println("User Question: " + userQuestion);
 
-        // 데이터베이스에 저장
-        ChatBot chatBot = new ChatBot();
-        chatBot.setQuestion(userRequest);
-        chatBot.setChatTime(LocalDateTime.now());
+        // 만약 학습되지 않은 질문이면 데이터베이스에 저장
+        if (isQuestionLearned(userRequest)) {
+            ChatBot chatBot = new ChatBot();
+            chatBot.setQuestion(userQuestion);
+            chatBot.setChatTime(LocalDateTime.now());
 
-        //사용자 정보 가져오기
-        Long uid = getUid();
-        Optional<LookLookUser> userOptional = userRepository.findById(uid);
+            //사용자 정보 가져오기
+            Long uid = getUid();
+            Optional<LookLookUser> userOptional = userRepository.findById(uid);
 
-        if(userOptional.isPresent()) {
-            LookLookUser user = userOptional.get();
-            chatBot.setUser(user);
+            if (userOptional.isPresent()) {
+                LookLookUser user = userOptional.get();
+                chatBot.setUser(user);
+            }
+
+            chatBotRepository.save(chatBot);
         }
-
-        chatBotRepository.save(chatBot);
 
         return restTemplate.postForEntity(apiUrl, entity, String.class);
     }
@@ -104,5 +110,15 @@ public class ChatService {
 
         // 사용자를 식별할 수 없는 경우 기본값 설정
         return 0L;
+    }
+
+    private boolean isQuestionLearned(String question) {
+
+        if (unlearnedQuestions.contains(question)) {
+            return false;
+        }else {
+            unlearnedQuestions.add(question);
+            return true;
+        }
     }
 }

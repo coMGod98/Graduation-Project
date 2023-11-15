@@ -17,6 +17,7 @@ function UserManageList({list}) {
 
     const accessToken = sessionStorage.getItem("accessToken");
     if(window.confirm("사용자 정보를 삭제하시겠습니까?")) {
+
       fetch('/admin/user-withdrawal', {
         method: 'post',
         headers: {
@@ -28,7 +29,13 @@ function UserManageList({list}) {
         })
       })
           .then(res => {
-            alert("사용자 정보 삭제가 완료되었습니다.");
+            if (res.status === 200) {
+              alert("사용자 정보 삭제가 완료되었습니다.");
+              console.log("사용자 정보 삭제:". res);
+            } else {
+              alert("현재 주문한 상품이 있거나 판매자로 등록한 상품이 존재합니다.");
+              console.log("사용자 정보 삭제 실패:". res);
+            }
           })
           .catch(err => {
             alert("사용자 정보 삭제에 실패했습니다.")
@@ -37,7 +44,6 @@ function UserManageList({list}) {
     } else {
       return null;
     }
-
   }
 
   return (
